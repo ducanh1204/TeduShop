@@ -898,9 +898,7 @@
         return newArray;
     }
 
-
     function noop() { }
-
 
     var zrUtil = (Object.freeze || Object)({
         $override: $override,
@@ -1213,7 +1211,6 @@
         return out;
     }
 
-
     var vector = (Object.freeze || Object)({
         create: create,
         copy: copy,
@@ -1245,7 +1242,6 @@
     // TODO Draggable for group
     // FIXME Draggable on element which has parent rotation or scale
     function Draggable() {
-
         this.on('mousedown', this._dragStart, this);
         this.on('mousemove', this._drag, this);
         this.on('mouseup', this._dragEnd, this);
@@ -1258,7 +1254,6 @@
     }
 
     Draggable.prototype = {
-
         constructor: Draggable,
 
         _dragStart: function (e) {
@@ -1276,7 +1271,6 @@
         _drag: function (e) {
             var draggingTarget = this._draggingTarget;
             if (draggingTarget) {
-
                 var x = e.offsetX;
                 var y = e.offsetY;
 
@@ -1319,7 +1313,6 @@
             this._draggingTarget = null;
             this._dropTarget = null;
         }
-
     };
 
     function param(target, e) {
@@ -1345,7 +1338,6 @@
     };
 
     Eventful.prototype = {
-
         constructor: Eventful,
 
         /**
@@ -1633,14 +1625,12 @@
          */
         this._lastY;
 
-
         Draggable.call(this);
 
         this.setHandlerProxy(proxy);
     };
 
     Handler.prototype = {
-
         constructor: Handler,
 
         setHandlerProxy: function (proxy) {
@@ -1735,7 +1725,6 @@
          * Dispose
          */
         dispose: function () {
-
             this.proxy.dispose();
 
             this.storage =
@@ -2028,7 +2017,6 @@
      * @param {Float32Array|Array.<number>} a
      */
     function invert(out, a) {
-
         var aa = a[0];
         var ac = a[2];
         var atx = a[4];
@@ -2600,7 +2588,6 @@
             }
             return a * Math.pow(2, -10 * (k -= 1))
                 * Math.sin((k - s) * (2 * Math.PI) / p) * 0.5 + 1;
-
         },
 
         // 在某一动画开始沿指示的路径进行动画处理前稍稍收回该动画的移动
@@ -2686,7 +2673,6 @@
      */
 
     function Clip(options) {
-
         this._target = options.target;
 
         // 生命周期
@@ -2713,7 +2699,6 @@
     }
 
     Clip.prototype = {
-
         constructor: Clip,
 
         step: function (globalTime, deltaTime) {
@@ -2796,7 +2781,6 @@
      * @constructor
      */
     var LinkedList = function () {
-
         /**
          * @type {module:zrender/core/LRU~Entry}
          */
@@ -2906,7 +2890,6 @@
      * @alias module:zrender/core/LRU
      */
     var LRU = function (maxSize) {
-
         this._list = new LinkedList();
 
         this._map = {};
@@ -3515,7 +3498,6 @@
         return type + '(' + colorStr + ')';
     }
 
-
     var color = (Object.freeze || Object)({
         parse: parse,
         lift: lift,
@@ -4077,7 +4059,6 @@
          * @return {module:zrender/animation/Animator}
          */
         start: function (easing, forceAnimate) {
-
             var self = this;
             var clipCount = 0;
 
@@ -4225,7 +4206,6 @@
      * @constructor
      */
     var Animatable = function () {
-
         /**
          * @type {Array.<module:zrender/animation/Animator>}
          * @readOnly
@@ -4234,7 +4214,6 @@
     };
 
     Animatable.prototype = {
-
         constructor: Animatable,
 
         /**
@@ -4487,7 +4466,6 @@
      * @extends {module:zrender/mixin/Eventful}
      */
     var Element = function (opts) { // jshint ignore:line
-
         Transformable.call(this, opts);
         Eventful.call(this, opts);
         Animatable.call(this, opts);
@@ -4500,7 +4478,6 @@
     };
 
     Element.prototype = {
-
         /**
          * 元素类型
          * Element type
@@ -4746,7 +4723,6 @@
      * @alias module:echarts/core/BoundingRect
      */
     function BoundingRect(x, y, width, height) {
-
         if (width < 0) {
             x = x + width;
             width = -width;
@@ -4775,7 +4751,6 @@
     }
 
     BoundingRect.prototype = {
-
         constructor: BoundingRect,
 
         /**
@@ -4953,7 +4928,6 @@
      * @extends module:zrender/mixin/Eventful
      */
     var Group = function (opts) {
-
         opts = opts || {};
 
         Element.call(this, opts);
@@ -4972,7 +4946,6 @@
     };
 
     Group.prototype = {
-
         constructor: Group,
 
         isGroup: true,
@@ -5033,7 +5006,6 @@
          */
         add: function (child) {
             if (child && child !== this && child.parent !== this) {
-
                 this._children.push(child);
 
                 this._doAdd(child);
@@ -5050,7 +5022,6 @@
         addBefore: function (child, nextSibling) {
             if (child && child !== this && child.parent !== this
                 && nextSibling && nextSibling.parent === this) {
-
                 var children = this._children;
                 var idx = children.indexOf(nextSibling);
 
@@ -5073,7 +5044,6 @@
             var storage = this.__storage;
             var zr = this.__zr;
             if (storage && storage !== child.__storage) {
-
                 storage.addToStorage(child);
 
                 if (child instanceof Group) {
@@ -5102,7 +5072,6 @@
             child.parent = null;
 
             if (storage) {
-
                 storage.delFromStorage(child);
 
                 if (child instanceof Group) {
@@ -5928,7 +5897,6 @@
     };
 
     Storage.prototype = {
-
         constructor: Storage,
 
         /**
@@ -5978,7 +5946,6 @@
         },
 
         _updateAndAddDisplayable: function (el, clipPaths, includeIgnore) {
-
             if (el.ignore && !includeIgnore) {
                 return;
             }
@@ -5986,16 +5953,13 @@
             el.beforeUpdate();
 
             if (el.__dirty) {
-
                 el.update();
-
             }
 
             el.afterUpdate();
 
             var userSetClipPath = el.clipPath;
             if (userSetClipPath) {
-
                 // FIXME 效率影响
                 if (clipPaths) {
                     clipPaths = clipPaths.slice();
@@ -6036,7 +6000,6 @@
 
                 // Mark group clean here
                 el.__dirty = false;
-
             }
             else {
                 el.__clipPaths = clipPaths;
@@ -6089,7 +6052,6 @@
                 }
                 return;
             }
-
 
             var idx = indexOf(this._roots, el);
             if (idx >= 0) {
@@ -6203,9 +6165,7 @@
         return canvasGradient;
     }
 
-
     Style.prototype = {
-
         constructor: Style,
 
         /**
@@ -6606,7 +6566,6 @@
             }
             return canvasGradient;
         }
-
     };
 
     var styleProto = Style.prototype;
@@ -6743,7 +6702,6 @@
     };
 
     Layer.prototype = {
-
         constructor: Layer,
 
         __dirty: true,
@@ -6915,7 +6873,6 @@
             return image;
         }
         else if (typeof newImageOrSrc === 'string') {
-
             // Image should not be loaded repeatly.
             if ((image && image.__zrImageSrc === newImageOrSrc) || !hostEl) {
                 return image;
@@ -7111,7 +7068,6 @@
      * @return {Object} {x, y, textAlign, textVerticalAlign}
      */
     function adjustTextPositionOnRect(textPosition, rect, distance) {
-
         var x = rect.x;
         var y = rect.y;
 
@@ -7740,7 +7696,6 @@
 
     function normalizeStyle(style) {
         if (style) {
-
             style.font = makeFont(style);
 
             var textAlign = style.textAlign;
@@ -8196,7 +8151,6 @@
     var RectText = function () { };
 
     RectText.prototype = {
-
         constructor: RectText,
 
         /**
@@ -8250,14 +8204,12 @@
      * @module zrender/graphic/Displayable
      */
 
-
     /**
      * @alias module:zrender/graphic/Displayable
      * @extends module:zrender/Element
      * @extends module:zrender/graphic/mixin/RectText
      */
     function Displayable(opts) {
-
         opts = opts || {};
 
         Element.call(this, opts);
@@ -8286,7 +8238,6 @@
     }
 
     Displayable.prototype = {
-
         constructor: Displayable,
 
         type: 'displayable',
@@ -8519,7 +8470,6 @@
     }
 
     ZImage.prototype = {
-
         constructor: ZImage,
 
         type: 'image',
@@ -8700,7 +8650,6 @@
         return domRoot;
     }
 
-
     /**
      * @alias module:zrender/Painter
      * @constructor
@@ -8709,7 +8658,6 @@
      * @param {Object} opts
      */
     var Painter = function (root, storage, opts) {
-
         this.type = 'canvas';
 
         // In node environment using node-canvas
@@ -8825,7 +8773,6 @@
     };
 
     Painter.prototype = {
-
         constructor: Painter,
 
         getType: function () {
@@ -8861,7 +8808,6 @@
          * @param {boolean} [paintAll=false] 强制绘制所有displayable
          */
         refresh: function (paintAll) {
-
             var list = this.storage.getDisplayList(true);
 
             var zlevelList = this._zlevelList;
@@ -9105,7 +9051,6 @@
                 // Ignore culled element
                 && !(el.culling && isDisplayableCulled(el, this._width, this._height))
             ) {
-
                 var clipPaths = el.__clipPaths;
 
                 // Optimize when clipping on group with several elements
@@ -9172,7 +9117,6 @@
         },
 
         insertLayer: function (zlevel, layer) {
-
             var layersMap = this._layers;
             var zlevelList = this._zlevelList;
             var len = zlevelList.length;
@@ -9282,7 +9226,6 @@
         },
 
         _updateLayerStatus: function (list) {
-
             this.eachBuiltinLayer(function (layer, z) {
                 layer.__dirty = layer.__used = false;
             });
@@ -9477,7 +9420,6 @@
 
                 this._width = width;
                 this._height = height;
-
             }
             return this;
         },
@@ -9720,7 +9662,6 @@
      * `calculate` is optional, default false.
      */
     function normalizeEvent(el, e, calculate) {
-
         e = e || window.event;
 
         if (e.zrX != null) {
@@ -9861,7 +9802,6 @@
      *         .start('spline');
      */
     var Animation = function (options) {
-
         options = options || {};
 
         this.stage = options.stage || {};
@@ -9885,7 +9825,6 @@
     };
 
     Animation.prototype = {
-
         constructor: Animation,
         /**
          * 添加 clip
@@ -9985,7 +9924,6 @@
 
             function step() {
                 if (self._running) {
-
                     requestAnimationFrame(step);
 
                     !self._paused && self._update();
@@ -9999,7 +9937,6 @@
          * Start animation.
          */
         start: function () {
-
             this._time = new Date().getTime();
             this._pausedTime = 0;
 
@@ -10081,7 +10018,6 @@
      */
 
     var GestureMgr = function () {
-
         /**
          * @private
          * @type {Array.<Object>}
@@ -10090,7 +10026,6 @@
     };
 
     GestureMgr.prototype = {
-
         constructor: GestureMgr,
 
         recognize: function (event, target, root) {
@@ -10154,7 +10089,6 @@
     }
 
     var recognizers = {
-
         pinch: function (track, event) {
             var trackLen = track.length;
 
@@ -10264,7 +10198,6 @@
         }, 700);
     }
 
-
     var domHandlers = {
         /**
          * Mouse move handler
@@ -10333,7 +10266,6 @@
          * @param {Event} event
          */
         touchmove: function (event) {
-
             event = normalizeEvent(this.dom, event);
 
             // Mark touch, which is useful in distinguish touch and
@@ -10356,7 +10288,6 @@
          * @param {Event} event
          */
         touchend: function (event) {
-
             event = normalizeEvent(this.dom, event);
 
             // Mark touch, which is useful in distinguish touch and
@@ -10464,7 +10395,6 @@
             };
         }
     }
-
 
     function HandlerDomProxy(dom) {
         Eventful.call(this);
@@ -10646,7 +10576,6 @@
      * @param {number} [opts.height] Can be 'auto' (the same as null/undefined)
      */
     var ZRender = function (id, dom, opts) {
-
         opts = opts || {};
 
         /**
@@ -10716,7 +10645,6 @@
     };
 
     ZRender.prototype = {
-
         constructor: ZRender,
         /**
          * 获取实例唯一标识
@@ -10969,7 +10897,6 @@
             this.handler.trigger(eventName, event);
         },
 
-
         /**
          * Clear all objects and the canvas.
          */
@@ -10997,8 +10924,6 @@
             delInstance(this.id);
         }
     };
-
-
 
     var zrender = (Object.freeze || Object)({
         version: version$1,
@@ -11582,10 +11507,8 @@
      * @public
      */
     function enableClassExtend(RootClass, mandatoryMethods) {
-
         RootClass.$constructor = RootClass;
         RootClass.extend = function (proto) {
-
             if (__DEV__) {
                 each$1(mandatoryMethods, function (method) {
                     if (!proto[method]) {
@@ -12596,7 +12519,6 @@
 
         var diff = Math.abs(startAngle - endAngle);
 
-
         if (diff % PI2 < 1e-4 && diff > 1e-4) {
             // Is a circle
             min$$1[0] = x - rx;
@@ -12699,7 +12621,6 @@
      * @constructor
      */
     var PathProxy = function (notSaveData) {
-
         this._saveData = !(notSaveData || false);
 
         if (this._saveData) {
@@ -12718,7 +12639,6 @@
      * @return {Object}
      */
     PathProxy.prototype = {
-
         constructor: PathProxy,
 
         _xi: 0,
@@ -12757,7 +12677,6 @@
          * @return {module:zrender/core/PathProxy}
          */
         beginPath: function (ctx) {
-
             this._ctx = ctx;
 
             ctx && ctx.beginPath();
@@ -12979,7 +12898,6 @@
          * 直接设置 Path 数据
          */
         setData: function (data) {
-
             var len$$1 = data.length;
 
             if (!(this.data && this.data.length == len$$1) && hasTypedArray) {
@@ -13157,7 +13075,6 @@
             t = (tmpLen - offset) / bezierLen;
 
             while (t <= 1) {
-
                 x = cubicAt$$1(x0, x1, x2, x3, t);
                 y = cubicAt$$1(y0, y1, y2, y3, t);
 
@@ -13568,7 +13485,6 @@
         cx, cy, r, startAngle, endAngle, anticlockwise,
         lineWidth, x, y
     ) {
-
         if (lineWidth === 0) {
             return false;
         }
@@ -14034,7 +13950,6 @@
     }
 
     Path.prototype = {
-
         constructor: Path,
 
         type: 'path',
@@ -14872,7 +14787,6 @@
     };
 
     Text.prototype = {
-
         constructor: Text,
 
         type: 'text',
@@ -14950,7 +14864,6 @@
      */
 
     var Circle = Path.extend({
-
         type: 'circle',
 
         shape: {
@@ -14958,7 +14871,6 @@
             cy: 0,
             r: 0
         },
-
 
         buildPath: function (ctx, shape, inBundle) {
             // Better stroking in ShapeBundle
@@ -15000,7 +14912,6 @@
     ];
 
     var fixClipWithShadow = function (orignalBrush) {
-
         // version string can be: '11.0'
         return (env$1.browser.ie && env$1.browser.version >= 11)
 
@@ -15049,11 +14960,9 @@
      */
 
     var Sector = Path.extend({
-
         type: 'sector',
 
         shape: {
-
             cx: 0,
 
             cy: 0,
@@ -15072,7 +14981,6 @@
         brush: fixClipWithShadow(Path.prototype.brush),
 
         buildPath: function (ctx, shape) {
-
             var x = shape.cx;
             var y = shape.cy;
             var r0 = Math.max(shape.r0 || 0, 0);
@@ -15109,7 +15017,6 @@
      */
 
     var Ring = Path.extend({
-
         type: 'ring',
 
         shape: {
@@ -15332,7 +15239,6 @@
      */
 
     var Polygon = Path.extend({
-
         type: 'polygon',
 
         shape: {
@@ -15353,7 +15259,6 @@
      */
 
     var Polyline = Path.extend({
-
         type: 'polyline',
 
         shape: {
@@ -15381,7 +15286,6 @@
      */
 
     var Rect = Path.extend({
-
         type: 'rect',
 
         shape: {
@@ -15420,7 +15324,6 @@
      */
 
     var Line = Path.extend({
-
         type: 'line',
 
         shape: {
@@ -15498,7 +15401,6 @@
     }
 
     var BezierCurve = Path.extend({
-
         type: 'bezier-curve',
 
         shape: {
@@ -15604,11 +15506,9 @@
      */
 
     var Arc = Path.extend({
-
         type: 'arc',
 
         shape: {
-
             cx: 0,
 
             cy: 0,
@@ -15623,14 +15523,12 @@
         },
 
         style: {
-
             stroke: '#000',
 
             fill: null
         },
 
         buildPath: function (ctx, shape) {
-
             var x = shape.cx;
             var y = shape.cy;
             var r = Math.max(shape.r, 0);
@@ -15649,11 +15547,9 @@
     // CompoundPath to improve performance
 
     var CompoundPath = Path.extend({
-
         type: 'compound',
 
         shape: {
-
             paths: null
         },
 
@@ -15705,24 +15601,19 @@
      * @param {Array.<Object>} colorStops
      */
     var Gradient = function (colorStops) {
-
         this.colorStops = colorStops || [];
-
     };
 
     Gradient.prototype = {
-
         constructor: Gradient,
 
         addColorStop: function (offset, color) {
             this.colorStops.push({
-
                 offset: offset,
 
                 color: color
             });
         }
-
     };
 
     /**
@@ -15757,7 +15648,6 @@
     };
 
     LinearGradient.prototype = {
-
         constructor: LinearGradient
     };
 
@@ -15792,7 +15682,6 @@
     };
 
     RadialGradient.prototype = {
-
         constructor: RadialGradient
     };
 
@@ -15807,7 +15696,6 @@
      */
     // TODO Style override ?
     function IncrementalDisplayble(opts) {
-
         Displayable.call(this, opts);
 
         this._displayables = [];
@@ -16850,7 +16738,6 @@
      * @return {string} Transformed direction. 'left' 'right' 'top' 'bottom'
      */
     function transformDirection(direction, transform, invert$$1) {
-
         // Pick a base, ensure that transform result will not be (0, 0).
         var hBase = (transform[4] === 0 || transform[5] === 0 || transform[0] === 0)
             ? 1 : Math.abs(2 * transform[4] / transform[0]);
@@ -16982,9 +16869,6 @@
                 );
         }
     }
-
-
-
 
     var graphic = (Object.freeze || Object)({
         extendShape: extendShape,
@@ -17203,7 +17087,6 @@
     }
 
     Model.prototype = {
-
         constructor: Model,
 
         /**
@@ -17317,7 +17200,6 @@
                 }
             }
         }
-
     };
 
     function doGet(obj, pathArr, parentModel) {
@@ -17389,7 +17271,6 @@
      * @inner
      */
     function enableSubTypeDefaulter(entity) {
-
         var subTypeDefaulters = {};
 
         entity.registerSubTypeDefaulter = function (componentType, defaulter) {
@@ -17421,7 +17302,6 @@
      *
      */
     function enableTopologicalTravel(entity, dependencyGetter) {
-
         /**
          * @public
          * @param {Array.<string>} targetNameList Target Component type list.
@@ -17495,7 +17375,6 @@
             var noEntryList = [];
 
             each$1(fullNameList, function (name) {
-
                 var thisItem = createDependencyGraphItem(graph, name);
                 var originalDeps = thisItem.originalDeps = dependencyGetter(name);
 
@@ -18020,7 +17899,6 @@
         return v - parseFloat(v) >= 0;
     }
 
-
     var number = (Object.freeze || Object)({
         linearMap: linearMap,
         parsePercent: parsePercent$1,
@@ -18091,7 +17969,6 @@
     }
 
     var normalizeCssArray$1 = normalizeCssArray;
-
 
     var replaceReg = /([&<>"'])/g;
     var replaceMap = {
@@ -18199,7 +18076,6 @@
         return '0000'.substr(0, len - str.length) + str;
     }
 
-
     /**
      * ISO Date format
      * @param {string} tpl
@@ -18258,7 +18134,6 @@
     var truncateText$1 = truncateText;
 
     var getTextRect = getBoundingRect;
-
 
     var format = (Object.freeze || Object)({
         addCommas: addCommas,
@@ -18553,7 +18428,6 @@
         return rect;
     }
 
-
     /**
      * Position a zr element in viewport
      *  Group position is specified by either
@@ -18794,7 +18668,6 @@
     * under the License.
     */
 
-
     var boxLayoutMixin = {
         getBoxLayoutParams: function () {
             return {
@@ -18843,7 +18716,6 @@
      * @param {module:echarts/model/Model} ecModel
      */
     var ComponentModel = Model.extend({
-
         type: 'component',
 
         /**
@@ -18978,7 +18850,6 @@
                 id: this.get(mainType + 'Id', true)
             });
         }
-
     });
 
     // Reset ComponentModel.extend, add preConstruct.
@@ -19045,7 +18916,6 @@
     * specific language governing permissions and limitations
     * under the License.
     */
-
 
     var platform = '';
     // Navigator not exists in node
@@ -19245,7 +19115,6 @@
     }
 
     var fetchers = {
-
         cartesian2d: function (seriesModel, result, axisMap, categoryAxisMap) {
             var xAxisModel = seriesModel.getReferringComponents('xAxis')[0];
             var yAxisModel = seriesModel.getReferringComponents('yAxis')[0];
@@ -19454,7 +19323,6 @@
      * @param {number} [dimensionsDetectCount]
      */
     function Source(fields) {
-
         /**
          * @type {boolean}
          */
@@ -20105,7 +19973,6 @@
      * @module {echarts/model/Global}
      */
 
-
     /**
      * Caution: If the mechanism should be changed some day, these cases
      * should be considered:
@@ -20129,7 +19996,6 @@
      * @param {Object} theme
      */
     var GlobalModel = Model.extend({
-
         init: function (option, parentModel, theme, optionManager) {
             theme = theme || {};
 
@@ -20236,7 +20102,6 @@
             );
 
             function visitComponent(mainType, dependencies) {
-
                 var newCptOptionList = normalizeToArray(newOption[mainType]);
 
                 var mapResult = mappingToExists(
@@ -20689,7 +20554,6 @@
                 }
             );
         }
-
     });
 
     function isNotTargetSeries(seriesModel, payload) {
@@ -20891,12 +20755,10 @@
     var coordinateSystemCreators = {};
 
     function CoordinateSystemManager() {
-
         this._coordinateSystems = [];
     }
 
     CoordinateSystemManager.prototype = {
-
         constructor: CoordinateSystemManager,
 
         create: function (ecModel, api) {
@@ -20952,7 +20814,6 @@
      *
      * @module {echarts/model/OptionManager}
      */
-
 
     var each$4 = each$1;
     var clone$3 = clone;
@@ -21017,7 +20878,6 @@
      * @param {module:echarts/ExtensionAPI} api
      */
     function OptionManager(api) {
-
         /**
          * @private
          * @type {module:echarts/ExtensionAPI}
@@ -21073,7 +20933,6 @@
     // (step2) chart.setOption({timeline: {notMerge: true}, ...}, false);
 
     OptionManager.prototype = {
-
         constructor: OptionManager,
 
         /**
@@ -21995,7 +21854,6 @@
     };
 
     var providerMethods = {
-
         'arrayRows_column': {
             pure: true,
             count: function () {
@@ -22115,10 +21973,7 @@
         }
     }
 
-
-
     var rawValueGetters = {
-
         arrayRows: getRawValueSimply,
 
         objectRows: function (dataItem, dataIndex, dimIndex, dimName) {
@@ -22144,9 +21999,7 @@
         return dimIndex != null ? dataItem[dimIndex] : dataItem;
     }
 
-
     var defaultDimValueGetters = {
-
         arrayRows: getDimValueSimply,
 
         objectRows: function (dataItem, dimName, dataIndex, dimIndex) {
@@ -22178,7 +22031,6 @@
         typedArray: function (dataItem, dimName, dataIndex, dimIndex) {
             return dataItem[dimIndex];
         }
-
     };
 
     function getDimValueSimply(dataItem, dimName, dataIndex, dimIndex) {
@@ -22523,7 +22375,6 @@
         var step = performArgs && performArgs.step;
 
         if (upTask) {
-
             if (__DEV__) {
                 assert$1(upTask._outputDueEnd != null);
             }
@@ -22583,7 +22434,6 @@
     };
 
     var iterator = (function () {
-
         var end;
         var current;
         var modBy;
@@ -22717,7 +22567,6 @@
         this._outputDueEnd = this._settedOutputEnd = end;
     };
 
-
     ///////////////////////////////////////////////////////////
     // For stream debug (Should be commented out after used!)
     // Usage: printTask(this, 'begin');
@@ -22784,7 +22633,6 @@
     var inner$4 = makeInner();
 
     var SeriesModel = ComponentModel.extend({
-
         type: 'series.__base__',
 
         /**
@@ -22822,7 +22670,6 @@
         layoutMode: null,
 
         init: function (option, parentModel, ecModel, extraOpt) {
-
             /**
              * @type {number}
              * @readOnly
@@ -22838,7 +22685,6 @@
             this.mergeDefaultAndTheme(option, ecModel);
 
             prepareSource(this);
-
 
             var data = this.getInitialData(option, ecModel);
             wrapData(data, this);
@@ -23045,7 +22891,6 @@
          * @param {number} [dataType]
          */
         formatTooltip: function (dataIndex, multipleSeries, dataType) {
-
             function formatArrayValue(value) {
                 // ??? TODO refactor these logic.
                 // check: category-no-encode-has-axis-data in dataset.html
@@ -23223,9 +23068,7 @@
          * @type {Object}
          */
         pipelineContext: null
-
     });
-
 
     mixin(SeriesModel, dataFormatMixin);
     mixin(SeriesModel, colorPaletteMixin);
@@ -23339,7 +23182,6 @@
     };
 
     Component.prototype = {
-
         constructor: Component,
 
         init: function (ecModel, api) { },
@@ -23347,7 +23189,6 @@
         render: function (componentModel, ecModel, api, payload) { },
 
         dispose: function () { }
-
     };
 
     var componentProto = Component.prototype;
@@ -23425,7 +23266,6 @@
     var renderPlanner = createRenderPlanner();
 
     function Chart() {
-
         /**
          * @type {module:zrender/container/Group}
          * @readOnly
@@ -23446,7 +23286,6 @@
     }
 
     Chart.prototype = {
-
         type: 'chart',
 
         /**
@@ -23538,7 +23377,6 @@
          * @return {boolean}
          */
         // containPoint: function () {}
-
     };
 
     var chartProto = Chart.prototype;
@@ -23664,7 +23502,6 @@
     * under the License.
     */
 
-
     var ORIGIN_METHOD = '\0__throttleOriginMethod';
     var RATE = '\0__throttleRate';
     var THROTTLE_TYPE = '\0__throttleType';
@@ -23679,7 +23516,6 @@
      * @return {(Function)} throttled fn.
      */
     function throttle(fn, delay, debounce) {
-
         var currCall;
         var lastCall = 0;
         var lastExec = 0;
@@ -23896,7 +23732,6 @@
     * specific language governing permissions and limitations
     * under the License.
     */
-
 
     var lang = {
         toolbox: {
@@ -24477,7 +24312,6 @@
         pipe(this, model, renderTask);
     };
 
-
     proto.performDataProcessorTasks = function (ecModel, payload) {
         // If we do not use `block` here, it should be considered when to update modes.
         performStageTasks(this, this._dataProcessorHandlers, ecModel, payload, { block: true });
@@ -24786,8 +24620,6 @@
         return stageHandler;
     };
 
-
-
     /**
      * Only some legacy stage handlers (usually in echarts extensions) are pure function.
      * To ensure that they can work normally, they should work in block mode, that is,
@@ -24850,7 +24682,6 @@
     var colorAll = ['#37A2DA', '#32C5E9', '#67E0E3', '#9FE6B8', '#FFDB5C', '#ff9f7f', '#fb7293', '#E062AE', '#E690D1', '#e7bcf3', '#9d96f5', '#8378EA', '#96BFFF'];
 
     var lightTheme = {
-
         color: colorAll,
 
         colorLayer: [
@@ -25039,14 +24870,12 @@
      */
 
     ComponentModel.extend({
-
         type: 'dataset',
 
         /**
          * @protected
          */
         defaultOption: {
-
             // 'row', 'column'
             seriesLayoutBy: SERIES_LAYOUT_BY_COLUMN,
 
@@ -25061,13 +24890,10 @@
         optionUpdated: function () {
             detectSourceFormat(this);
         }
-
     });
 
     Component.extend({
-
         type: 'dataset'
-
     });
 
     /*
@@ -25135,7 +24961,6 @@
     var IN_MAIN_PROCESS = '__flagInMainProcess';
     var OPTION_UPDATED = '__optionUpdated';
     var ACTION_REG = /^[a-zA-Z0-9_]+$/;
-
 
     function createRegisterEventWithLowercaseName(method) {
         return function (eventName, handler, context) {
@@ -25555,7 +25380,6 @@
         return url;
     };
 
-
     /**
      * @return {string}
      * @param {Object} opts
@@ -25804,7 +25628,6 @@
     };
 
     var updateMethods = {
-
         prepareAndUpdate: function (payload) {
             prepare(this);
             updateMethods.update.call(this, payload);
@@ -26314,7 +26137,6 @@
      */
     function bindRenderedEvent(zr, ecIns) {
         zr.on('rendered', function () {
-
             ecIns.trigger('rendered');
 
             // The `finished` event should not be triggered repeatly,
@@ -26470,7 +26292,6 @@
     }
 
     function render(ecIns, ecModel, api, payload) {
-
         renderComponents(ecIns, ecModel, api, payload);
 
         each(ecIns._chartsViews, function (chart) {
@@ -26538,7 +26359,6 @@
         });
     }
 
-
     var MOUSE_EVENT_NAMES = [
         'click', 'dblclick', 'mouseover', 'mouseout', 'mousemove',
         'mousedown', 'mouseup', 'globalout', 'contextmenu'
@@ -26572,7 +26392,6 @@
                     params.type = eveName;
                     this.trigger(eveName, params);
                 }
-
             }, this);
         }, this);
 
@@ -27241,7 +27060,6 @@
     * under the License.
     */
 
-
     function defaultKeyGetter(item) {
         return item;
     }
@@ -27264,7 +27082,6 @@
     }
 
     DataDiffer.prototype = {
-
         constructor: DataDiffer,
 
         /**
@@ -27591,10 +27408,6 @@
         target._calculationInfo = extend(source._calculationInfo);
     }
 
-
-
-
-
     /**
      * @constructor
      * @alias module:echarts/data/List
@@ -27609,7 +27422,6 @@
      * @param {module:echarts/model/Model} hostModel
      */
     var List = function (dimensions, hostModel) {
-
         dimensions = dimensions || ['x', 'y'];
 
         var dimensionInfos = {};
@@ -27879,7 +27691,6 @@
      * @param {Function} [dimValueGetter] (dataItem, dimName, dataIndex, dimIndex) => number
      */
     listProto.initData = function (data, nameList, dimValueGetter) {
-
         var notProvider = Source.isInstance(data) || isArrayLike(data);
         if (notProvider) {
             data = new DefaultDataProvider(data, this.dimensions.length);
@@ -28747,7 +28558,6 @@
         if (__DEV__) {
             validateDimensions(this, dimensions);
         }
-
 
         var count = this.count();
         var Ctor = getIndicesCtor(this);
@@ -30136,7 +29946,6 @@
      */
     Scale.prototype.getLabel = null;
 
-
     enableClassExtend(Scale);
     enableClassManagement(Scale, {
         registerWhenExtend: true
@@ -30169,7 +29978,6 @@
      * @param {Object} [opt.deduplication=false]
      */
     function OrdinalMeta(opt) {
-
         /**
          * @readOnly
          * @type {Array.<string>}
@@ -30317,7 +30125,6 @@
     var scaleProto = Scale.prototype;
 
     var OrdinalScale = Scale.extend({
-
         type: 'ordinal',
 
         /**
@@ -30559,7 +30366,6 @@
      * @module echarts/scale/Interval
      */
 
-
     var roundNumber = round$1;
 
     /**
@@ -30567,7 +30373,6 @@
      * @constructor
      */
     var IntervalScale = Scale.extend({
-
         type: 'interval',
 
         _interval: 0,
@@ -30910,7 +30715,6 @@
         var result = {};
 
         each$1(columnsMap, function (columnsOnAxis, coordSysName) {
-
             result[coordSysName] = {};
 
             var stacks = columnsOnAxis.stacks;
@@ -30991,13 +30795,11 @@
      * @param {module:echarts/model/Global} ecModel
      */
     function layout(seriesType, ecModel) {
-
         var seriesModels = prepareLayoutBarSeries(seriesType, ecModel);
         var barWidthAndOffset = makeColumnLayout(seriesModels);
 
         var lastStackCoords = {};
         each$1(seriesModels, function (seriesModel) {
-
             var data = seriesModel.getData();
             var cartesian = seriesModel.coordinateSystem;
             var baseAxis = cartesian.getBaseAxis();
@@ -31086,13 +30888,11 @@
                     height: height
                 });
             }
-
         }, this);
     }
 
     // TODO: Do not support stack in large mode yet.
     var largeLayout = {
-
         seriesType: 'bar',
 
         plan: createRenderPlanner(),
@@ -31410,7 +31210,6 @@
     var mathLog = Math.log;
 
     var LogScale = Scale.extend({
-
         type: 'log',
 
         base: 10,
@@ -31553,7 +31352,6 @@
             originalScale.__fixMin = opt.fixMin;
             originalScale.__fixMax = opt.fixMax;
         }
-
     });
 
     each$1(['contain', 'normalize'], function (methodName) {
@@ -31729,7 +31527,6 @@
     }
 
     function adjustScaleForOverflow(min, max, model, barWidthAndOffset) {
-
         // Get Axis Length
         var axisExtent = model.axis.getExtent();
         var axisLength = axisExtent[1] - axisExtent[0];
@@ -31961,7 +31758,6 @@
     */
 
     var axisModelCommonMixin = {
-
         /**
          * @param {boolean} origin
          * @return {number|string} min value or 'dataMin' or null/undefined (means auto) or NaN
@@ -32166,7 +31962,6 @@
      * @inner
      */
     var Arrow = extendShape({
-
         type: 'arrow',
 
         shape: {
@@ -32196,7 +31991,6 @@
      * @type {Object.<string, module:zrender/graphic/Path>}
      */
     var symbolCtors = {
-
         line: Line,
 
         rect: Rect,
@@ -32217,7 +32011,6 @@
     };
 
     var symbolShapeMakers = {
-
         line: function (x, y, w, h, shape) {
             // FIXME
             shape.x1 = x;
@@ -32291,7 +32084,6 @@
     });
 
     var SymbolClz = extendShape({
-
         type: 'symbol',
 
         shape: {
@@ -32545,7 +32337,6 @@
      * @param {Array.<number>} cp
      */
     function Region(name, geometries, cp) {
-
         /**
          * @type {string}
          * @readOnly
@@ -32575,7 +32366,6 @@
     }
 
     Region.prototype = {
-
         constructor: Region,
 
         properties: null,
@@ -32782,7 +32572,6 @@
      * @return {module:zrender/container/Group}
      */
     var parseGeoJson$1 = function (geoJson) {
-
         decode(geoJson);
 
         return map(filter(geoJson.features, function (featureObj) {
@@ -33226,7 +33015,6 @@
      * @constructor
      */
     var Axis = function (dim, scale, extent) {
-
         /**
          * Axis dimension. Such as 'x', 'y', 'z', 'angle', 'radius'.
          * @type {string}
@@ -33258,7 +33046,6 @@
     };
 
     Axis.prototype = {
-
         constructor: Axis,
 
         /**
@@ -33467,7 +33254,6 @@
         calculateCategoryInterval: function (hideLabel) {
             return calculateCategoryInterval(this, hideLabel);
         }
-
     };
 
     function fixExtentWithBands(extent, nTick) {
@@ -33590,7 +33376,6 @@
     */
 
     SeriesModel.extend({
-
         type: 'series.line',
 
         dependencies: ['grid', 'polar'],
@@ -34870,7 +34655,6 @@
     }
 
     var Polyline$1 = Path.extend({
-
         type: 'ec-polyline',
 
         shape: {
@@ -34925,7 +34709,6 @@
     });
 
     var Polygon$1 = Path.extend({
-
         type: 'ec-polygon',
 
         shape: {
@@ -35355,7 +35138,6 @@
     }
 
     Chart.extend({
-
         type: 'line',
 
         init: function () {
@@ -35793,7 +35575,6 @@
     * under the License.
     */
 
-
     var visualSymbol = function (seriesType, defaultSymbolType, legendSymbol) {
         // Encoding visual for all series include which is filtered for legend drawing
         return {
@@ -35961,7 +35742,6 @@
     * under the License.
     */
 
-
     var samplers = {
         average: function (frame) {
             var sum = 0;
@@ -36012,7 +35792,6 @@
 
     var dataSample = function (seriesType) {
         return {
-
             seriesType: seriesType,
 
             modifyOutputEnd: true,
@@ -36094,7 +35873,6 @@
     };
 
     Cartesian.prototype = {
-
         constructor: Cartesian,
 
         type: 'cartesian',
@@ -36194,14 +35972,11 @@
     * under the License.
     */
 
-
     function Cartesian2D(name) {
-
         Cartesian.call(this, name);
     }
 
     Cartesian2D.prototype = {
-
         constructor: Cartesian2D,
 
         type: 'cartesian2d',
@@ -36305,7 +36080,6 @@
         getOtherAxis: function (axis) {
             return this.getAxis(axis.dim === 'x' ? 'y' : 'x');
         }
-
     };
 
     inherits(Cartesian2D, Cartesian);
@@ -36362,7 +36136,6 @@
     };
 
     Axis2D.prototype = {
-
         constructor: Axis2D,
 
         /**
@@ -36431,7 +36204,6 @@
          * @type {Function}
          */
         toGlobalCoord: null
-
     };
 
     inherits(Axis2D, Axis);
@@ -36612,7 +36384,6 @@
 
         // Specify max interval when auto calculate tick interval.
         // maxInterval: null
-
     }, defaultOption);
 
     axisDefault.timeAxis = defaults({
@@ -36656,11 +36427,8 @@
      * @param {Object} [extraDefaultOption]
      */
     var axisModelCreator = function (axisName, BaseAxisModelClass, axisTypeDefaulter, extraDefaultOption) {
-
         each$1(AXIS_TYPES, function (axisType) {
-
             BaseAxisModelClass.extend({
-
                 /**
                  * @readOnly
                  */
@@ -36749,7 +36517,6 @@
     */
 
     var AxisModel = ComponentModel.extend({
-
         type: 'cartesian2dAxis',
 
         /**
@@ -36792,7 +36559,6 @@
                 id: this.option.gridId
             })[0];
         }
-
     });
 
     function getAxisType(axisDim, option) {
@@ -36836,7 +36602,6 @@
     // 所以这里也要被 Cartesian2D 依赖
 
     ComponentModel.extend({
-
         type: 'grid',
 
         dependencies: ['xAxis', 'yAxis'],
@@ -36941,7 +36706,6 @@
     };
 
     gridProto.update = function (ecModel, api) {
-
         var axesMap = this._axesMap;
 
         this._updateScale(ecModel, this.model);
@@ -36965,7 +36729,6 @@
     };
 
     function fixAxisOnZero(axesMap, otherAxisDim, axis) {
-
         axis.getAxesOnZeroOf = function () {
             // TODO: onZero of multiple axes.
             return otherAxis ? [otherAxis] : [];
@@ -37012,12 +36775,11 @@
      * @param {module:echarts/ExtensionAPI} api
      */
     gridProto.resize = function (gridModel, api, ignoreContainLabel) {
-
         var gridRect = getLayoutRect(
             gridModel.getBoxLayoutParams(), {
-                width: api.getWidth(),
-                height: api.getHeight()
-            });
+            width: api.getWidth(),
+            height: api.getHeight()
+        });
 
         this._rect = gridRect;
 
@@ -37544,7 +37306,6 @@
      * @param {number} [opt.nameTruncateMaxWidth]
      */
     var AxisBuilder = function (axisModel, opt) {
-
         /**
          * @readOnly
          */
@@ -37588,7 +37349,6 @@
     };
 
     AxisBuilder.prototype = {
-
         constructor: AxisBuilder,
 
         hasBuilder: function (name) {
@@ -37602,11 +37362,9 @@
         getGroup: function () {
             return this.group;
         }
-
     };
 
     var builders = {
-
         /**
          * @private
          */
@@ -37856,7 +37614,6 @@
 
             textEl.decomposeTransform();
         }
-
     };
 
     /**
@@ -38181,7 +37938,6 @@
             axisBuilder.group.add(textEl);
 
             textEl.decomposeTransform();
-
         });
 
         return labelEls;
@@ -38398,7 +38154,6 @@
     function collectSeriesInfo(result, ecModel) {
         // Prepare data for axis trigger
         ecModel.eachSeries(function (seriesModel) {
-
             // Notice this case: this coordSys is `cartesian2D` but not `grid`.
             var coordSys = seriesModel.coordinateSystem;
             var seriesTooltipTrigger = seriesModel.get('tooltip.trigger', true);
@@ -38421,7 +38176,6 @@
                     axisInfo.seriesDataCount += seriesModel.getData().count();
                 }
             });
-
         }, this);
     }
 
@@ -38551,7 +38305,6 @@
      * Base class of AxisView.
      */
     var AxisView = extendComponentView({
-
         type: 'axis',
 
         /**
@@ -38609,7 +38362,6 @@
             disposeAxisPointer(this, api);
             AxisView.superApply(this, 'dispose', arguments);
         }
-
     });
 
     function updateAxisPointer(axisView, axisModel, ecModel, api, payload, forceRender) {
@@ -38766,7 +38518,6 @@
     // }
 
     var CartesianAxisView = AxisView.extend({
-
         type: 'cartesianAxis',
 
         axisPointerClass: 'CartesianAxisPointer',
@@ -38775,7 +38526,6 @@
          * @override
          */
         render: function (axisModel, ecModel, api, payload) {
-
             this.group.removeAll();
 
             var oldAxisGroup = this._axisGroup;
@@ -39019,7 +38769,6 @@
 
     // Grid view
     extendComponentView({
-
         type: 'grid',
 
         render: function (gridModel, ecModel) {
@@ -39035,7 +38784,6 @@
                 }));
             }
         }
-
     });
 
     registerPreprocessor(function (option) {
@@ -39094,7 +38842,6 @@
     */
 
     var BaseBarSeries = SeriesModel.extend({
-
         type: 'series.__base_bar__',
 
         getInitialData: function (option, ecModel) {
@@ -39173,7 +38920,6 @@
     */
 
     BaseBarSeries.extend({
-
         type: 'series.bar',
 
         dependencies: ['grid', 'polar'],
@@ -39202,7 +38948,6 @@
             }
             return progressiveThreshold;
         }
-
     });
 
     /*
@@ -39323,7 +39068,6 @@
     extend(Model.prototype, barItemStyle);
 
     extendChartView({
-
         type: 'bar',
 
         render: function (seriesModel, ecModel, api) {
@@ -39476,11 +39220,9 @@
             }
             this._data = null;
         }
-
     });
 
     var elementCreator = {
-
         cartesian2d: function (
             data, dataIndex, itemModel, layout, isHorizontal,
             animationModel, isUpdate
@@ -39627,9 +39369,7 @@
         return Math.min(lineWidth, Math.abs(rawLayout.width), Math.abs(rawLayout.height));
     }
 
-
     var LargePath = Path.extend({
-
         type: 'largeBar',
 
         shape: { points: [] },
@@ -39727,7 +39467,6 @@
     * under the License.
     */
 
-
     /**
      * [Usage]:
      * (1)
@@ -39783,7 +39522,6 @@
      */
 
     var selectableMixin = {
-
         /**
          * @param {Array.<Object>} targetList [{name, value, selected}, ...]
          *        If targetList is an array, it should like [{name: ..., value: ...}, ...].
@@ -39887,7 +39625,6 @@
     */
 
     var PieSeries = extendSeriesModel({
-
         type: 'series.pie',
 
         // Overwrite
@@ -40115,7 +39852,6 @@
      * @extends {module:zrender/graphic/Group}
      */
     function PiePiece(data, idx) {
-
         Group.call(this);
 
         var sector = new Sector({
@@ -40147,7 +39883,6 @@
     var piePieceProto = PiePiece.prototype;
 
     piePieceProto.updateData = function (data, idx, firstCreate) {
-
         var sector = this.childAt(0);
 
         var seriesModel = data.hostModel;
@@ -40177,7 +39912,6 @@
                     }
                 }, seriesModel, idx);
             }
-
         }
         else {
             updateProps(sector, {
@@ -40244,7 +39978,6 @@
     };
 
     piePieceProto._updateLabel = function (data, idx) {
-
         var labelLine = this.childAt(1);
         var labelText = this.childAt(2);
 
@@ -40322,10 +40055,8 @@
 
     inherits(PiePiece, Group);
 
-
     // Pie view
     var PieView = Chart.extend({
-
         type: 'pie',
 
         init: function () {
@@ -40440,7 +40171,6 @@
                 return radius <= itemLayout.r && radius >= itemLayout.r0;
             }
         }
-
     });
 
     /*
@@ -40837,7 +40567,6 @@
     * under the License.
     */
 
-
     var PI2$4 = Math.PI * 2;
     var RADIAN = Math.PI / 180;
 
@@ -41082,7 +40811,6 @@
     */
 
     SeriesModel.extend({
-
         type: 'series.scatter',
 
         dependencies: ['grid', 'polar', 'geo', 'singleAxis', 'calendar'],
@@ -41152,7 +40880,6 @@
 
             // progressive: null
         }
-
     });
 
     /*
@@ -41179,7 +40906,6 @@
     var BOOST_SIZE_THRESHOLD = 4;
 
     var LargeSymbolPath = extendShape({
-
         shape: {
             points: null
         },
@@ -41445,7 +41171,6 @@
     */
 
     extendChartView({
-
         type: 'scatter',
 
         render: function (seriesModel, ecModel, api) {
@@ -41635,7 +41360,6 @@
     // TODO clockwise
 
     function Radar(radarModel, ecModel, api) {
-
         this._model = radarModel;
         /**
          * Radar dimensions
@@ -41886,7 +41610,6 @@
     }
 
     var RadarModel = extendComponentModel({
-
         type: 'radar',
 
         optionUpdated: function () {
@@ -41960,7 +41683,6 @@
         },
 
         defaultOption: {
-
             zlevel: 0,
 
             z: 0,
@@ -42030,7 +41752,6 @@
     ];
 
     extendComponentView({
-
         type: 'radar',
 
         render: function (radarModel, ecModel, api) {
@@ -42173,27 +41894,26 @@
             each$1(splitAreas, function (splitAreas, idx) {
                 this.group.add(mergePath(
                     splitAreas, {
-                        style: defaults({
-                            stroke: 'none',
-                            fill: splitAreaColors[idx % splitAreaColors.length]
-                        }, areaStyle),
-                        silent: true
-                    }
+                    style: defaults({
+                        stroke: 'none',
+                        fill: splitAreaColors[idx % splitAreaColors.length]
+                    }, areaStyle),
+                    silent: true
+                }
                 ));
             }, this);
 
             each$1(splitLines, function (splitLines, idx) {
                 this.group.add(mergePath(
                     splitLines, {
-                        style: defaults({
-                            fill: 'none',
-                            stroke: splitLineColors[idx % splitLineColors.length]
-                        }, lineStyle),
-                        silent: true
-                    }
+                    style: defaults({
+                        fill: 'none',
+                        stroke: splitLineColors[idx % splitLineColors.length]
+                    }, lineStyle),
+                    silent: true
+                }
                 ));
             }, this);
-
         }
     });
 
@@ -42236,11 +41956,9 @@
     */
 
     var RadarSeries = SeriesModel.extend({
-
         type: 'series.radar',
 
         dependencies: ['radar'],
-
 
         // Overwrite
         init: function (option) {
@@ -42321,7 +42039,6 @@
     }
 
     extendChartView({
-
         type: 'radar',
 
         render: function (seriesModel, ecModel, api) {
@@ -42364,8 +42081,8 @@
                             symbolPath.attr('position', oldPoints[i]);
                             graphic[isInit ? 'initProps' : 'updateProps'](
                                 symbolPath, {
-                                    position: newPoints[i]
-                                }, seriesModel, idx
+                                position: newPoints[i]
+                            }, seriesModel, idx
                             );
                         }
                         else {
@@ -42545,7 +42262,6 @@
     * under the License.
     */
 
-
     var radarLayout = function (ecModel) {
         ecModel.eachSeriesByType('radar', function (seriesModel) {
             var data = seriesModel.getData();
@@ -42642,7 +42358,6 @@
     * under the License.
     */
 
-
     // Must use radar component
     registerVisual(dataColor('radar'));
     registerVisual(visualSymbol('radar', 'circle'));
@@ -42704,7 +42419,6 @@
     }
 
     View.prototype = {
-
         constructor: View,
 
         type: 'view',
@@ -43185,7 +42899,6 @@
      *        Specify name alias
      */
     function Geo(name, map$$1, geoJson, specialAreas, nameMap) {
-
         View.call(this, name);
 
         /**
@@ -43200,7 +42913,6 @@
     }
 
     Geo.prototype = {
-
         constructor: Geo,
 
         type: 'geo',
@@ -43374,7 +43086,6 @@
          * @inheritDoc
          */
         convertFromPixel: curry(doConvert, 'pointToData')
-
     };
 
     mixin(Geo, View);
@@ -43420,7 +43131,6 @@
      * @param {module:echarts/ExtensionAPI} api
      */
     function resizeGeo(geoModel, api) {
-
         var boundingCoords = geoModel.get('boundingCoords');
         if (boundingCoords != null) {
             var leftTop = boundingCoords[0];
@@ -43519,7 +43229,6 @@
     }
 
     var geoCreator = {
-
         // For deciding which dimensions to use when creating list data
         dimensions: Geo.prototype.dimensions,
 
@@ -43673,7 +43382,6 @@
     */
 
     var MapSeries = SeriesModel.extend({
-
         type: 'series.map',
 
         dependencies: ['geo'],
@@ -43693,7 +43401,6 @@
         seriesGroup: [],
 
         init: function (option) {
-
             // this._fillOption(option, this.getMapType());
             // this.option = option;
 
@@ -43855,13 +43562,11 @@
             // layoutCenter: [50%, 50%]
             // layoutSize: 100
 
-
             // 数值合并方式，默认加和，可选为：
             // 'sum' | 'average' | 'max' | 'min'
             // mapValueCalculation: 'sum',
             // 地图数值计算结果小数精度
             // mapValuePrecision: 0,
-
 
             // 显示图例颜色标识（系列标识的小圆点），图例开启时有效
             showLegendSymbol: true,
@@ -43904,7 +43609,6 @@
                 }
             }
         }
-
     });
 
     mixin(MapSeries, selectableMixin);
@@ -43991,7 +43695,6 @@
      * @param {module:zrender/zrender~ZRender} zr
      */
     function RoamController(zr) {
-
         /**
          * @type {Function}
          */
@@ -44040,7 +43743,6 @@
          * @param {Object} [opt.preventDefaultMouseMove=true] When pan.
          */
         this.enable = function (controlType, opt) {
-
             // Disable previous first
             this.disable();
 
@@ -44085,7 +43787,6 @@
     }
 
     mixin(RoamController, Eventful);
-
 
     function mousedown(e) {
         if (notLeftMouse(e)
@@ -44196,7 +43897,6 @@
     * under the License.
     */
 
-
     /**
      * For geo and graph.
      *
@@ -44265,7 +43965,6 @@
     * under the License.
     */
 
-
     var IRRELEVANT_EXCLUDES = { 'axisPointer': 1, 'tooltip': 1, 'brush': 1 };
 
     /**
@@ -44319,7 +44018,6 @@
         group.off('mousedown');
 
         if (mapOrGeoModel.get('selectedMode')) {
-
             group.on('mousedown', function () {
                 mapDraw._mouseDownFlag = true;
             });
@@ -44371,7 +44069,6 @@
      * @param {boolean} updateGroup
      */
     function MapDraw(api, updateGroup) {
-
         var group = new Group();
 
         /**
@@ -44408,11 +44105,9 @@
     }
 
     MapDraw.prototype = {
-
         constructor: MapDraw,
 
         draw: function (mapOrGeoModel, ecModel, api, fromView, payload) {
-
             var isGeo = mapOrGeoModel.mainType === 'geo';
 
             // Map series has data. GEO model that controlled by map series
@@ -44451,7 +44146,6 @@
             var nameMap = createHashMap();
 
             each$1(geo.regions, function (region) {
-
                 // Consider in GeoJson properties.name may be duplicated, for example,
                 // there is multiple region named "United Kindom" or "France" (so many
                 // colonies). And it is not appropriate to merge them in geo, which
@@ -44681,7 +44375,6 @@
     */
 
     extendChartView({
-
         type: 'map',
 
         render: function (mapModel, ecModel, api, payload) {
@@ -44992,7 +44685,6 @@
     */
 
     var mapSymbolLayout = function (ecModel) {
-
         var processedMapType = {};
 
         ecModel.eachSeriesByType('map', function (mapSeries) {
@@ -45063,7 +44755,6 @@
     * specific language governing permissions and limitations
     * under the License.
     */
-
 
     var mapVisual = function (ecModel) {
         ecModel.eachSeriesByType('map', function (seriesModel) {
@@ -45312,7 +45003,6 @@
             each$7(mainData.TRANSFERABLE_METHODS, function (methodName) {
                 data.wrapMethod(methodName, curry(transferInjection, opt));
             });
-
         });
 
         // Beyond transfer, additional features should be added to `cloneShallow`.
@@ -45486,7 +45176,6 @@
     };
 
     TreeNode.prototype = {
-
         constructor: TreeNode,
 
         /**
@@ -45774,7 +45463,6 @@
     }
 
     Tree.prototype = {
-
         constructor: Tree,
 
         type: 'tree',
@@ -45866,7 +45554,6 @@
      * @return module:echarts/data/Tree
      */
     Tree.createTree = function (dataRoot, hostModel, treeOptions) {
-
         var tree = new Tree(hostModel, treeOptions.levels, treeOptions.leaves);
         var listData = [];
         var dimMax = 1;
@@ -45955,7 +45642,6 @@
      */
 
     SeriesModel.extend({
-
         type: 'series.tree',
 
         layoutInfo: null,
@@ -45970,7 +45656,6 @@
          * @return {module:echarts/data/List} storage initial data
          */
         getInitialData: function (option) {
-
             //create an virtual root
             var root = { name: option.name, children: option.data };
 
@@ -46191,7 +45876,6 @@
         node.parentNode.hierNode.defaultAncestor = apportion(node, subtreeW, node.parentNode.hierNode.defaultAncestor || siblings[0], separation);
     }
 
-
     /**
      * Computes all real x-coordinates by summing up the modifiers recursively.
      * @param  {module:echarts/data/Tree~TreeNode} node
@@ -46201,7 +45885,6 @@
         node.setLayout({ x: nodeX }, true);
         node.hierNode.modifier += node.parentNode.hierNode.modifier;
     }
-
 
     function separation(cb) {
         return arguments.length ? cb : defaultSeparation;
@@ -46230,9 +45913,9 @@
     function getViewRect(seriesModel, api) {
         return getLayoutRect(
             seriesModel.getBoxLayoutParams(), {
-                width: api.getWidth(),
-                height: api.getHeight()
-            }
+            width: api.getWidth(),
+            height: api.getHeight()
+        }
         );
     }
 
@@ -46270,7 +45953,6 @@
      * @return {module:echarts/data/Tree~TreeNode}
      */
     function apportion(subtreeV, subtreeW, ancestor, separation) {
-
         if (subtreeW) {
             var nodeOutRight = subtreeV;
             var nodeInRight = subtreeV;
@@ -46301,7 +45983,6 @@
             if (nodeInLeft && !nextRight(nodeOutRight)) {
                 nodeOutRight.hierNode.thread = nodeInLeft;
                 nodeOutRight.hierNode.modifier += sumInLeft - sumOutRight;
-
             }
             if (nodeInRight && !nextLeft(nodeOutLeft)) {
                 nodeOutLeft.hierNode.thread = nodeInRight;
@@ -46392,7 +46073,6 @@
      */
 
     extendChartView({
-
         type: 'tree',
 
         /**
@@ -46402,7 +46082,6 @@
          * @param  {module:echarts/ExtensionAPI} api
          */
         init: function (ecModel, api) {
-
             /**
              * @private
              * @type {module:echarts/data/Tree}
@@ -46419,7 +46098,6 @@
         },
 
         render: function (seriesModel, ecModel, api, payload) {
-
             var data = seriesModel.getData();
 
             var layoutInfo = seriesModel.layoutInfo;
@@ -46499,7 +46177,6 @@
             this._mainGroup.removeAll();
             this._data = null;
         }
-
     });
 
     function symbolNeedsDraw$1(data, dataIndex) {
@@ -46758,7 +46435,6 @@
             var tree = seriesModel.getData().tree;
             var node = tree.getNodeByDataIndex(dataIndex);
             node.isExpand = !node.isExpand;
-
         });
     });
 
@@ -46780,7 +46456,6 @@
     * specific language governing permissions and limitations
     * under the License.
     */
-
 
     /**
      * Traverse the tree from bottom to top and do something
@@ -47056,7 +46731,6 @@
     */
 
     SeriesModel.extend({
-
         type: 'series.treemap',
 
         layoutMode: 'box',
@@ -47345,7 +47019,6 @@
         var sum = 0;
 
         each$1(dataNode.children, function (child) {
-
             completeTreeValue(child);
 
             var childValue = child.value;
@@ -47437,7 +47110,6 @@
     }
 
     Breadcrumb.prototype = {
-
         constructor: Breadcrumb,
 
         render: function (seriesModel, api, targetNode, onSelect) {
@@ -47619,13 +47291,11 @@
      *      .start('cubicOut');
      */
     function createWrap() {
-
         var storage = [];
         var elExistsMap = {};
         var doneCallback;
 
         return {
-
             /**
              * Caution: a el can only be added once, otherwise 'done'
              * might not be called. This method checks this (by el.id),
@@ -47751,14 +47421,12 @@
     };
 
     extendChartView({
-
         type: 'treemap',
 
         /**
          * @override
          */
         init: function (o, api) {
-
             /**
              * @private
              * @type {module:zrender/container/Group}
@@ -47800,7 +47468,6 @@
          * @override
          */
         render: function (seriesModel, ecModel, api, payload) {
-
             var models = ecModel.findComponents({
                 mainType: 'series', subType: 'treemap', query: payload
             });
@@ -48230,7 +47897,6 @@
                         link && window.open(link, linkTarget);
                     }
                 }
-
             }, this);
         },
 
@@ -48338,7 +48004,6 @@
 
             return targetInfo;
         }
-
     });
 
     /**
@@ -48657,7 +48322,6 @@
     registerAction(
         { type: 'treemapRootToNode', update: 'updateView' },
         function (payload, ecModel) {
-
             ecModel.eachComponent(
                 { mainType: 'series', subType: 'treemap', query: payload },
                 handleRootToNode
@@ -48797,7 +48461,6 @@
     };
 
     VisualMapping.prototype = {
-
         constructor: VisualMapping,
 
         mapValueToVisual: function (value) {
@@ -48811,9 +48474,7 @@
     };
 
     var visualHandlers = VisualMapping.visualHandlers = {
-
         color: {
-
             applyVisual: makeApplyVisual('color'),
 
             /**
@@ -48927,7 +48588,6 @@
             _doMap: makeDoMap([0, 1])
         }
     };
-
 
     function preprocessForPiecewise(thisOption) {
         var pieceList = thisOption.pieceList;
@@ -49082,12 +48742,10 @@
         return visualArr;
     }
 
-
     /**
      * Normalizers by mapping methods.
      */
     var normalizers = {
-
         linear: function (value) {
             return linearMap(value, this.option.dataExtent, [0, 1], true);
         },
@@ -49109,8 +48767,6 @@
 
         fixed: noop
     };
-
-
 
     /**
      * List available visual types.
@@ -49309,7 +48965,6 @@
                 possibleI = index;
             }
         }
-
     };
 
     function littleThan(close, a, b) {
@@ -49843,7 +49498,6 @@
      * Consider 'visibleMin'. Modify viewChildren and get new sum.
      */
     function filterByThreshold(nodeModel, totalArea, sum, orderBy, orderedChildren) {
-
         // visibleMin is not supported yet when no option.sort.
         if (!orderBy) {
             return sum;
@@ -50463,7 +50117,6 @@
     // graphProto.depthFirstTraverse = function (
     //     cb, startNode, direction, context
     // ) {
-
     // };
 
     // Filter update
@@ -50511,7 +50164,6 @@
         return graph;
     };
 
-
     /**
      * @alias module:echarts/data/Graph.Node
      */
@@ -50545,7 +50197,6 @@
     }
 
     Node.prototype = {
-
         constructor: Node,
 
         /**
@@ -50592,7 +50243,6 @@
      * @param {number} [dataIndex=-1]
      */
     function Edge(n1, n2, dataIndex) {
-
         /**
          * 节点1，如果是有向图则为源节点
          * @type {module:echarts/data/Graph.Node}
@@ -50798,7 +50448,6 @@
     */
 
     var GraphSeries = extendSeriesModel({
-
         type: 'series.graph',
 
         init: function (option) {
@@ -51084,7 +50733,6 @@
     }
 
     var LinePath = extendShape({
-
         type: 'ec-line',
 
         style: {
@@ -51463,8 +51111,8 @@
             setTextStyle(label.style, labelModel, {
                 text: normalText
             }, {
-                    autoColor: defaultLabelColor
-                });
+                autoColor: defaultLabelColor
+            });
 
             label.__textAlign = labelStyle.textAlign;
             label.__verticalAlign = labelStyle.textVerticalAlign;
@@ -51850,7 +51498,6 @@
                 sub(v, pts2[1], pts2[0]);
                 normalize(v, v);
                 if (fromSymbol && fromSymbol != 'none') {
-
                     var symbolSize = getSymbolSize(edge.node1);
 
                     scaleAndAdd(pts2[0], pts2[0], v, symbolSize * scale$$1);
@@ -51922,7 +51569,6 @@
     }
 
     extendChartView({
-
         type: 'graph',
 
         init: function (ecModel, api) {
@@ -52025,9 +51671,7 @@
                             seriesId: seriesModel.id
                         });
                     });
-
                 }
-
             }, this);
 
             data.graph.eachEdge(function (edge) {
@@ -52292,7 +51936,6 @@
         });
     });
 
-
     /**
      * @payload
      * @property {number} [seriesIndex]
@@ -52336,7 +51979,6 @@
     * specific language governing permissions and limitations
     * under the License.
     */
-
 
     var categoryFilter = function (ecModel) {
         var legendModels = ecModel.findComponents({
@@ -52390,9 +52032,7 @@
     * under the License.
     */
 
-
     var categoryVisual = function (ecModel) {
-
         var paletteScope = {};
         ecModel.eachSeriesByType('graph', function (seriesModel) {
             var categoriesData = seriesModel.getCategoriesData();
@@ -52450,7 +52090,6 @@
     * specific language governing permissions and limitations
     * under the License.
     */
-
 
     function normalize$1(a) {
         if (!(a instanceof Array)) {
@@ -53050,7 +52689,6 @@
         ecModel.eachSeriesByType('graph', function (seriesModel) {
             var coordSysType = seriesModel.get('coordinateSystem');
             if (!coordSysType || coordSysType === 'view') {
-
                 var data = seriesModel.getData();
                 var positions = data.mapArray(function (idx) {
                     var itemModel = data.getItemModel(idx);
@@ -53161,7 +52799,6 @@
     */
 
     var GaugeSeries = SeriesModel.extend({
-
         type: 'series.gauge',
 
         getInitialData: function (option, ecModel) {
@@ -53286,7 +52923,6 @@
     */
 
     var PointerPath = Path.extend({
-
         type: 'echartsGaugePointer',
 
         shape: {
@@ -53381,11 +53017,9 @@
     var PI2$5 = Math.PI * 2;
 
     var GaugeView = Chart.extend({
-
         type: 'gauge',
 
         render: function (seriesModel, ecModel, api) {
-
             this.group.removeAll();
 
             var colorList = seriesModel.get('axisLine.lineStyle.color');
@@ -53600,7 +53234,6 @@
             seriesModel, ecModel, api, getColor, posInfo,
             startAngle, endAngle, clockwise
         ) {
-
             var group = this.group;
             var oldData = this._data;
 
@@ -53790,7 +53423,6 @@
     */
 
     var FunnelSeries = extendSeriesModel({
-
         type: 'series.funnel',
 
         init: function (option) {
@@ -53906,7 +53538,6 @@
      * @extends {module:zrender/graphic/Group}
      */
     function FunnelPiece(data, idx) {
-
         Group.call(this);
 
         var polygon = new Polygon();
@@ -53937,7 +53568,6 @@
 
     var opacityAccessPath = ['itemStyle', 'opacity'];
     funnelPieceProto.updateData = function (data, idx, firstCreate) {
-
         var polygon = this.childAt(0);
 
         var seriesModel = data.hostModel;
@@ -53992,7 +53622,6 @@
     };
 
     funnelPieceProto._updateLabel = function (data, idx) {
-
         var labelLine = this.childAt(1);
         var labelText = this.childAt(2);
 
@@ -54058,9 +53687,7 @@
 
     inherits(FunnelPiece, Group);
 
-
     var FunnelView = Chart.extend({
-
         type: 'funnel',
 
         render: function (seriesModel, ecModel, api) {
@@ -54124,9 +53751,9 @@
     function getViewRect$2(seriesModel, api) {
         return getLayoutRect(
             seriesModel.getBoxLayoutParams(), {
-                width: api.getWidth(),
-                height: api.getHeight()
-            }
+            width: api.getWidth(),
+            height: api.getHeight()
+        }
         );
     }
 
@@ -54423,7 +54050,6 @@
      * @param {string} axisType
      */
     var ParallelAxis = function (dim, scale, coordExtent, axisType, axisIndex) {
-
         Axis.call(this, dim, scale, coordExtent);
 
         /**
@@ -54444,7 +54070,6 @@
     };
 
     ParallelAxis.prototype = {
-
         constructor: ParallelAxis,
 
         /**
@@ -54459,7 +54084,6 @@
         isHorizontal: function () {
             return this.coordinateSystem.getModel().get('layout') !== 'horizontal';
         }
-
     };
 
     inherits(ParallelAxis, Axis);
@@ -54598,7 +54222,6 @@
     var PI$3 = Math.PI;
 
     function Parallel(parallelModel, ecModel, api) {
-
         /**
          * key: dimension
          * @type {Object.<string, module:echarts/coord/parallel/Axis>}
@@ -54635,7 +54258,6 @@
     }
 
     Parallel.prototype = {
-
         type: 'parallel',
 
         constructor: Parallel,
@@ -54645,12 +54267,10 @@
          * @private
          */
         _init: function (parallelModel, ecModel, api) {
-
             var dimensions = parallelModel.dimensions;
             var parallelAxisIndex = parallelModel.parallelAxisIndex;
 
             each$11(dimensions, function (dim, idx) {
-
                 var axisIndex = parallelAxisIndex[idx];
                 var axisModel = ecModel.getComponent('parallelAxis', axisIndex);
 
@@ -54670,7 +54290,6 @@
                 axisModel.axis = axis;
                 axis.model = axisModel;
                 axis.coordinateSystem = axisModel.coordinateSystem = this;
-
             }, this);
         },
 
@@ -54710,7 +54329,6 @@
          */
         _updateAxesFromSeries: function (parallelModel, ecModel) {
             ecModel.eachSeries(function (seriesModel) {
-
                 if (!parallelModel.contains(seriesModel, ecModel)) {
                     return;
                 }
@@ -55176,7 +54794,6 @@
     */
 
     var AxisModel$2 = ComponentModel.extend({
-
         type: 'baseParallelAxis',
 
         /**
@@ -55262,11 +54879,9 @@
 
             return 'inactive';
         }
-
     });
 
     var defaultOption$1 = {
-
         type: 'value',
 
         /**
@@ -55317,7 +54932,6 @@
     */
 
     ComponentModel.extend({
-
         type: 'parallel',
 
         dependencies: ['parallelAxis'],
@@ -55432,7 +55046,6 @@
                 parallelAxisIndex.push(axisModel.componentIndex);
             });
         }
-
     });
 
     /*
@@ -55484,7 +55097,6 @@
                 parallelModel.setAxisExpand(payload);
             }
         );
-
     });
 
     /*
@@ -55563,7 +55175,6 @@
      * @param {module:zrender/zrender~ZRender} zr
      */
     function BrushController(zr) {
-
         if (__DEV__) {
             assert$1(zr);
         }
@@ -55668,7 +55279,6 @@
     }
 
     BrushController.prototype = {
-
         constructor: BrushController,
 
         /**
@@ -56237,7 +55847,6 @@
         controller._track.push(localCursorPoint.slice());
 
         if (shouldShowCover(controller) || creatingCover) {
-
             if (panel && !creatingCover) {
                 thisBrushOption.brushMode === 'single' && clearCovers(controller);
                 var brushOption = clone(thisBrushOption);
@@ -56297,7 +55906,6 @@
     }
 
     var mouseHandlers = {
-
         mousedown: function (e) {
             if (this._dragging) {
                 // In case some browser do not support globalOut,
@@ -56305,7 +55913,6 @@
                 handleDragEnd.call(this, e);
             }
             else if (!e.target || !e.target.draggable) {
-
                 preventDefault(e);
 
                 var localCursorPoint = this.group.transformCoordToLocal(e.offsetX, e.offsetY);
@@ -56326,7 +55933,6 @@
             resetCursor(this, e, localCursorPoint);
 
             if (this._dragging) {
-
                 preventDefault(e);
 
                 var eventParams = updateCoverByMouse(this, e, localCursorPoint, false);
@@ -56344,7 +55950,6 @@
 
     function handleDragEnd(e) {
         if (this._dragging) {
-
             preventDefault(e);
 
             var localCursorPoint = this.group.transformCoordToLocal(e.offsetX, e.offsetY);
@@ -56364,7 +55969,6 @@
      * @type {Object}
      */
     var coverRenderers = {
-
         lineX: getLineRenderer(0),
 
         lineY: getLineRenderer(1),
@@ -56555,7 +56159,6 @@
     var elementList = ['axisLine', 'axisTickLabel', 'axisName'];
 
     var AxisView$2 = extendComponentView({
-
         type: 'parallelAxis',
 
         /**
@@ -56808,11 +56411,9 @@
                 extend({ type: 'parallelAxisExpand' }, opt)
             );
         }
-
     });
 
     var handlers = {
-
         mousedown: function (e) {
             if (checkTrigger(this, 'click')) {
                 this._mouseDownPoint = [e.offsetX, e.offsetY];
@@ -56894,7 +56495,6 @@
     */
 
     SeriesModel.extend({
-
         type: 'series.parallel',
 
         dependencies: ['parallel'],
@@ -57014,11 +56614,9 @@
     var DEFAULT_SMOOTH = 0.3;
 
     var ParallelView = Chart.extend({
-
         type: 'parallel',
 
         init: function () {
-
             /**
              * @type {module:zrender/container/Group}
              * @private
@@ -57275,15 +56873,12 @@
     * under the License.
     */
 
-
     var opacityAccessPath$1 = ['lineStyle', 'normal', 'opacity'];
 
     var parallelVisual = {
-
         seriesType: 'parallel',
 
         reset: function (seriesModel, ecModel, api) {
-
             var itemStyleModel = seriesModel.getModel('itemStyle');
             var lineStyleModel = seriesModel.getModel('lineStyle');
             var globalColors = ecModel.get('color');
@@ -57367,7 +56962,6 @@
      */
 
     var SankeySeries = SeriesModel.extend({
-
         type: 'series.sankey',
 
         layoutInfo: null,
@@ -57486,7 +57080,6 @@
 
             animationDuration: 1000
         }
-
     });
 
     /*
@@ -57542,7 +57135,6 @@
     });
 
     extendChartView({
-
         type: 'sankey',
 
         /**
@@ -57776,7 +57368,6 @@
      * can specified the keys and sort the keys.
      */
     function nest() {
-
         var keysFunction = [];
         var sortKeysFunction = [];
 
@@ -57897,9 +57488,7 @@
      */
 
     var sankeyLayout = function (ecModel, api, payload) {
-
         ecModel.eachSeriesByType('sankey', function (seriesModel) {
-
             var nodeWidth = seriesModel.get('nodeWidth');
             var nodeGap = seriesModel.get('nodeGap');
 
@@ -57938,9 +57527,9 @@
     function getViewRect$3(seriesModel, api) {
         return getLayoutRect(
             seriesModel.getBoxLayoutParams(), {
-                width: api.getWidth(),
-                height: api.getHeight()
-            }
+            width: api.getWidth(),
+            height: api.getHeight()
+        }
         );
     }
 
@@ -57966,7 +57555,7 @@
 
     /**
      * Compute the x-position for each node.
-     * 
+     *
      * Here we use Kahn algorithm to detect cycle when we traverse
      * the node to computer the initial x position.
      *
@@ -58393,9 +57982,7 @@
     * under the License.
     */
 
-
     var seriesModelMixin = {
-
         /**
          * @private
          * @type {string}
@@ -58498,7 +58085,6 @@
             var dim = this._baseAxisDim;
             return this.ecModel.getComponent(dim + 'Axis', this.get(dim + 'AxisIndex')).axis;
         }
-
     };
 
     /*
@@ -58521,7 +58107,6 @@
     */
 
     var BoxplotSeries = SeriesModel.extend({
-
         type: 'series.boxplot',
 
         dependencies: ['xAxis', 'yAxis', 'grid'],
@@ -58612,7 +58197,6 @@
     var EMPHASIS_ITEM_STYLE_PATH = ['emphasis', 'itemStyle'];
 
     var BoxplotView = Chart.extend({
-
         type: 'boxplot',
 
         render: function (seriesModel, ecModel, api) {
@@ -58677,12 +58261,9 @@
         },
 
         dispose: noop
-
     });
 
-
     var BoxPath = Path.extend({
-
         type: 'boxplotBoxPath',
 
         shape: {},
@@ -58705,7 +58286,6 @@
             }
         }
     });
-
 
     function createNormalBox(itemLayout, data, dataIndex, constDim, isInit) {
         var ends = itemLayout.ends;
@@ -58777,15 +58357,12 @@
     * under the License.
     */
 
-
     var borderColorQuery = ['itemStyle', 'borderColor'];
 
     var boxplotVisual = function (ecModel, api) {
-
         var globalColors = ecModel.get('color');
 
         ecModel.eachRawSeriesByType('boxplot', function (seriesModel) {
-
             var defaulColor = globalColors[seriesModel.seriesIndex % globalColors.length];
             var data = seriesModel.getData();
 
@@ -58807,7 +58384,6 @@
                 });
             }
         });
-
     };
 
     /*
@@ -58832,7 +58408,6 @@
     var each$13 = each$1;
 
     var boxplotLayout = function (ecModel) {
-
         var groupResult = groupSeriesByAxis(ecModel);
 
         each$13(groupResult, function (groupItem) {
@@ -59047,7 +58622,6 @@
     */
 
     var CandlestickSeries = SeriesModel.extend({
-
         type: 'series.candlestick',
 
         dependencies: ['xAxis', 'yAxis', 'grid'],
@@ -59128,7 +58702,6 @@
             var itemLayout = data.getItemLayout(dataIndex);
             return itemLayout && selectors.rect(itemLayout.brushRect);
         }
-
     });
 
     mixin(CandlestickSeries, seriesModelMixin, true);
@@ -59156,9 +58729,7 @@
     var EMPHASIS_ITEM_STYLE_PATH$1 = ['emphasis', 'itemStyle'];
     var SKIP_PROPS = ['color', 'color0', 'borderColor', 'borderColor0'];
 
-
     var CandlestickView = Chart.extend({
-
         type: 'candlestick',
 
         render: function (seriesModel, ecModel, api) {
@@ -59282,12 +58853,9 @@
         },
 
         dispose: noop
-
     });
 
-
     var NormalBoxPath = Path.extend({
-
         type: 'normalCandlestickBox',
 
         shape: {},
@@ -59355,10 +58923,7 @@
         });
     }
 
-
-
     var LargeBoxPath = Path.extend({
-
         type: 'largeCandlestickBox',
 
         shape: {},
@@ -59477,7 +59042,6 @@
     var negativeColorQuery = ['itemStyle', 'color0'];
 
     var candlestickVisual = {
-
         seriesType: 'candlestick',
 
         plan: createRenderPlanner(),
@@ -59486,7 +59050,6 @@
         performRawSeries: true,
 
         reset: function (seriesModel, ecModel) {
-
             var data = seriesModel.getData();
             var isLargeRender = seriesModel.pipelineContext.large;
 
@@ -59504,7 +59067,6 @@
             }
 
             return !isLargeRender && { progress: progress };
-
 
             function progress(params, data) {
                 var dataIndex;
@@ -59533,9 +59095,7 @@
                     sign > 0 ? positiveBorderColorQuery : negativeBorderColorQuery
                 );
             }
-
         }
-
     };
 
     /*
@@ -59560,13 +59120,11 @@
     var LargeArr$1 = typeof Float32Array !== 'undefined' ? Float32Array : Array;
 
     var candlestickLayout = {
-
         seriesType: 'candlestick',
 
         plan: createRenderPlanner(),
 
         reset: function (seriesModel) {
-
             var coordSys = seriesModel.coordinateSystem;
             var data = seriesModel.getData();
             var candleWidth = calculateCandleWidth(seriesModel, data);
@@ -59598,7 +59156,6 @@
             function normalProgress(params, data) {
                 var dataIndex;
                 while ((dataIndex = params.next()) != null) {
-
                     var axisDimVal = data.get(cDim, dataIndex);
                     var openVal = data.get(openDim, dataIndex);
                     var closeVal = data.get(closeDim, dataIndex);
@@ -59808,7 +59365,6 @@
     */
 
     SeriesModel.extend({
-
         type: 'series.effectScatter',
 
         dependencies: ['grid', 'polar'],
@@ -59863,7 +59419,6 @@
             //     opacity: 1
             // }
         }
-
     });
 
     /*
@@ -60124,7 +59679,6 @@
     */
 
     extendChartView({
-
         type: 'effectScatter',
 
         init: function () {
@@ -60236,7 +59790,6 @@
     }
 
     var LinesSeries = SeriesModel.extend({
-
         type: 'series.lines',
 
         dependencies: ['grid', 'polar'],
@@ -60595,7 +60148,6 @@
     };
 
     effectLineProto._updateEffectAnimation = function (lineData, effectModel, idx) {
-
         var symbol = this.childAt(1);
         if (!symbol) {
             return;
@@ -60623,7 +60175,6 @@
         }
 
         if (period !== this._period || loop !== this._loop) {
-
             symbol.stopAnimation();
 
             var delay = delayExpr;
@@ -60693,7 +60244,6 @@
 
         symbol.ignore = false;
     };
-
 
     effectLineProto.updateLayout = function (lineData, idx) {
         this.childAt(0).updateLayout(lineData, idx);
@@ -60946,7 +60496,6 @@
     // TODO Batch by color
 
     var LargeLineShape = extendShape({
-
         shape: {
             polyline: false,
             curveness: 0,
@@ -60988,7 +60537,6 @@
         },
 
         findDataIndex: function (x, y) {
-
             var shape = this.shape;
             var segs = shape.segs;
             var curveness = shape.curveness;
@@ -61280,7 +60828,6 @@
     */
 
     extendChartView({
-
         type: 'lines',
 
         init: function () { },
@@ -61453,7 +61000,6 @@
     * under the License.
     */
 
-
     function normalize$2(a) {
         if (!(a instanceof Array)) {
             a = [a, a];
@@ -61552,7 +61098,6 @@
         },
 
         defaultOption: {
-
             // Cartesian2D or geo
             coordinateSystem: 'cartesian2d',
 
@@ -61819,7 +61364,6 @@
     }
 
     extendChartView({
-
         type: 'heatmap',
 
         render: function (seriesModel, ecModel, api) {
@@ -61865,7 +61409,6 @@
         },
 
         _renderOnCartesianAndCalendar: function (seriesModel, api, start, end, incremental) {
-
             var coordSys = seriesModel.coordinateSystem;
             var width;
             var height;
@@ -61899,7 +61442,6 @@
             var labelModel = seriesModel.getModel(labelQuery);
             var hoverLabelModel = seriesModel.getModel(hoverLabelQuery);
             var coordSysType = coordSys.type;
-
 
             var dataDims = coordSysType === 'cartesian2d'
                 ? [
@@ -62107,7 +61649,6 @@
     */
 
     var PictorialBarSeries = BaseBarSeries.extend({
-
         type: 'series.pictorialBar',
 
         dependencies: ['grid'],
@@ -62177,7 +61718,6 @@
     var pathForLineWidth = new Circle();
 
     var BarView$1 = extendChartView({
-
         type: 'pictorialBar',
 
         render: function (seriesModel, ecModel, api) {
@@ -62279,7 +61819,6 @@
             }
         }
     });
-
 
     // Set or calculate default value about symbol, and calculate layout info.
     function getSymbolMeta(data, dataIndex, itemModel, opt) {
@@ -62983,7 +62522,6 @@
      * @param {string} position
      */
     var SingleAxis = function (dim, scale, coordExtent, axisType, position) {
-
         Axis.call(this, dim, scale, coordExtent);
 
         /**
@@ -63013,11 +62551,9 @@
          * @type {[type]}
          */
         this.orient = null;
-
     };
 
     SingleAxis.prototype = {
-
         constructor: SingleAxis,
 
         /**
@@ -63033,7 +62569,6 @@
         isHorizontal: function () {
             var position = this.position;
             return position === 'top' || position === 'bottom';
-
         },
 
         /**
@@ -63057,7 +62592,6 @@
          * @type {Function}
          */
         toLocalCoord: null
-
     };
 
     inherits(SingleAxis, Axis);
@@ -63093,7 +62627,6 @@
      * @param {module:echarts/ExtensionAPI} api
      */
     function Single(axisModel, ecModel, api) {
-
         /**
          * @type {string}
          * @readOnly
@@ -63129,7 +62662,6 @@
     }
 
     Single.prototype = {
-
         type: 'singleAxis',
 
         axisPointerEnabled: true,
@@ -63145,7 +62677,6 @@
          * @private
          */
         _init: function (axisModel, ecModel, api) {
-
             var dim = this.dimension;
 
             var axis = new SingleAxis(
@@ -63220,7 +62751,6 @@
          * @private
          */
         _adjustAxis: function () {
-
             var rect = this._rect;
             var axis = this._axis;
 
@@ -63231,7 +62761,6 @@
             axis.setExtent(extent[idx], extent[1 - idx]);
 
             this._updateAxisTransform(axis, isHorizontal ? rect.x : rect.y);
-
         },
 
         /**
@@ -63239,7 +62768,6 @@
          * @param  {number} coordBase
          */
         _updateAxisTransform: function (axis, coordBase) {
-
             var axisExtent = axis.getExtent();
             var extentSum = axisExtent[0] + axisExtent[1];
             var isHorizontal = axis.isHorizontal();
@@ -63344,7 +62872,6 @@
             pt[1 - idx] = idx === 0 ? (rect.y + rect.height / 2) : (rect.x + rect.width / 2);
             return pt;
         }
-
     };
 
     /*
@@ -63381,13 +62908,11 @@
         var singles = [];
 
         ecModel.eachComponent('singleAxis', function (axisModel, idx) {
-
             var single = new Single(axisModel, ecModel, api);
             single.name = 'single_' + idx;
             single.resize(axisModel, api);
             axisModel.coordinateSystem = single;
             singles.push(single);
-
         });
 
         ecModel.eachSeries(function (seriesModel) {
@@ -63506,7 +63031,6 @@
     * under the License.
     */
 
-
     var axisBuilderAttrs$2 = [
         'axisLine', 'axisTickLabel', 'axisName'
     ];
@@ -63514,13 +63038,11 @@
     var selfBuilderAttr = 'splitLine';
 
     var SingleAxisView = AxisView.extend({
-
         type: 'singleAxis',
 
         axisPointerClass: 'SingleAxisPointer',
 
         render: function (axisModel, ecModel, api, payload) {
-
             var group = this.group;
 
             group.removeAll();
@@ -63631,7 +63153,6 @@
     */
 
     var AxisModel$4 = ComponentModel.extend({
-
         type: 'singleAxis',
 
         layoutMode: 'box',
@@ -63652,11 +63173,9 @@
         getCoordSysModel: function () {
             return this;
         }
-
     });
 
     var defaultOption$2 = {
-
         left: '5%',
         top: '5%',
         right: '5%',
@@ -64211,7 +63730,6 @@
     */
 
     var AxisPointerModel = extendComponentModel({
-
         type: 'axisPointer',
 
         coordSysAxesInfo: null,
@@ -64298,7 +63816,6 @@
                 throttle: 40
             }
         }
-
     });
 
     /*
@@ -64456,7 +63973,6 @@
     */
 
     var AxisPointerView = extendComponentView({
-
         type: 'axisPointer',
 
         render: function (globalAxisPointerModel, ecModel, api) {
@@ -64500,7 +64016,6 @@
             unregister('axisPointer', api);
             AxisPointerView.superApply(this._model, 'dispose', arguments);
         }
-
     });
 
     /*
@@ -64534,7 +64049,6 @@
     }
 
     BaseAxisPointer.prototype = {
-
         /**
          * @private
          */
@@ -64980,7 +64494,6 @@
 
     BaseAxisPointer.prototype.constructor = BaseAxisPointer;
 
-
     function updateProps$1(animationModel, moveAnimation, el, props) {
         // Animation optimize.
         if (!propsEqual(inner$9(el).lastProp, props)) {
@@ -65276,7 +64789,6 @@
     */
 
     var CartesianAxisPointer = BaseAxisPointer.extend({
-
         /**
          * @override
          */
@@ -65346,7 +64858,6 @@
                 tooltipOption: tooltipOptions[dimIndex]
             };
         }
-
     });
 
     function getCartesian(grid, axis) {
@@ -65356,7 +64867,6 @@
     }
 
     var pointerShapeBuilder = {
-
         line: function (axis, pixelValue, otherExtent, elStyle) {
             var targetShape = makeLineShape(
                 [pixelValue, otherExtent[0]],
@@ -65470,7 +64980,6 @@
     var WH = ['width', 'height'];
 
     var SingleAxisPointer = BaseAxisPointer.extend({
-
         /**
          * @override
          */
@@ -65539,7 +65048,6 @@
     });
 
     var pointerShapeBuilder$1 = {
-
         line: function (axis, pixelValue, otherExtent, elStyle) {
             var targetShape = makeLineShape(
                 [pixelValue, otherExtent[0]],
@@ -65631,7 +65139,6 @@
     var DATA_NAME_INDEX = 2;
 
     var ThemeRiverSeries = SeriesModel.extend({
-
         type: 'series.themeRiver',
 
         dependencies: ['singleAxis'],
@@ -65713,7 +65220,6 @@
                         data[rawDataLength][1] = 0;
                         data[rawDataLength][2] = name;
                         rawDataLength++;
-
                     }
                 }
             }
@@ -65727,7 +65233,6 @@
          * @return {module:echarts/data/List}
          */
         getInitialData: function (option, ecModel) {
-
             var singleAxisModel = ecModel.queryComponents({
                 mainType: 'singleAxis',
                 index: this.get('singleAxisIndex'),
@@ -65934,7 +65439,6 @@
      */
 
     extendChartView({
-
         type: 'themeRiver',
 
         init: function () {
@@ -66117,9 +65621,7 @@
      */
 
     var themeRiverLayout = function (ecModel, api) {
-
         ecModel.eachSeriesByType('themeRiver', function (seriesModel) {
-
             var data = seriesModel.getData();
 
             var single = seriesModel.coordinateSystem;
@@ -66344,7 +65846,6 @@
     */
 
     SeriesModel.extend({
-
         type: 'series.sunburst',
 
         /**
@@ -66488,8 +65989,6 @@
         }
     });
 
-
-
     /**
      * @param {Object} dataNode
      */
@@ -66500,7 +65999,6 @@
         var sum = 0;
 
         each$1(dataNode.children, function (child) {
-
             completeTreeValue$1(child);
 
             var childValue = child.value;
@@ -66562,7 +66060,6 @@
      * @extends {module:zrender/graphic/Group}
      */
     function SunburstPiece(node, seriesModel, ecModel) {
-
         Group.call(this);
 
         var sector = new Sector({
@@ -66957,7 +66454,6 @@
     var ROOT_TO_NODE_ACTION = 'sunburstRootToNode';
 
     var SunburstView = Chart.extend({
-
         type: 'sunburst',
 
         init: function () {
@@ -67180,7 +66676,6 @@
                 return radius <= itemLayout.r && radius >= itemLayout.r0;
             }
         }
-
     });
 
     /*
@@ -67211,7 +66706,6 @@
     registerAction(
         { type: ROOT_TO_NODE_ACTION$1, update: 'updateView' },
         function (payload, ecModel) {
-
             ecModel.eachComponent(
                 { mainType: 'series', subType: 'sunburst', query: payload },
                 handleRootToNode
@@ -67232,13 +66726,11 @@
         }
     );
 
-
     var HIGHLIGHT_ACTION = 'sunburstHighlight';
 
     registerAction(
         { type: HIGHLIGHT_ACTION, update: 'updateView' },
         function (payload, ecModel) {
-
             ecModel.eachComponent(
                 { mainType: 'series', subType: 'sunburst', query: payload },
                 handleHighlight
@@ -67254,13 +66746,11 @@
         }
     );
 
-
     var UNHIGHLIGHT_ACTION = 'sunburstUnhighlight';
 
     registerAction(
         { type: UNHIGHLIGHT_ACTION, update: 'updateView' },
         function (payload, ecModel) {
-
             ecModel.eachComponent(
                 { mainType: 'series', subType: 'sunburst', query: payload },
                 handleUnhighlight
@@ -67290,7 +66780,6 @@
     * specific language governing permissions and limitations
     * under the License.
     */
-
 
     var RADIAN$1 = Math.PI / 180;
 
@@ -67366,10 +66855,8 @@
                         ? unitRadian : (value * unitRadian);
                     if (angle < minAngle) {
                         angle = minAngle;
-
                     }
                     else {
-
                     }
 
                     endAngle = startAngle + dir * angle;
@@ -67691,7 +67178,6 @@
             }
 
             return result;
-
         }, this);
     }
 
@@ -67820,7 +67306,6 @@
     // ------
 
     extendSeriesModel({
-
         type: 'series.custom',
 
         dependencies: ['grid', 'polar', 'geo', 'singleAxis', 'calendar'],
@@ -67855,7 +67340,6 @@
     // -----
 
     extendChartView({
-
         type: 'custom',
 
         /**
@@ -67921,7 +67405,6 @@
          */
         dispose: noop
     });
-
 
     function createEl(elOption) {
         var graphicType = elOption.type;
@@ -68401,11 +67884,9 @@
     // ------
 
     var GraphicModel = extendComponentModel({
-
         type: 'graphic',
 
         defaultOption: {
-
             // Extra properties for each elements:
             //
             // left/right/top/bottom: (like 12, '22%', 'center', default undefined)
@@ -68495,7 +67976,6 @@
                 mergeNewElOptionToExist(existList, index, newElOption);
 
                 setLayoutInfoToExist(existList[index], newElOption);
-
             }, this);
 
             // Clean
@@ -68566,14 +68046,12 @@
     // -----
 
     extendComponentView({
-
         type: 'graphic',
 
         /**
          * @override
          */
         init: function (ecModel, api) {
-
             /**
              * @private
              * @type {module:zrender/core/util.HashMap}
@@ -68591,7 +68069,6 @@
          * @override
          */
         render: function (graphicModel, ecModel, api) {
-
             // Having leveraged between use cases and algorithm complexity, a very
             // simple layout mechanism is used:
             // The size(width/height) can be determined by itself or its parent (not
@@ -68827,7 +68304,6 @@
         var $action = newElOption.$action || 'merge';
         if ($action === 'merge') {
             if (existElOption) {
-
                 if (__DEV__) {
                     var newType = newElOption.type;
                     assert$1(
@@ -68913,7 +68389,6 @@
     */
 
     var LegendModel = extendComponentModel({
-
         type: 'legend.plain',
 
         dependencies: ['series'],
@@ -69332,7 +68807,6 @@
     var Group$3 = Group;
 
     var LegendView = extendComponentView({
-
         type: 'legend.plain',
 
         newlineDisabled: false,
@@ -69341,7 +68815,6 @@
          * @override
          */
         init: function () {
-
             /**
              * @private
              * @type {module:zrender/container/Group}
@@ -69366,7 +68839,6 @@
          * @override
          */
         render: function (legendModel, ecModel, api) {
-
             this.resetInner();
 
             if (!legendModel.get('show', true)) {
@@ -69507,7 +68979,6 @@
 
                             legendDrawnMap.set(name, true);
                         }
-
                     }, this);
                 }
 
@@ -69653,7 +69124,6 @@
 
             return this.group.getBoundingRect();
         }
-
     });
 
     function dispatchSelectAction(name, api) {
@@ -69709,7 +69179,6 @@
     */
 
     var legendFilter = function (ecModel) {
-
         var legendModels = ecModel.findComponents({
             mainType: 'legend'
         });
@@ -69725,7 +69194,6 @@
                 return true;
             });
         }
-
     };
 
     /*
@@ -69746,7 +69214,6 @@
     * specific language governing permissions and limitations
     * under the License.
     */
-
 
     // Do not contain scrollable legend, for sake of file size.
 
@@ -69778,7 +69245,6 @@
     */
 
     var ScrollableLegendModel = LegendModel.extend({
-
         type: 'legend.scroll',
 
         /**
@@ -69833,7 +69299,6 @@
                 ? { index: 1, name: 'vertical' }
                 : { index: 0, name: 'horizontal' };
         }
-
     });
 
     // Do not `ignoreSize` to enable setting {left: 10, right: 10}.
@@ -69875,13 +69340,11 @@
     var XY$1 = ['x', 'y'];
 
     var ScrollableLegendView = LegendView.extend({
-
         type: 'legend.scroll',
 
         newlineDisabled: true,
 
         init: function () {
-
             ScrollableLegendView.superCall(this, 'init');
 
             /**
@@ -70236,7 +69699,6 @@
                 return itemRect;
             }
         }
-
     });
 
     /*
@@ -70321,7 +69783,6 @@
     */
 
     extendComponentModel({
-
         type: 'tooltip',
 
         dependencies: ['axisPointer'],
@@ -70495,7 +69956,6 @@
      * @inner
      */
     function assembleCssText(tooltipModel) {
-
         var cssText = [];
 
         var transitionDuration = tooltipModel.get('transitionDuration');
@@ -70598,7 +70058,6 @@
     }
 
     TooltipContent.prototype = {
-
         constructor: TooltipContent,
 
         /**
@@ -70723,7 +70182,6 @@
     });
 
     extendComponentView({
-
         type: 'tooltip',
 
         init: function (ecModel, api) {
@@ -70882,7 +70340,6 @@
                 }, dispatchAction);
             }
             else if (payload.seriesIndex != null) {
-
                 if (this._manuallyAxisShowTip(tooltipModel, ecModel, api, payload)) {
                     return;
                 }
@@ -71367,7 +70824,6 @@
         }
     });
 
-
     /**
      * @param {Array.<Object|module:echarts/model/Model>} modelCascade
      * From top to bottom. (the last one should be globalTooltipModel);
@@ -71573,7 +71029,6 @@
      * @param {module:echarts/ExtensionAPI} api
      */
     function barLayoutPolar(seriesType, ecModel, api) {
-
         var width = api.getWidth();
         var height = api.getHeight();
 
@@ -71706,11 +71161,8 @@
                     startAngle: -startAngle * Math.PI / 180,
                     endAngle: -endAngle * Math.PI / 180
                 });
-
             }
-
         }, this);
-
     }
 
     /**
@@ -71774,11 +71226,9 @@
             (barCategoryGap != null) && (columnsOnAxis.categoryGap = barCategoryGap);
         });
 
-
         var result = {};
 
         each$1(columnsMap, function (columnsOnAxis, coordSysName) {
-
             result[coordSysName] = {};
 
             var stacks = columnsOnAxis.stacks;
@@ -71858,7 +71308,6 @@
     */
 
     function RadiusAxis(scale, radiusExtent) {
-
         Axis.call(this, 'radius', scale, radiusExtent);
 
         /**
@@ -71873,7 +71322,6 @@
     }
 
     RadiusAxis.prototype = {
-
         constructor: RadiusAxis,
 
         /**
@@ -71910,7 +71358,6 @@
     */
 
     function AngleAxis(scale, angleExtent) {
-
         angleExtent = angleExtent || [0, 360];
 
         Axis.call(this, 'angle', scale, angleExtent);
@@ -71927,7 +71374,6 @@
     }
 
     AngleAxis.prototype = {
-
         constructor: AngleAxis,
 
         /**
@@ -71973,7 +71419,6 @@
      * @param {string} name
      */
     var Polar = function (name) {
-
         /**
          * @type {string}
          */
@@ -72007,7 +71452,6 @@
     };
 
     Polar.prototype = {
-
         type: 'polar',
 
         axisPointerEnabled: true,
@@ -72198,7 +71642,6 @@
 
             return [x, y];
         }
-
     };
 
     /*
@@ -72221,7 +71664,6 @@
     */
 
     var PolarAxisModel = ComponentModel.extend({
-
         type: 'polarAxis',
 
         /**
@@ -72239,7 +71681,6 @@
                 id: this.option.polarId
             })[0];
         }
-
     });
 
     merge(PolarAxisModel.prototype, axisModelCommonMixin);
@@ -72295,7 +71736,6 @@
     */
 
     extendComponentModel({
-
         type: 'polar',
 
         dependencies: ['polarAxis', 'angleAxis'],
@@ -72322,7 +71762,6 @@
         },
 
         defaultOption: {
-
             zlevel: 0,
 
             z: 0,
@@ -72434,9 +71873,7 @@
         axis.model = axisModel;
     }
 
-
     var polarCreator = {
-
         dimensions: Polar.prototype.dimensions,
 
         create: function (ecModel, api) {
@@ -72544,7 +71981,6 @@
     }
 
     AxisView.extend({
-
         type: 'angleAxis',
 
         axisPointerClass: 'PolarAxisPointer',
@@ -72615,13 +72051,13 @@
             });
             this.group.add(mergePath(
                 lines, {
-                    style: defaults(
-                        tickModel.getModel('lineStyle').getLineStyle(),
-                        {
-                            stroke: angleAxisModel.get('axisLine.lineStyle.color')
-                        }
-                    )
-                }
+                style: defaults(
+                    tickModel.getModel('lineStyle').getLineStyle(),
+                    {
+                        stroke: angleAxisModel.get('axisLine.lineStyle.color')
+                    }
+                )
+            }
             ));
         },
 
@@ -72802,7 +72238,6 @@
     ];
 
     AxisView.extend({
-
         type: 'radiusAxis',
 
         axisPointerClass: 'PolarAxisPointer',
@@ -72973,7 +72408,6 @@
     */
 
     var PolarAxisPointer = BaseAxisPointer.extend({
-
         /**
          * @override
          */
@@ -73008,7 +72442,6 @@
         }
 
         // Do not support handle, utill any user requires it.
-
     });
 
     function getLabelPosition(value, axisModel, axisPointerModel, polar, labelMargin) {
@@ -73052,9 +72485,7 @@
         };
     }
 
-
     var pointerShapeBuilder$2 = {
-
         line: function (axis, polar, coordValue, otherExtent, elStyle) {
             return axis.dim === 'angle'
                 ? {
@@ -73150,7 +72581,6 @@
     */
 
     var GeoModel = ComponentModel.extend({
-
         type: 'geo',
 
         /**
@@ -73184,7 +72614,6 @@
         },
 
         defaultOption: {
-
             zlevel: 0,
 
             z: 0,
@@ -73194,7 +72623,6 @@
             left: 'center',
 
             top: 'center',
-
 
             // width:,
             // height:,
@@ -73210,7 +72638,6 @@
             // This two properties may more conveninet
             // layoutCenter: [50%, 50%]
             // layoutSize: 100
-
 
             silent: false,
 
@@ -73316,7 +72743,6 @@
     */
 
     extendComponentView({
-
         type: 'geo',
 
         init: function (ecModel, api) {
@@ -73348,7 +72774,6 @@
         dispose: function () {
             this._mapDraw && this._mapDraw.remove();
         }
-
     });
 
     /*
@@ -74092,7 +73517,6 @@
     }
 
     var targetInfoBuilders = {
-
         grid: function (foundCpts, targetInfoList) {
             var xAxisModels = foundCpts.xAxisModels;
             var yAxisModels = foundCpts.yAxisModels;
@@ -74184,7 +73608,6 @@
     ];
 
     var panelRectBuilder = {
-
         grid: function () {
             // grid is not Transformable.
             return this.coordSys.grid.getRect().clone();
@@ -74200,7 +73623,6 @@
     };
 
     var coordConvert = {
-
         lineX: curry$5(axisConvert, 0),
 
         lineY: curry$5(axisConvert, 1),
@@ -74322,7 +73744,6 @@
      */
     registerLayout(PRIORITY_BRUSH, function (ecModel, api, payload) {
         ecModel.eachComponent({ mainType: 'brush' }, function (brushModel) {
-
             payload && payload.type === 'takeGlobalCursor' && brushModel.setBrushOption(
                 payload.key === 'brush' ? payload.brushOption : { brushType: false }
             );
@@ -74337,13 +73758,11 @@
      * Register the visual encoding if this modules required.
      */
     registerVisual(PRIORITY_BRUSH, function (ecModel, api, payload) {
-
         var brushSelected = [];
         var throttleType;
         var throttleDelay;
 
         ecModel.eachComponent({ mainType: 'brush' }, function (brushModel, brushIndex) {
-
             var thisBrushSelected = {
                 brushId: brushModel.id,
                 brushIndex: brushIndex,
@@ -74488,7 +73907,6 @@
                         STATE_LIST, visualMappings, data, getValueState
                     );
             });
-
         });
 
         dispatchAction(api, throttleType, throttleDelay, brushSelected, payload);
@@ -74589,7 +74007,6 @@
     }
 
     var boundingRectBuilders = {
-
         lineX: noop,
 
         lineY: noop,
@@ -74646,7 +74063,6 @@
     var DEFAULT_OUT_OF_BRUSH_COLOR = ['#ddd'];
 
     var BrushModel = extendComponentModel({
-
         type: 'brush',
 
         dependencies: ['geo', 'grid', 'xAxis', 'yAxis', 'parallel', 'series'],
@@ -74765,7 +74181,6 @@
             this.brushOption = generateBrushOption(this.option, brushOption);
             this.brushType = this.brushOption.brushType;
         }
-
     });
 
     function generateBrushOption(option, brushOption) {
@@ -74803,11 +74218,9 @@
     */
 
     extendComponentView({
-
         type: 'brush',
 
         init: function (ecModel, api) {
-
             /**
              * @readOnly
              * @type {module:echarts/model/Global}
@@ -74889,7 +74302,6 @@
                 $from: modelId
             });
         }
-
     });
 
     function updateController(brushModel, ecModel, api, payload) {
@@ -74980,7 +74392,6 @@
     * specific language governing permissions and limitations
     * under the License.
     */
-
 
     var features = {};
 
@@ -75186,7 +74597,6 @@
     }
 
     Calendar.prototype = {
-
         constructor: Calendar,
 
         type: 'calendar',
@@ -75251,7 +74661,6 @@
          * }
          */
         getDateInfo: function (date) {
-
             date = parseDate(date);
 
             var y = date.getFullYear();
@@ -75290,11 +74699,9 @@
         },
 
         update: function (ecModel, api) {
-
             this._firstDayOfWeek = +this._model.getModel('dayLabel').get('firstDay');
             this._orient = this._model.get('orient');
             this._lineWidth = this._model.getModel('itemStyle').getItemStyle().lineWidth || 0;
-
 
             this._rangeInfo = this._getRangeInfo(this._initRangeOption());
             var weeks = this._rangeInfo.weeks || 1;
@@ -75329,7 +74736,6 @@
             this._sh = cellSize[1];
         },
 
-
         /**
          * Convert a time data(time, value) item to (x, y) point.
          *
@@ -75362,14 +74768,12 @@
                     this._rect.x + week * this._sw + this._sw / 2,
                     this._rect.y + nthWeek * this._sh + this._sh / 2
                 ];
-
             }
 
             return [
                 this._rect.x + nthWeek * this._sw + this._sw / 2,
                 this._rect.y + week * this._sh + this._sh / 2
             ];
-
         },
 
         /**
@@ -75380,7 +74784,6 @@
          * @return {string}       data
          */
         pointToData: function (point) {
-
             var date = this.pointToDate(point);
 
             return date && date.time;
@@ -75425,7 +74828,6 @@
                     point[0] - this._sw / 2,
                     point[1] + this._sh / 2
                 ]
-
             };
         },
 
@@ -75477,7 +74879,6 @@
             }
 
             if (/^\d{4}[\/|-]\d{1,2}$/.test(rg)) {
-
                 var start = this.getDateInfo(rg);
                 var firstDay = start.date;
                 firstDay.setMonth(firstDay.getMonth() + 1);
@@ -75645,7 +75046,6 @@
     */
 
     var CalendarModel = ComponentModel.extend({
-
         type: 'calendar',
 
         /**
@@ -75814,7 +75214,6 @@
     };
 
     extendComponentView({
-
         type: 'calendar',
 
         /**
@@ -75842,7 +75241,6 @@
         _firstDayPoints: null,
 
         render: function (calendarModel, ecModel, api) {
-
             var group = this.group;
 
             group.removeAll();
@@ -75876,7 +75274,6 @@
                 i <= rangeData.end.time;
                 i = coordSys.getNextNDay(i, 1).time
             ) {
-
                 var point = coordSys.dataToRect([i], false).tl;
 
                 // every rect
@@ -75893,12 +75290,10 @@
 
                 group.add(rect);
             }
-
         },
 
         // render separate line
         _renderLines: function (calendarModel, rangeData, orient, group) {
-
             var self = this;
 
             var coordSys = calendarModel.coordinateSystem;
@@ -75912,7 +75307,6 @@
             this._blpoints = [];
             this._firstDayOfMonth = [];
             this._firstDayPoints = [];
-
 
             var firstDay = rangeData.start;
 
@@ -75931,7 +75325,6 @@
             addPoints(coordSys.getNextNDay(rangeData.end.time, 1).formatedDate);
 
             function addPoints(date) {
-
                 self._firstDayOfMonth.push(coordSys.getDateInfo(date));
                 self._firstDayPoints.push(coordSys.dataToRect([date], false).tl);
 
@@ -75943,13 +75336,11 @@
                 show && self._drawSplitline(points, lineStyleModel, group);
             }
 
-
             // render top/left line
             show && this._drawSplitline(self._getEdgesPoints(self._tlpoints, lineWidth, orient), lineStyleModel, group);
 
             // render bottom/right line
             show && this._drawSplitline(self._getEdgesPoints(self._blpoints, lineWidth, orient), lineStyleModel, group);
-
         },
 
         // get points at both ends
@@ -75966,7 +75357,6 @@
 
         // render split line
         _drawSplitline: function (points, lineStyleModel, group) {
-
             var poyline = new Polyline({
                 z2: 20,
                 shape: {
@@ -75980,14 +75370,12 @@
 
         // render month line of one week points
         _getLinePointsOfOneWeek: function (calendarModel, date, orient) {
-
             var coordSys = calendarModel.coordinateSystem;
             date = coordSys.getDateInfo(date);
 
             var points = [];
 
             for (var i = 0; i < 7; i++) {
-
                 var tmpD = coordSys.getNextNDay(date.time, i);
                 var point = coordSys.dataToRect([tmpD.time], false);
 
@@ -75996,11 +75384,9 @@
             }
 
             return points;
-
         },
 
         _formatterLabel: function (formatter, params) {
-
             if (typeof formatter === 'string' && formatter) {
                 return formatTplSimple(formatter, params);
             }
@@ -76010,11 +75396,9 @@
             }
 
             return params.nameMap;
-
         },
 
         _yearTextPositionControl: function (textEl, point, orient, position, margin) {
-
             point = point.slice();
             var aligns = ['center', 'bottom'];
 
@@ -76161,7 +75545,6 @@
             var isCenter = (align === 'center');
 
             for (var i = 0; i < termPoints[idx].length - 1; i++) {
-
                 var tmp = termPoints[idx][i].slice();
                 var firstDay = this._firstDayOfMonth[i];
 
@@ -76249,7 +75632,6 @@
             }
 
             for (var i = 0; i < 7; i++) {
-
                 var tmpD = coordSys.getNextNDay(start, i);
                 var point = coordSys.dataToRect([tmpD.time], false).center;
                 var day = i;
@@ -76310,7 +75692,6 @@
 
     // Model
     extendComponentModel({
-
         type: 'title',
 
         layoutMode: { type: 'box', ignoreSize: true },
@@ -76378,7 +75759,6 @@
 
     // View
     extendComponentView({
-
         type: 'title',
 
         render: function (titleModel, ecModel, api) {
@@ -76444,9 +75824,9 @@
             layoutOption.height = groupRect.height;
             var layoutRect = getLayoutRect(
                 layoutOption, {
-                    width: api.getWidth(),
-                    height: api.getHeight()
-                }, titleModel.get('padding')
+                width: api.getWidth(),
+                height: api.getHeight()
+            }, titleModel.get('padding')
             );
             // Adjust text align based on position
             if (!textAlign) {
@@ -76619,7 +75999,6 @@
      * @return {Function} Input: sourceNode, Output: Like {nodes: [], dims: {}}
      */
     function createLinkedNodesFinder(forEachNode, forEachEdgeType, edgeIdGetter) {
-
         return function (sourceNode) {
             var result = {
                 nodes: [],
@@ -76709,7 +76088,6 @@
      * @class
      */
     var AxisProxy = function (dimName, axisIndex, dataZoomModel, ecModel) {
-
         /**
          * @private
          * @type {string}
@@ -76766,7 +76144,6 @@
     };
 
     AxisProxy.prototype = {
-
         constructor: AxisProxy,
 
         /**
@@ -77208,7 +76585,6 @@
     var eachAxisDim = eachAxisDim$1;
 
     var DataZoomModel = extendComponentModel({
-
         type: 'dataZoom',
 
         dependencies: [
@@ -77260,7 +76636,6 @@
          * @override
          */
         init: function (option, parentModel, ecModel) {
-
             /**
              * key like x_0, y_1
              * @private
@@ -77716,7 +77091,6 @@
         getRangePropMode: function () {
             return this._rangePropMode.slice();
         }
-
     });
 
     function retrieveRaw(option) {
@@ -77773,7 +77147,6 @@
     */
 
     var DataZoomView = Component.extend({
-
         type: 'dataZoom',
 
         render: function (dataZoomModel, ecModel, api, payload) {
@@ -77836,7 +77209,6 @@
 
             return coordSysLists;
         }
-
     });
 
     /*
@@ -77859,7 +77231,6 @@
     */
 
     var SliderZoomModel = DataZoomModel.extend({
-
         type: 'dataZoom.slider',
 
         layoutMode: 'box',
@@ -77919,7 +77290,6 @@
                 color: '#333'
             }
         }
-
     });
 
     /*
@@ -77957,11 +77327,9 @@
     var SHOW_DATA_SHADOW_SERIES_TYPE = ['line', 'bar', 'candlestick', 'scatter'];
 
     var SliderZoomView = DataZoomView.extend({
-
         type: 'dataZoom.slider',
 
         init: function (ecModel, api) {
-
             /**
              * @private
              * @type {Object}
@@ -78345,9 +77713,7 @@
                         otherDim: otherDim,
                         otherAxisInverse: otherAxisInverse
                     };
-
                 }, this);
-
             }, this);
 
             return result;
@@ -78442,7 +77808,6 @@
                         },
                         z2: 10
                     }));
-
             }, this);
         },
 
@@ -78715,7 +78080,6 @@
 
             return rect;
         }
-
     });
 
     function getOtherDim(thisDim) {
@@ -78749,7 +78113,6 @@
     */
 
     DataZoomModel.extend({
-
         type: 'dataZoom.inside',
 
         /**
@@ -78792,7 +78155,6 @@
     var curry$6 = curry;
 
     var ATTR$1 = '\0_ec_dataZoom_roams';
-
 
     /**
      * @public
@@ -79002,7 +78364,6 @@
     var bind$5 = bind;
 
     var InsideZoomView = DataZoomView.extend({
-
         type: 'dataZoom.inside',
 
         /**
@@ -79031,7 +78392,6 @@
 
             // Reset controllers.
             each$1(this.getTargetCoordInfo(), function (coordInfoList, coordSysName) {
-
                 var allCoordIds = map(coordInfoList, function (coordInfo) {
                     return generateCoordId(coordInfo.model);
                 });
@@ -79062,7 +78422,6 @@
                         }
                     );
                 }, this);
-
             }, this);
         },
 
@@ -79142,11 +78501,9 @@
                 return range;
             }
         }
-
     });
 
     var getDirectionInfo = {
-
         grid: function (oldPoint, newPoint, axisModel, controller, coordInfo) {
             var axis = axisModel.axis;
             var ret = {};
@@ -79243,7 +78600,6 @@
     */
 
     registerProcessor({
-
         // `dataZoomProcessor` will only be performed in needed series. Consider if
         // there is a line series and a pie series, it is better not to update the
         // line series if only pie series is needed to be updated.
@@ -79268,7 +78624,6 @@
         // in block mode currently, it is not need to worry about that the overallProgress
         // execute every frame.
         overallReset: function (ecModel, api) {
-
             ecModel.eachComponent('dataZoom', function (dataZoomModel) {
                 // We calculate window and reset axis here but not in model
                 // init stage and not after action dispatch handler, because
@@ -79333,7 +78688,6 @@
     */
 
     registerAction('dataZoom', function (payload, ecModel) {
-
         var linkedNodesFinder = createLinkedNodesFinder(
             bind(ecModel.eachComponent, ecModel, 'dataZoom'),
             eachAxisDim$1,
@@ -79361,7 +78715,6 @@
                 endValue: payload.endValue
             });
         });
-
     });
 
     /*
@@ -79607,7 +78960,6 @@
      */
 
     var visualDefault = {
-
         /**
          * @public
          */
@@ -79620,11 +78972,9 @@
                 ? (isArray(value) ? value[value.length - 1] : value)
                 : value;
         }
-
     };
 
     var defaultOption$3 = {
-
         color: {
             active: ['#006edd', '#e0ffff'],
             inactive: ['rgba(0,0,0,0)']
@@ -79694,7 +79044,6 @@
     var noop$2 = noop;
 
     var VisualMapModel = extendComponentModel({
-
         type: 'visualMap',
 
         dependencies: ['series'],
@@ -79783,7 +79132,6 @@
          * @protected
          */
         init: function (option, parentModel, ecModel) {
-
             /**
              * @private
              * @type {Array.<number>}
@@ -80113,7 +79461,6 @@
                 var inactiveColor = this.get('inactiveColor');
 
                 each$25(this.stateList, function (state) {
-
                     var itemSize = this.itemSize;
                     var visuals = controller[state];
 
@@ -80155,7 +79502,6 @@
                             return linearMap$2(value, [0, max], [0, itemSize[0]], true);
                         });
                     }
-
                 }, this);
             }
         },
@@ -80208,7 +79554,6 @@
          *        outerColor means [colorBeyondMinValue, colorBeyondMaxValue]
          */
         getVisualMeta: noop$2
-
     });
 
     /*
@@ -80234,7 +79579,6 @@
     var DEFAULT_BAR_BOUND = [20, 140];
 
     var ContinuousModel = VisualMapModel.extend({
-
         type: 'visualMap.continuous',
 
         /**
@@ -80414,7 +79758,7 @@
                     setStop(oVals[oIdx], 'outOfRange');
                 }
             }
-            for (var first = 1; iIdx < iLen; iIdx++ , first = 0) {
+            for (var first = 1; iIdx < iLen; iIdx++, first = 0) {
                 // If range is full, value beyond min, max will be clamped.
                 // make a singularity
                 first && stops.length && setStop(iVals[iIdx], 'outOfRange');
@@ -80441,7 +79785,6 @@
                 ]
             };
         }
-
     });
 
     function getColorStopValues(visualMapModel, valueState, dataExtent) {
@@ -80487,7 +79830,6 @@
     */
 
     var VisualMapView = extendComponentView({
-
         type: 'visualMap',
 
         /**
@@ -80628,7 +79970,6 @@
          * @abstract
          */
         doRender: noop
-
     });
 
     /*
@@ -80741,14 +80082,12 @@
     // The logic of transform is implemented in this._createBarGroup.
 
     var ContinuousView = VisualMapView.extend({
-
         type: 'visualMap.continuous',
 
         /**
          * @override
          */
         init: function () {
-
             ContinuousView.superApply(this, 'init', arguments);
 
             /**
@@ -81503,7 +80842,6 @@
             this._clearHoverLinkFromSeries();
             this._clearHoverLinkToSeries();
         }
-
     });
 
     function createPolygon(points, cursor, onDrift, onDragEnd) {
@@ -81583,11 +80921,9 @@
     };
 
     registerAction(actionInfo$2, function (payload, ecModel) {
-
         ecModel.eachComponent({ mainType: 'visualMap', query: payload }, function (model) {
             model.setSelected(payload.selected);
         });
-
     });
 
     /*
@@ -81635,7 +80971,6 @@
     */
 
     var PiecewiseModel = VisualMapModel.extend({
-
         type: 'visualMap.piecewise',
 
         /**
@@ -81981,7 +81316,6 @@
 
             return { stops: stops, outerColors: outerColors };
         }
-
     });
 
     /**
@@ -81990,7 +81324,6 @@
      * @this {module:echarts/component/viusalMap/PiecewiseMode}
      */
     var resetMethods = {
-
         splitNumber: function () {
             var thisOption = this.option;
             var pieceList = this._pieceList;
@@ -82067,7 +81400,6 @@
             var pieceList = this._pieceList;
 
             each$1(thisOption.pieces, function (pieceListItem, index) {
-
                 if (!isObject$1(pieceListItem)) {
                     pieceListItem = { value: pieceListItem };
                 }
@@ -82124,7 +81456,6 @@
                 item.visual = VisualMapping.retrieveVisuals(pieceListItem);
 
                 pieceList.push(item);
-
             }, this);
 
             // See "Order Rule".
@@ -82171,7 +81502,6 @@
     */
 
     var PiecewiseVisualMapView = VisualMapView.extend({
-
         type: 'visualMap.piecewise',
 
         /**
@@ -82455,7 +81785,6 @@
         defaultEmphasis(opt, 'label', ['show']);
     }
     var MarkerModel = extendComponentModel({
-
         type: 'marker',
 
         dependencies: ['series', 'grid', 'polar', 'geo'],
@@ -82464,7 +81793,6 @@
          * @overrite
          */
         init: function (option, parentModel, ecModel, extraOpt) {
-
             if (__DEV__) {
                 if (this.type === 'marker') {
                     throw new Error('Marker component is abstract component. Use markLine, markPoint, markArea instead.');
@@ -82491,7 +81819,6 @@
             var modelPropName = this.mainType + 'Model';
             if (!createdBySelf) {
                 ecModel.eachSeries(function (seriesModel) {
-
                     var markerOpt = seriesModel.get(this.mainType, true);
 
                     var markerModel = seriesModel[modelPropName];
@@ -82590,7 +81917,6 @@
     */
 
     MarkerModel.extend({
-
         type: 'markPoint',
 
         defaultOption: {
@@ -82876,7 +82202,6 @@
     */
 
     var MarkerView = extendComponentView({
-
         type: 'marker',
 
         init: function () {
@@ -82948,7 +82273,6 @@
                 var x = mpData.get(coordSys.dimensions[0], idx);
                 var y = mpData.get(coordSys.dimensions[1], idx);
                 point = coordSys.dataToPoint([x, y]);
-
             }
 
             // Use x, y if has any
@@ -82964,7 +82288,6 @@
     }
 
     MarkerView.extend({
-
         type: 'markPoint',
 
         // updateLayout: function (markPointModel, ecModel, api) {
@@ -83126,7 +82449,6 @@
     */
 
     MarkerModel.extend({
-
         type: 'markLine',
 
         defaultOption: {
@@ -83349,7 +82671,6 @@
     }
 
     MarkerView.extend({
-
         type: 'markLine',
 
         // updateLayout: function (markLineModel, ecModel, api) {
@@ -83399,7 +82720,6 @@
                     });
 
                     this.markerGroupMap.get(seriesModel.id).updateLayout();
-
                 }
             }, this);
         },
@@ -83496,7 +82816,6 @@
      * @param {module:echarts/model/Model} mpModel
      */
     function createList$2(coordSys, seriesModel, mlModel) {
-
         var coordDimsInfos;
         if (coordSys) {
             coordDimsInfos = map(coordSys && coordSys.dimensions, function (coordDim) {
@@ -83594,7 +82913,6 @@
     */
 
     MarkerModel.extend({
-
         type: 'markArea',
 
         defaultOption: {
@@ -83768,7 +83086,6 @@
     var dimPermutations = [['x0', 'y0'], ['x1', 'y0'], ['x1', 'y1'], ['x0', 'y1']];
 
     MarkerView.extend({
-
         type: 'markArea',
 
         // updateLayout: function (markAreaModel, ecModel, api) {
@@ -83836,7 +83153,6 @@
                     color: seriesData.getVisual('color')
                 });
             });
-
 
             areaData.diff(polygonGroup.__data)
                 .add(function (idx) {
@@ -83910,7 +83226,6 @@
      * @param {module:echarts/model/Model} mpModel
      */
     function createList$3(coordSys, seriesModel, maModel) {
-
         var coordDimsInfos;
         var areaData;
         var dims = ['x0', 'y0', 'x1', 'y1'];
@@ -84126,7 +83441,6 @@
         { type: 'timelineChange', event: 'timelineChanged', update: 'prepareAndUpdate' },
 
         function (payload, ecModel) {
-
             var timelineModel = ecModel.getComponent('timeline');
             if (timelineModel && payload.currentIndex != null) {
                 timelineModel.setCurrentIndex(payload.currentIndex);
@@ -84177,7 +83491,6 @@
     */
 
     var TimelineModel = ComponentModel.extend({
-
         type: 'timeline',
 
         layoutMode: 'box',
@@ -84186,7 +83499,6 @@
          * @protected
          */
         defaultOption: {
-
             zlevel: 0,                  // 一级层叠
             z: 4,                       // 二级层叠
             show: true,
@@ -84223,7 +83535,6 @@
          * @override
          */
         init: function (option, parentModel, ecModel) {
-
             /**
              * @private
              * @type {module:echarts/data/List}
@@ -84350,7 +83661,6 @@
                 return this._names.slice();
             }
         }
-
     });
 
     /*
@@ -84373,14 +83683,12 @@
     */
 
     var SliderTimelineModel = TimelineModel.extend({
-
         type: 'timeline.slider',
 
         /**
          * @protected
          */
         defaultOption: {
-
             backgroundColor: 'rgba(0,0,0,0)',   // 时间轴背景颜色
             borderColor: '#ccc',               // 时间轴边框颜色
             borderWidth: 0,                    // 时间轴边框线宽，单位px，默认为0（无边框）
@@ -84465,7 +83773,6 @@
             },
             data: []
         }
-
     });
 
     mixin(SliderTimelineModel, dataFormatMixin);
@@ -84523,7 +83830,6 @@
      * @param {string} position
      */
     var TimelineAxis = function (dim, scale, coordExtent, axisType) {
-
         Axis.call(this, dim, scale, coordExtent);
 
         /**
@@ -84544,7 +83850,6 @@
     };
 
     TimelineAxis.prototype = {
-
         constructor: TimelineAxis,
 
         /**
@@ -84560,7 +83865,6 @@
         isHorizontal: function () {
             return this.model.get('orient') === 'horizontal';
         }
-
     };
 
     inherits(TimelineAxis, Axis);
@@ -84590,11 +83894,9 @@
     var PI$4 = Math.PI;
 
     TimelineView.extend({
-
         type: 'timeline.slider',
 
         init: function (ecModel, api) {
-
             this.api = api;
 
             /**
@@ -84641,7 +83943,6 @@
             this.group.removeAll();
 
             if (timelineModel.get('show', true)) {
-
                 var layoutInfo = this._layout(timelineModel, api);
                 var mainGroup = this._createGroup('mainGroup');
                 var labelGroup = this._createGroup('labelGroup');
@@ -84934,7 +84235,6 @@
                 else {
                     el.dataIndex = el.dataModel = null;
                 }
-
             }, this);
         },
 
@@ -84975,7 +84275,6 @@
                 setHoverStyle(
                     textEl, setTextStyle({}, hoverLabelModel)
                 );
-
             }, this);
         },
 
@@ -85158,7 +84457,6 @@
                 from: this.uid
             });
         }
-
     });
 
     function getViewRect$4(model, api) {
@@ -85310,7 +84608,6 @@
     */
 
     var ToolboxModel = extendComponentModel({
-
         type: 'toolbox',
 
         layoutMode: {
@@ -85328,7 +84625,6 @@
         },
 
         defaultOption: {
-
             show: true,
 
             z: 6,
@@ -85395,7 +84691,6 @@
     */
 
     extendComponentView({
-
         type: 'toolbox',
 
         render: function (toolboxModel, ecModel, api, payload) {
@@ -86036,7 +85331,6 @@
      * @inner
      */
     function getContentFromModel(ecModel) {
-
         var result = groupSeries(ecModel);
 
         return {
@@ -86050,7 +85344,6 @@
             meta: result.meta
         };
     }
-
 
     function trim$1(str) {
         return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
@@ -86176,7 +85469,6 @@
      * @param {module:echarts/model/Model} model
      */
     function DataView(model) {
-
         this._dom = null;
 
         this.model = model;
@@ -86594,7 +85886,6 @@
     var DATA_ZOOM_ID_BASE = '\0_ec_\0toolbox-dataZoom_';
 
     function DataZoom(model, ecModel, api) {
-
         /**
          * @private
          * @type {module:echarts/component/helper/BrushController}
@@ -86648,7 +85939,6 @@
      * @private
      */
     var handlers$1 = {
-
         zoom: function () {
             var nextActive = !this._isZoomActive;
 
@@ -86803,9 +86093,7 @@
             );
     }
 
-
     register$1('dataZoom', DataZoom);
-
 
     // Create special dataZoom option for select
     // FIXME consider the case of merge option, where axes options are not exists.
@@ -87006,7 +86294,6 @@
     var mathMax$8 = Math.max;
 
     if (!env$1.canvasSupported) {
-
         var comma = ',';
         var imageTransformPrefix = 'progid:DXImageTransform.Microsoft';
 
@@ -87619,7 +86906,6 @@
                 // FIXME DXImageTransform 在 IE11 的兼容模式下不起作用
                 vmlElStyle.filter = imageTransformPrefix + '.Matrix('
                     + transformFilter.join('') + ', SizingMethod=clip)';
-
             }
             else {
                 if (m) {
@@ -87729,7 +87015,6 @@
             this.appendRectText(vmlRoot);
         };
 
-
         /***************************************************
          * TEXT
          **************************************************/
@@ -87800,7 +87085,6 @@
         var tmpRect$2 = new BoundingRect();
 
         var drawRectText = function (vmlRoot, rect, textRect, fromTextEl) {
-
             var style = this.style;
 
             // Optimize, avoid normalize every time.
@@ -88061,7 +87345,6 @@
      * @alias module:zrender/vml/Painter
      */
     function VMLPainter(root, storage) {
-
         initVML();
 
         this.root = root;
@@ -88105,7 +87388,6 @@
     }
 
     VMLPainter.prototype = {
-
         constructor: VMLPainter,
 
         getType: function () {
@@ -88133,7 +87415,6 @@
          * 刷新
          */
         refresh: function () {
-
             var list = this.storage.getDisplayList(true, true);
 
             this._paintList(list);
@@ -88989,9 +88270,7 @@
         this.nextId = 0;
     }
 
-
     Definable.prototype.createElement = createElement;
-
 
     /**
      * Get the <defs> tag for svgRoot; optionally creates one if not exists.
@@ -89036,7 +88315,6 @@
         }
     };
 
-
     /**
      * Update DOM element if necessary.
      *
@@ -89065,7 +88343,6 @@
         }
     };
 
-
     /**
      * Add gradient dom to defs
      *
@@ -89075,7 +88352,6 @@
         var defs = this.getDefs(true);
         defs.appendChild(dom);
     };
-
 
     /**
      * Remove DOM of a given element.
@@ -89089,7 +88365,6 @@
             element[this._domName] = null;
         }
     };
-
 
     /**
      * Get DOMs of this element.
@@ -89115,7 +88390,6 @@
         return doms;
     };
 
-
     /**
      * Mark DOMs to be unused before painting, and clear unused ones at the end
      * of the painting.
@@ -89128,7 +88402,6 @@
         });
     };
 
-
     /**
      * Mark a single DOM to be used.
      *
@@ -89139,7 +88412,6 @@
             dom[this._markLabel] = MARK_USED;
         }
     };
-
 
     /**
      * Remove unused DOMs defined in <defs>
@@ -89160,7 +88432,6 @@
             }
         });
     };
-
 
     /**
      * Get SVG proxy.
@@ -89183,7 +88454,6 @@
         }
     };
 
-
     /**
      * Get text SVG element.
      *
@@ -89193,7 +88463,6 @@
     Definable.prototype.getTextSvgElement = function (displayable) {
         return displayable.__textSvgEl;
     };
-
 
     /**
      * Get SVG element.
@@ -89228,9 +88497,7 @@
         );
     }
 
-
     inherits(GradientManager, Definable);
-
 
     /**
      * Create new gradient DOM for fill or stroke if not exist,
@@ -89277,7 +88544,6 @@
         }
     };
 
-
     /**
      * Add a new gradient tag in <defs>
      *
@@ -89313,7 +88579,6 @@
         return dom;
     };
 
-
     /**
      * Update gradient.
      *
@@ -89337,7 +88602,6 @@
             }
         });
     };
-
 
     /**
      * Update gradient dom
@@ -89425,9 +88689,7 @@
         Definable.call(this, zrId, svgRoot, 'clipPath', '__clippath_in_use__');
     }
 
-
     inherits(ClippathManager, Definable);
-
 
     /**
      * Update clipPath.
@@ -89449,7 +88711,6 @@
 
         this.markUsed(displayable);
     };
-
 
     /**
      * Create an SVGElement of displayable and create a <clipPath> of its
@@ -89598,9 +88859,7 @@
         );
     }
 
-
     inherits(ShadowManager, Definable);
-
 
     /**
      * Create new shadow DOM for fill or stroke if not exist,
@@ -89640,7 +88899,6 @@
         }
     };
 
-
     /**
      * Add a new shadow tag in <defs>
      *
@@ -89666,7 +88924,6 @@
         return dom;
     };
 
-
     /**
      * Update shadow.
      *
@@ -89686,7 +88943,6 @@
         }
     };
 
-
     /**
      * Remove DOM and clear parent filter
      */
@@ -89696,7 +88952,6 @@
             svgElement.style.filter = '';
         }
     };
-
 
     /**
      * Update shadow dom
@@ -89847,7 +89102,6 @@
      * @param {Object} opts
      */
     var SVGPainter = function (root, storage, opts, zrId) {
-
         this.root = root;
         this.storage = storage;
         this._opts = opts = extend({}, opts || {});
@@ -89877,7 +89131,6 @@
     };
 
     SVGPainter.prototype = {
-
         constructor: SVGPainter,
 
         getType: function () {
@@ -89899,7 +89152,6 @@
         },
 
         refresh: function () {
-
             var list = this.storage.getDisplayList(true);
 
             this._paintList(list);
@@ -90236,6 +89488,5 @@
     exports.Model = Model;
     exports.Axis = Axis;
     exports.env = env$1;
-
 })));
 //# sourceMappingURL=echarts.js.map

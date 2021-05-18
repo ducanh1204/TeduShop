@@ -108,9 +108,7 @@
                 }
             }, function (error) {
                 notificationService.displayError(error);
-
             });
         }
-
     }
 })(angular.module('tedushop.products'));

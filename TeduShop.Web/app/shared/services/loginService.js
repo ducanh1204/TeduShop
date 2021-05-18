@@ -18,7 +18,6 @@
                     headers:
                         { 'Content-Type': 'application/json' }
                 }).then(function (response) {
-
                     userInfo = {
                         accessToken: response.data,
                         userName: userName
@@ -34,8 +33,8 @@
                     $('.loader').fadeOut(100);
                 }, function (err) {
                     //console.log(err);
-                        $('.loader').fadeOut(100);
-                        notificationService.displayError("Tên tài khoản hoặc mật khẩu không đúng!"); 
+                    $('.loader').fadeOut(100);
+                    notificationService.displayError("Tên tài khoản hoặc mật khẩu không đúng!");
                 })
                     .then(function (err, status) {
                         authData.authenticationData.IsAuthenticated = false;

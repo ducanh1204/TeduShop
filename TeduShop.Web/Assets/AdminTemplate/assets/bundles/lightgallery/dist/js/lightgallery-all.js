@@ -19,12 +19,10 @@
         factory(root["jQuery"]);
     }
 }(this, function ($) {
-
     (function () {
         'use strict';
 
         var defaults = {
-
             mode: 'lg-slide',
 
             // Ex : 'ease'
@@ -93,7 +91,6 @@
         };
 
         function Plugin(element, options) {
-
             // Current lightGallery element
             this.el = element;
 
@@ -156,7 +153,6 @@
         }
 
         Plugin.prototype.init = function () {
-
             var _this = this;
 
             // s.preload should not be more than $item.length
@@ -167,7 +163,6 @@
             // if dynamic option is enabled execute immediately
             var _hash = window.location.hash;
             if (_hash.indexOf('lg=' + this.s.galleryId) > 0) {
-
                 _this.index = parseInt(_hash.split('&slide=')[1], 10);
 
                 $('body').addClass('lg-from-hash');
@@ -181,7 +176,6 @@
             }
 
             if (_this.s.dynamic) {
-
                 _this.$el.trigger('onBeforeOpen.lg');
 
                 _this.index = _this.s.index || 0;
@@ -194,10 +188,8 @@
                     });
                 }
             } else {
-
                 // Using different namespace for click because click event should not unbind if selector is same object('this')
                 _this.$items.on('click.lgcustom', function (event) {
-
                     // For IE8
                     try {
                         event.preventDefault();
@@ -217,11 +209,9 @@
                     }
                 });
             }
-
         };
 
         Plugin.prototype.build = function (index) {
-
             var _this = this;
 
             _this.structure();
@@ -239,7 +229,6 @@
             }
 
             if (_this.$items.length > 1) {
-
                 _this.arrow();
 
                 setTimeout(function () {
@@ -264,7 +253,6 @@
 
             // Hide controllers if mouse doesn't move for some period
             _this.$outer.on('mousemove.lg click.lg touchstart.lg', function () {
-
                 _this.$outer.removeClass('lg-hide-items');
 
                 clearTimeout(_this.hideBartimeout);
@@ -273,11 +261,9 @@
                 _this.hideBartimeout = setTimeout(function () {
                     _this.$outer.addClass('lg-hide-items');
                 }, _this.s.hideBarsDelay);
-
             });
 
             _this.$outer.trigger('mousemove.lg');
-
         };
 
         Plugin.prototype.structure = function () {
@@ -383,7 +369,6 @@
 
             // Store the current scroll top value to scroll back after closing the gallery..
             this.prevScrollTop = $(window).scrollTop();
-
         };
 
         // For fixed height gallery
@@ -428,7 +413,6 @@
          *  Ex:{ youtube  :  ["//www.youtube.com/watch?v=c0asJgSyxcY", "c0asJgSyxcY"] }
          */
         Plugin.prototype.isVideo = function (src, index) {
-
             var html;
             if (this.s.dynamic) {
                 html = this.s.dynamicEl[index].html;
@@ -509,7 +493,6 @@
 
             if (!subHtmlUrl) {
                 if (typeof subHtml !== 'undefined' && subHtml !== null) {
-
                     // get first letter of subhtml
                     // if first letter starts with . or # get the html form the jQuery object
                     var fL = subHtml.substring(0, 1);
@@ -526,15 +509,12 @@
             }
 
             if (this.s.appendSubHtmlTo === '.lg-sub-html') {
-
                 if (subHtmlUrl) {
                     this.$outer.find(this.s.appendSubHtmlTo).load(subHtmlUrl);
                 } else {
                     this.$outer.find(this.s.appendSubHtmlTo).html(subHtml);
                 }
-
             } else {
-
                 if (subHtmlUrl) {
                     this.$slide.eq(index).load(subHtmlUrl);
                 } else {
@@ -585,7 +565,6 @@
          *  @param {Boolean} delay - delay for adding complete class. it is 0 except first time.
          */
         Plugin.prototype.loadContent = function (index, rec, delay) {
-
             var _this = this;
             var _hasPoster = false;
             var _$img;
@@ -619,7 +598,6 @@
             };
 
             if (_this.s.dynamic) {
-
                 if (_this.s.dynamicEl[index].poster) {
                     _hasPoster = true;
                     _poster = _this.s.dynamicEl[index].poster;
@@ -635,9 +613,7 @@
 
                 _srcset = _this.s.dynamicEl[index].srcset;
                 _sizes = _this.s.dynamicEl[index].sizes;
-
             } else {
-
                 if (_this.$items.eq(index).attr('data-poster')) {
                     _hasPoster = true;
                     _poster = _this.$items.eq(index).attr('data-poster');
@@ -653,11 +629,9 @@
 
                 _srcset = _this.$items.eq(index).attr('data-srcset');
                 _sizes = _this.$items.eq(index).attr('data-sizes');
-
             }
 
             //if (_src || _srcset || _sizes || _poster) {
-
             var iframe = false;
             if (_this.s.dynamic) {
                 if (_this.s.dynamicEl[index].iframe) {
@@ -684,7 +658,6 @@
                     }
 
                     _this.$slide.eq(index).prepend('<div class="lg-video-cont ' + videoClass + ' "><div class="lg-video"><span class="lg-video-play"></span><img class="lg-object lg-has-poster" src="' + _poster + '" /></div></div>');
-
                 } else if (_isVideo) {
                     _this.$slide.eq(index).prepend('<div class="lg-video-cont "><div class="lg-video"></div></div>');
                     _this.$el.trigger('hasVideo.lg', [index, _src, _html]);
@@ -718,7 +691,6 @@
             }
 
             _this.$slide.eq(index).find('.lg-object').on('load.lg error.lg', function () {
-
                 // For first time add some delay for displaying the start animation.
                 var _speed = 0;
 
@@ -732,7 +704,6 @@
                     _this.$slide.eq(index).addClass('lg-complete');
                     _this.$el.trigger('onSlideItemLoad.lg', [index, delay || 0]);
                 }, _speed);
-
             });
 
             // @todo check load state for html5 videos
@@ -768,14 +739,13 @@
             ** ** avoid simultaneous image load
         <=> ** Preload() will check for s.preload value and call loadContent() again accoring to preload value
             ** loadContent()  <====> Preload();
-    
+
         *   @param {Number} index - index of the slide
         *   @param {Boolean} fromTouch - true if slide function called via touch event or mouse drag
         *   @param {Boolean} fromThumb - true if slide function called via thumbnail click
         *   @param {String} direction - Direction of the slide(next/prev)
         */
         Plugin.prototype.slide = function (index, fromTouch, fromThumb, direction) {
-
             var _prevIndex = this.$outer.find('.lg-current').index();
             var _this = this;
 
@@ -789,14 +759,12 @@
             var _time = _this.lGalleryOn ? this.s.speed : 0;
 
             if (!_this.lgBusy) {
-
                 if (this.s.download) {
                     var _src;
                     if (_this.s.dynamic) {
                         _src = _this.s.dynamicEl[index].downloadUrl !== false && (_this.s.dynamicEl[index].downloadUrl || _this.s.dynamicEl[index].src);
                     } else {
                         _src = _this.$items.eq(index).attr('data-download-url') !== 'false' && (_this.$items.eq(index).attr('data-download-url') || _this.$items.eq(index).attr('href') || _this.$items.eq(index).attr('data-src'));
-
                     }
 
                     if (_src) {
@@ -815,7 +783,6 @@
 
                 // Add title if this.s.appendSubHtmlTo === lg-sub-html
                 if (this.s.appendSubHtmlTo === '.lg-sub-html') {
-
                     // wait for slide animation to complete
                     setTimeout(function () {
                         _this.addHtml(index);
@@ -833,19 +800,16 @@
                 }
 
                 if (!fromTouch) {
-
                     // remove all transitions
                     _this.$outer.addClass('lg-no-trans');
 
                     this.$slide.removeClass('lg-prev-slide lg-next-slide');
 
                     if (direction === 'prev') {
-
                         //prevslide
                         this.$slide.eq(index).addClass('lg-prev-slide');
                         this.$slide.eq(_prevIndex).addClass('lg-next-slide');
                     } else {
-
                         // next slide
                         this.$slide.eq(index).addClass('lg-next-slide');
                         this.$slide.eq(_prevIndex).addClass('lg-prev-slide');
@@ -862,7 +826,6 @@
                         _this.$outer.removeClass('lg-no-trans');
                     }, 50);
                 } else {
-
                     this.$slide.removeClass('lg-prev-slide lg-current lg-next-slide');
                     var touchPrev;
                     var touchNext;
@@ -871,17 +834,14 @@
                         touchNext = index + 1;
 
                         if ((index === 0) && (_prevIndex === _length - 1)) {
-
                             // next slide
                             touchNext = 0;
                             touchPrev = _length - 1;
                         } else if ((index === _length - 1) && (_prevIndex === 0)) {
-
                             // prev slide
                             touchNext = 0;
                             touchPrev = _length - 1;
                         }
-
                     } else {
                         touchPrev = 0;
                         touchNext = 1;
@@ -905,7 +865,6 @@
                         _this.lgBusy = false;
                         _this.$el.trigger('onAfterSlide.lg', [_prevIndex, index, fromTouch, fromThumb]);
                     }, this.s.speed);
-
                 } else {
                     _this.loadContent(index, true, _this.s.backdropDuration);
 
@@ -918,10 +877,8 @@
                 if (this.s.counter) {
                     $('#lg-counter-current').text(index + 1);
                 }
-
             }
             _this.index = index;
-
         };
 
         /**
@@ -1028,7 +985,6 @@
         };
 
         Plugin.prototype.arrowDisable = function (index) {
-
             // Disable arrows if s.hideControlOnEnd is true
             if (!this.s.loop && this.s.hideControlOnEnd) {
                 if ((index + 1) < this.$slide.length) {
@@ -1057,7 +1013,6 @@
         };
 
         Plugin.prototype.touchMove = function (startCoords, endCoords) {
-
             var distance = endCoords - startCoords;
 
             if (Math.abs(distance) > 15) {
@@ -1091,7 +1046,6 @@
                 } else if ((distance > 0) && (Math.abs(distance) > _this.s.swipeThreshold)) {
                     _this.goToPrevSlide(true);
                 } else if (Math.abs(distance) < 5) {
-
                     // Trigger click if distance is less than 5 pix
                     _this.$el.trigger('onSlideClick.lg');
                 }
@@ -1105,7 +1059,6 @@
                     _this.$outer.removeClass('lg-slide');
                 }
             }, _this.s.speed + 100);
-
         };
 
         Plugin.prototype.enableSwipe = function () {
@@ -1115,7 +1068,6 @@
             var isMoved = false;
 
             if (_this.s.enableSwipe && _this.doCss()) {
-
                 _this.$slide.on('touchstart.lg', function (e) {
                     if (!_this.$outer.hasClass('lg-zoomed') && !_this.lgBusy) {
                         e.preventDefault();
@@ -1144,7 +1096,6 @@
                     }
                 });
             }
-
         };
 
         Plugin.prototype.enableDrag = function () {
@@ -1197,7 +1148,6 @@
                         _this.$outer.removeClass('lg-grabbing').addClass('lg-grab');
                     }
                 });
-
             }
         };
 
@@ -1223,7 +1173,6 @@
         Plugin.prototype.mousewheel = function () {
             var _this = this;
             _this.$outer.on('mousewheel.lg', function (e) {
-
                 if (!e.deltaY) {
                     return;
                 }
@@ -1236,11 +1185,9 @@
 
                 e.preventDefault();
             });
-
         };
 
         Plugin.prototype.closeGallery = function () {
-
             var _this = this;
             var mousedown = false;
             this.$outer.find('.lg-close').on('click.lg', function () {
@@ -1248,17 +1195,14 @@
             });
 
             if (_this.s.closable) {
-
                 // If you drag the slide and release outside gallery gets close on chrome
                 // for preventing this check mousedown and mouseup happened on .lg-item or lg-outer
                 _this.$outer.on('mousedown.lg', function (e) {
-
                     if ($(e.target).is('.lg-outer') || $(e.target).is('.lg-item ') || $(e.target).is('.lg-img-wrap')) {
                         mousedown = true;
                     } else {
                         mousedown = false;
                     }
-
                 });
 
                 _this.$outer.on('mousemove.lg', function () {
@@ -1266,28 +1210,22 @@
                 });
 
                 _this.$outer.on('mouseup.lg', function (e) {
-
                     if ($(e.target).is('.lg-outer') || $(e.target).is('.lg-item ') || $(e.target).is('.lg-img-wrap') && mousedown) {
                         if (!_this.$outer.hasClass('lg-dragging')) {
                             _this.destroy();
                         }
                     }
-
                 });
-
             }
-
         };
 
         Plugin.prototype.destroy = function (d) {
-
             var _this = this;
 
             if (!d) {
                 _this.$el.trigger('onBeforeClose.lg');
                 $(window).scrollTop(_this.prevScrollTop);
             }
-
 
             /**
              * if d is false or undefined destroy will only close the gallery
@@ -1338,7 +1276,6 @@
                 if (!d) {
                     _this.$el.trigger('onCloseAfter.lg');
                 }
-
             }, _this.s.backdropDuration + 50);
         };
 
@@ -1357,10 +1294,7 @@
         };
 
         $.fn.lightGallery.modules = {};
-
     })();
-
-
 }));
 
 /*! lg-autoplay - v1.0.4 - 2017-03-28
@@ -1382,10 +1316,7 @@
         factory(jQuery);
     }
 }(this, function ($) {
-
-
     (function () {
-
         'use strict';
 
         var defaults = {
@@ -1402,7 +1333,6 @@
          * @param {object} element - lightGallery element
          */
         var Autoplay = function (element) {
-
             this.core = $(element).data('lightGallery');
 
             this.$el = $(element);
@@ -1472,17 +1402,14 @@
                     _this.canceledOnTouch = false;
                 }
             });
-
         };
 
         Autoplay.prototype.progress = function () {
-
             var _this = this;
             var _$progressBar;
             var _$progress;
 
             _this.$el.on('onBeforeSlide.lg.tm', function () {
-
                 // start progress bar animation
                 if (_this.core.s.progressBar && _this.fromAuto) {
                     _$progressBar = _this.core.$outer.find('.lg-progress-bar');
@@ -1503,7 +1430,6 @@
                 }
 
                 _this.fromAuto = false;
-
             });
         };
 
@@ -1558,16 +1484,12 @@
         };
 
         Autoplay.prototype.destroy = function () {
-
             this.cancelAuto();
             this.core.$outer.find('.lg-progress-bar').remove();
         };
 
         $.fn.lightGallery.modules.autoplay = Autoplay;
-
     })();
-
-
 }));
 
 /*! lg-fullscreen - v1.0.1 - 2016-09-30
@@ -1589,9 +1511,7 @@
         factory(jQuery);
     }
 }(this, function ($) {
-
     (function () {
-
         'use strict';
 
         var defaults = {
@@ -1599,7 +1519,6 @@
         };
 
         var Fullscreen = function (element) {
-
             // get lightGallery core plugin data
             this.core = $(element).data('lightGallery');
 
@@ -1616,7 +1535,6 @@
         Fullscreen.prototype.init = function () {
             var fullScreen = '';
             if (this.core.s.fullScreen) {
-
                 // check for fullscreen browser support
                 if (!document.fullscreenEnabled && !document.webkitFullscreenEnabled &&
                     !document.mozFullScreenEnabled && !document.msFullscreenEnabled) {
@@ -1670,11 +1588,9 @@
                     _this.exitFullscreen();
                 }
             });
-
         };
 
         Fullscreen.prototype.destroy = function () {
-
             // exit from fullscreen if activated
             this.exitFullscreen();
 
@@ -1682,9 +1598,7 @@
         };
 
         $.fn.lightGallery.modules.fullscreen = Fullscreen;
-
     })();
-
 }));
 
 /*! lg-pager - v1.0.2 - 2017-01-22
@@ -1706,9 +1620,7 @@
         factory(jQuery);
     }
 }(this, function ($) {
-
     (function () {
-
         'use strict';
 
         var defaults = {
@@ -1716,7 +1628,6 @@
         };
 
         var Pager = function (element) {
-
             this.core = $(element).data('lightGallery');
 
             this.$el = $(element);
@@ -1743,13 +1654,11 @@
                 }
             } else {
                 _this.core.$items.each(function () {
-
                     if (!_this.core.s.exThumbImage) {
                         pagerList += '<span class="lg-pager-cont"> <span class="lg-pager"></span><div class="lg-pager-thumb-cont"><span class="lg-caret"></span> <img src="' + $(this).find('img').attr('src') + '" /></div></span>';
                     } else {
                         pagerList += '<span class="lg-pager-cont"> <span class="lg-pager"></span><div class="lg-pager-thumb-cont"><span class="lg-caret"></span> <img src="' + $(this).attr(_this.core.s.exThumbImage) + '" /></div></span>';
                     }
-
                 });
             }
 
@@ -1779,18 +1688,13 @@
                 $pagerCont.removeClass('lg-pager-active');
                 $pagerCont.eq(index).addClass('lg-pager-active');
             });
-
         };
 
         Pager.prototype.destroy = function () {
-
         };
 
         $.fn.lightGallery.modules.pager = Pager;
-
     })();
-
-
 }));
 
 /*! lg-thumbnail - v1.1.0 - 2017-08-08
@@ -1812,9 +1716,7 @@
         factory(jQuery);
     }
 }(this, function ($) {
-
     (function () {
-
         'use strict';
 
         var defaults = {
@@ -1847,7 +1749,6 @@
         };
 
         var Thumbnail = function (element) {
-
             // get lightGallery core plugin data
             this.core = $(element).data('lightGallery');
 
@@ -1984,13 +1885,11 @@
                 }
             } else {
                 _this.core.$items.each(function (i) {
-
                     if (!_this.core.s.exThumbImage) {
                         getThumb($(this).attr('href') || $(this).attr('data-src'), $(this).find('img').attr('src'), i);
                     } else {
                         getThumb($(this).attr('href') || $(this).attr('data-src'), $(this).attr(_this.core.s.exThumbImage), i);
                     }
-
                 });
             }
 
@@ -2022,7 +1921,6 @@
             $thumb.on('click.lg touchend.lg', function () {
                 var _$this = $(this);
                 setTimeout(function () {
-
                     // In IE9 and bellow touch does not support
                     // Go to slide if browser does not support css transitions
                     if ((_this.thumbClickable && !_this.core.lgBusy) || !_this.core.doCss()) {
@@ -2042,7 +1940,6 @@
                     _this.thumbOuterWidth = _this.$thumbOuter.width();
                 }, 200);
             });
-
         };
 
         Thumbnail.prototype.setTranslate = function (value) {
@@ -2092,13 +1989,11 @@
                 }
 
                 this.setTranslate(this.left);
-
             }
         };
 
         // Enable thumbnail dragging and swiping
         Thumbnail.prototype.enableThumbDrag = function () {
-
             var _this = this;
             var startCoords = 0;
             var endCoords = 0;
@@ -2145,7 +2040,6 @@
 
                     // move current slide
                     _this.setTranslate(tempLeft);
-
                 }
             });
 
@@ -2159,7 +2053,6 @@
                     if (Math.abs(endCoords - startCoords) < _this.core.s.swipeThreshold) {
                         _this.thumbClickable = true;
                     }
-
                 } else {
                     _this.thumbClickable = true;
                 }
@@ -2169,7 +2062,6 @@
                     _this.$thumbOuter.removeClass('lg-grabbing').addClass('lg-grab');
                 }
             });
-
         };
 
         Thumbnail.prototype.enableThumbSwipe = function () {
@@ -2209,13 +2101,11 @@
 
                     // move current slide
                     _this.setTranslate(tempLeft);
-
                 }
             });
 
             _this.core.$outer.find('.lg-thumb').on('touchend.lg', function () {
                 if (_this.thumbTotalWidth > _this.thumbOuterWidth) {
-
                     if (isMoved) {
                         isMoved = false;
                         _this.$thumbOuter.removeClass('lg-dragging');
@@ -2231,7 +2121,6 @@
                     _this.thumbClickable = true;
                 }
             });
-
         };
 
         Thumbnail.prototype.toogle = function () {
@@ -2267,9 +2156,7 @@
         };
 
         $.fn.lightGallery.modules.Thumbnail = Thumbnail;
-
     })();
-
 }));
 
 /*! lg-video - v1.2.2 - 2018-05-01
@@ -2291,9 +2178,7 @@
         factory(root["jQuery"]);
     }
 }(this, function ($) {
-
     (function () {
-
         'use strict';
 
         var defaults = {
@@ -2311,7 +2196,6 @@
         };
 
         var Video = function (element) {
-
             this.core = $(element).data('lightGallery');
 
             this.$el = $(element);
@@ -2338,7 +2222,6 @@
                     _this.loadVideoOnclick($el);
                 });
             } else {
-
                 // For IE 9 and bellow
                 _this.core.$slide.on('click.lg', function () {
                     _this.loadVideoOnclick($(this));
@@ -2379,32 +2262,26 @@
             }
 
             if (isVideo.youtube) {
-
                 a = '?wmode=opaque&autoplay=' + autoplay + '&enablejsapi=1';
                 if (this.core.s.youtubePlayerParams) {
                     a = a + '&' + $.param(this.core.s.youtubePlayerParams);
                 }
 
                 video = '<iframe class="lg-video-object lg-youtube ' + addClass + '" width="560" height="315" src="//www.youtube.com/embed/' + isVideo.youtube[1] + a + '" frameborder="0" allowfullscreen></iframe>';
-
             } else if (isVideo.vimeo) {
-
                 a = '?autoplay=' + autoplay + '&api=1';
                 if (this.core.s.vimeoPlayerParams) {
                     a = a + '&' + $.param(this.core.s.vimeoPlayerParams);
                 }
 
                 video = '<iframe class="lg-video-object lg-vimeo ' + addClass + '" width="560" height="315"  src="//player.vimeo.com/video/' + isVideo.vimeo[1] + a + '" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
-
             } else if (isVideo.dailymotion) {
-
                 a = '?wmode=opaque&autoplay=' + autoplay + '&api=postMessage';
                 if (this.core.s.dailymotionPlayerParams) {
                     a = a + '&' + $.param(this.core.s.dailymotionPlayerParams);
                 }
 
                 video = '<iframe class="lg-video-object lg-dailymotion ' + addClass + '" width="560" height="315" src="//www.dailymotion.com/embed/video/' + isVideo.dailymotion[1] + a + '" frameborder="0" allowfullscreen></iframe>';
-
             } else if (isVideo.html5) {
                 var fL = html.substring(0, 1);
                 if (fL === '.' || fL === '#') {
@@ -2412,36 +2289,29 @@
                 }
 
                 video = html;
-
             } else if (isVideo.vk) {
-
                 a = '&autoplay=' + autoplay;
                 if (this.core.s.vkPlayerParams) {
                     a = a + '&' + $.param(this.core.s.vkPlayerParams);
                 }
 
                 video = '<iframe class="lg-video-object lg-vk ' + addClass + '" width="560" height="315" src="//vk.com/video_ext.php?' + isVideo.vk[1] + a + '" frameborder="0" allowfullscreen></iframe>';
-
             }
 
             return video;
         };
 
         Video.prototype.loadVideoOnclick = function ($el) {
-
             var _this = this;
             // check slide has poster
             if ($el.find('.lg-object').hasClass('lg-has-poster') && $el.find('.lg-object').is(':visible')) {
-
                 // check already video element present
                 if (!$el.hasClass('lg-has-video')) {
-
                     $el.addClass('lg-video-playing lg-has-video');
 
                     var _src;
                     var _html;
                     var _loadVideo = function (_src, _html) {
-
                         $el.find('.lg-video').append(_this.loadVideo(_src, '', false, _this.core.index, _html));
 
                         if (_html) {
@@ -2457,23 +2327,18 @@
                                 _this.core.$slide.eq(_this.core.index).find('.lg-html5').get(0).play();
                             }
                         }
-
                     };
 
                     if (_this.core.s.dynamic) {
-
                         _src = _this.core.s.dynamicEl[_this.core.index].src;
                         _html = _this.core.s.dynamicEl[_this.core.index].html;
 
                         _loadVideo(_src, _html);
-
                     } else {
-
                         _src = _this.core.$items.eq(_this.core.index).attr('href') || _this.core.$items.eq(_this.core.index).attr('data-src');
                         _html = _this.core.$items.eq(_this.core.index).attr('data-html');
 
                         _loadVideo(_src, _html);
-
                     }
 
                     var $tempImg = $el.find('.lg-object');
@@ -2487,9 +2352,7 @@
                             $el.addClass('lg-complete');
                         });
                     }
-
                 } else {
-
                     var youtubePlayer = $el.find('.lg-youtube').get(0);
                     var vimeoPlayer = $el.find('.lg-vimeo').get(0);
                     var dailymotionPlayer = $el.find('.lg-dailymotion').get(0);
@@ -2504,7 +2367,6 @@
                         }
                     } else if (dailymotionPlayer) {
                         dailymotionPlayer.contentWindow.postMessage('play', '*');
-
                     } else if (html5Player) {
                         if (_this.core.s.videojs) {
                             try {
@@ -2518,7 +2380,6 @@
                     }
 
                     $el.addClass('lg-video-playing');
-
                 }
             }
         };
@@ -2579,7 +2440,6 @@
                 }
             } else if (dailymotionPlayer) {
                 dailymotionPlayer.contentWindow.postMessage('pause', '*');
-
             } else if (html5Player) {
                 if (_this.core.s.videojs) {
                     try {
@@ -2599,20 +2459,16 @@
                 _src = _this.core.s.dynamicEl[index].src;
             } else {
                 _src = _this.core.$items.eq(index).attr('href') || _this.core.$items.eq(index).attr('data-src');
-
             }
 
             var _isVideo = _this.core.isVideo(_src, index) || {};
             if (_isVideo.youtube || _isVideo.vimeo || _isVideo.dailymotion || _isVideo.vk) {
                 _this.core.$outer.addClass('lg-hide-download');
             }
-
         }
 
         $.fn.lightGallery.modules.video = Video;
-
     })();
-
 }));
 
 /*! lg-zoom - v1.1.0 - 2017-08-08
@@ -2634,9 +2490,7 @@
         factory(jQuery);
     }
 }(this, function ($) {
-
     (function () {
-
         'use strict';
 
         var getUseLeft = function () {
@@ -2658,7 +2512,6 @@
         };
 
         var Zoom = function (element) {
-
             this.core = $(element).data('lightGallery');
 
             this.core.s = $.extend({}, defaults, this.core.s);
@@ -2678,7 +2531,6 @@
         };
 
         Zoom.prototype.init = function () {
-
             var _this = this;
             var zoomIcons = '<span id="lg-zoom-in" class="lg-icon"></span><span id="lg-zoom-out" class="lg-icon"></span>';
 
@@ -2696,17 +2548,14 @@
 
             // Add zoomable class
             _this.core.$el.on('onSlideItemLoad.lg.tm.zoom', function (event, index, delay) {
-
                 // delay will be 0 except first time
                 var _speed = _this.core.s.enableZoomAfter + delay;
 
                 // set _speed value 0 if gallery opened from direct url and if it is first slide
                 if ($('body').hasClass('lg-from-hash') && delay) {
-
                     // will execute only once
                     _speed = 0;
                 } else {
-
                     // Remove lg-from-hash to enable starting animation.
                     $('body').removeClass('lg-from-hash');
                 }
@@ -2724,7 +2573,6 @@
              * @param {String} scaleVal - Zoom decrement/increment value
              */
             var zoom = function (scaleVal) {
-
                 var $image = _this.core.$outer.find('.lg-current .lg-image');
                 var _x;
                 var _y;
@@ -2803,7 +2651,6 @@
 
             // event triggered after appending slide content
             _this.core.$el.on('onAferAppendSlide.lg.tm.zoom', function (event, index) {
-
                 // Get the current element
                 var $image = _this.core.$slide.eq(index).find('.lg-image');
 
@@ -2824,7 +2671,6 @@
 
                     event.preventDefault();
                 });
-
             });
 
             // Update zoom on resize and orientationchange
@@ -2862,7 +2708,6 @@
             _this.zoomDrag();
 
             _this.zoomSwipe();
-
         };
 
         // Reset zoom effect
@@ -2889,7 +2734,6 @@
             var allowY = false;
 
             _this.core.$slide.on('touchstart.lg', function (e) {
-
                 if (_this.core.$outer.hasClass('lg-zoomed')) {
                     var $image = _this.core.$slide.eq(_this.core.index).find('.lg-object');
 
@@ -2903,13 +2747,10 @@
                         };
                     }
                 }
-
             });
 
             _this.core.$slide.on('touchmove.lg', function (e) {
-
                 if (_this.core.$outer.hasClass('lg-zoomed')) {
-
                     var _$el = _this.core.$slide.eq(_this.core.index).find('.lg-img-wrap');
                     var distanceX;
                     var distanceY;
@@ -2938,7 +2779,6 @@
                     }
 
                     if ((Math.abs(endCoords.x - startCoords.x) > 15) || (Math.abs(endCoords.y - startCoords.y) > 15)) {
-
                         if (_this.core.s.useLeftForZoom) {
                             _$el.css({
                                 left: distanceX + 'px',
@@ -2948,9 +2788,7 @@
                             _$el.css('transform', 'translate3d(' + distanceX + 'px, ' + distanceY + 'px, 0)');
                         }
                     }
-
                 }
-
             });
 
             _this.core.$slide.on('touchend.lg', function () {
@@ -2959,15 +2797,12 @@
                         isMoved = false;
                         _this.core.$outer.removeClass('lg-zoom-dragging');
                         _this.touchendZoom(startCoords, endCoords, allowX, allowY);
-
                     }
                 }
             });
-
         };
 
         Zoom.prototype.zoomDrag = function () {
-
             var _this = this;
             var startCoords = {};
             var endCoords = {};
@@ -2981,7 +2816,6 @@
             var allowY = false;
 
             _this.core.$slide.on('mousedown.lg.zoom', function (e) {
-
                 // execute only on .lg-object
                 var $image = _this.core.$slide.eq(_this.core.index).find('.lg-object');
 
@@ -3046,7 +2880,6 @@
             });
 
             $(window).on('mouseup.lg.zoom', function (e) {
-
                 if (isDraging) {
                     isDraging = false;
                     _this.core.$outer.removeClass('lg-zoom-dragging');
@@ -3058,19 +2891,16 @@
                             y: e.pageY
                         };
                         _this.touchendZoom(startCoords, endCoords, allowX, allowY);
-
                     }
 
                     isMoved = false;
                 }
 
                 _this.core.$outer.removeClass('lg-grabbing').addClass('lg-grab');
-
             });
         };
 
         Zoom.prototype.touchendZoom = function (startCoords, endCoords, allowX, allowY) {
-
             var _this = this;
             var _$el = _this.core.$slide.eq(_this.core.index).find('.lg-img-wrap');
             var $image = _this.core.$slide.eq(_this.core.index).find('.lg-object');
@@ -3118,12 +2948,10 @@
                 } else {
                     _$el.css('transform', 'translate3d(' + distanceX + 'px, ' + distanceY + 'px, 0)');
                 }
-
             }
         };
 
         Zoom.prototype.destroy = function () {
-
             var _this = this;
 
             // Unbind all events added by lightGallery zoom plugin
@@ -3137,10 +2965,7 @@
         };
 
         $.fn.lightGallery.modules.zoom = Zoom;
-
     })();
-
-
 }));
 
 /*! lg-hash - v1.0.4 - 2017-12-20
@@ -3162,9 +2987,7 @@
         factory(jQuery);
     }
 }(this, function ($) {
-
     (function () {
-
         'use strict';
 
         var defaults = {
@@ -3172,7 +2995,6 @@
         };
 
         var Hash = function (element) {
-
             this.core = $(element).data('lightGallery');
 
             this.core.s = $.extend({}, defaults, this.core.s);
@@ -3209,12 +3031,10 @@
                 } else if (_this.core.lGalleryOn) {
                     _this.core.destroy();
                 }
-
             });
         };
 
         Hash.prototype.destroy = function () {
-
             if (!this.core.s.hash) {
                 return;
             }
@@ -3235,14 +3055,10 @@
             }
 
             this.core.$el.off('.lg.hash');
-
         };
 
         $.fn.lightGallery.modules.hash = Hash;
-
     })();
-
-
 }));
 
 /*! lg-share - v1.1.0 - 2017-10-03
@@ -3264,9 +3080,7 @@
         factory(jQuery);
     }
 }(this, function ($) {
-
     (function () {
-
         'use strict';
 
         var defaults = {
@@ -3282,7 +3096,6 @@
         };
 
         var Share = function (element) {
-
             this.core = $(element).data('lightGallery');
 
             this.core.s = $.extend({}, defaults, this.core.s);
@@ -3314,9 +3127,7 @@
             });
 
             _this.core.$el.on('onAfterSlide.lg.tm', function (event, prevIndex, index) {
-
                 setTimeout(function () {
-
                     $('#lg-share-facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + (encodeURIComponent(_this.getSahreProps(index, 'facebookShareUrl') || window.location.href)));
 
                     $('#lg-share-twitter').attr('href', 'https://twitter.com/intent/tweet?text=' + _this.getSahreProps(index, 'tweetText') + '&url=' + (encodeURIComponent(_this.getSahreProps(index, 'twitterShareUrl') || window.location.href)));
@@ -3324,7 +3135,6 @@
                     $('#lg-share-googleplus').attr('href', 'https://plus.google.com/share?url=' + (encodeURIComponent(_this.getSahreProps(index, 'googleplusShareUrl') || window.location.href)));
 
                     $('#lg-share-pinterest').attr('href', 'http://www.pinterest.com/pin/create/button/?url=' + (encodeURIComponent(_this.getSahreProps(index, 'pinterestShareUrl') || window.location.href)) + '&media=' + encodeURIComponent(_this.getSahreProps(index, 'src')) + '&description=' + _this.getSahreProps(index, 'pinterestText'));
-
                 }, 100);
             });
         };
@@ -3342,13 +3152,8 @@
         };
 
         Share.prototype.destroy = function () {
-
         };
 
         $.fn.lightGallery.modules.share = Share;
-
     })();
-
-
-
 }));

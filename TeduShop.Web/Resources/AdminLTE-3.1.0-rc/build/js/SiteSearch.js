@@ -24,7 +24,7 @@ const SELECTOR_SEARCH_INPUT = '.site-search-block .form-control'
 const CLASS_NAME_OPEN = 'site-search-open'
 
 const Default = {
-  transitionSpeed: 300
+    transitionSpeed: 300
 }
 
 /**
@@ -33,52 +33,52 @@ const Default = {
  */
 
 class SiteSearch {
-  constructor(_element, _options) {
-    this.element = _element
-    this.options = $.extend({}, Default, _options)
-  }
-
-  // Public
-
-  open() {
-    $(SELECTOR_SEARCH_BLOCK).slideDown(this.options.transitionSpeed)
-    $(SELECTOR_SEARCH_BACKDROP).show(0)
-    $(SELECTOR_SEARCH_INPUT).focus()
-    $(SELECTOR_SEARCH_BLOCK).addClass(CLASS_NAME_OPEN)
-  }
-
-  close() {
-    $(SELECTOR_SEARCH_BLOCK).slideUp(this.options.transitionSpeed)
-    $(SELECTOR_SEARCH_BACKDROP).hide(0)
-    $(SELECTOR_SEARCH_BLOCK).removeClass(CLASS_NAME_OPEN)
-  }
-
-  toggle() {
-    if ($(SELECTOR_SEARCH_BLOCK).hasClass(CLASS_NAME_OPEN)) {
-      this.close()
-    } else {
-      this.open()
+    constructor(_element, _options) {
+        this.element = _element
+        this.options = $.extend({}, Default, _options)
     }
-  }
 
-  // Static
+    // Public
 
-  static _jQueryInterface(options) {
-    return this.each(function () {
-      let data = $(this).data(DATA_KEY)
+    open() {
+        $(SELECTOR_SEARCH_BLOCK).slideDown(this.options.transitionSpeed)
+        $(SELECTOR_SEARCH_BACKDROP).show(0)
+        $(SELECTOR_SEARCH_INPUT).focus()
+        $(SELECTOR_SEARCH_BLOCK).addClass(CLASS_NAME_OPEN)
+    }
 
-      if (!data) {
-        data = new SiteSearch(this, options)
-        $(this).data(DATA_KEY, data)
-      }
+    close() {
+        $(SELECTOR_SEARCH_BLOCK).slideUp(this.options.transitionSpeed)
+        $(SELECTOR_SEARCH_BACKDROP).hide(0)
+        $(SELECTOR_SEARCH_BLOCK).removeClass(CLASS_NAME_OPEN)
+    }
 
-      if (!/toggle|close/.test(options)) {
-        throw new Error(`Undefined method ${options}`)
-      }
+    toggle() {
+        if ($(SELECTOR_SEARCH_BLOCK).hasClass(CLASS_NAME_OPEN)) {
+            this.close()
+        } else {
+            this.open()
+        }
+    }
 
-      data[options]()
-    })
-  }
+    // Static
+
+    static _jQueryInterface(options) {
+        return this.each(function () {
+            let data = $(this).data(DATA_KEY)
+
+            if (!data) {
+                data = new SiteSearch(this, options)
+                $(this).data(DATA_KEY, data)
+            }
+
+            if (!/toggle|close/.test(options)) {
+                throw new Error(`Undefined method ${options}`)
+            }
+
+            data[options]()
+        })
+    }
 }
 
 /**
@@ -86,20 +86,20 @@ class SiteSearch {
  * ====================================================
  */
 $(document).on('click', SELECTOR_TOGGLE_BUTTON, event => {
-  event.preventDefault()
+    event.preventDefault()
 
-  let button = $(event.currentTarget)
+    let button = $(event.currentTarget)
 
-  if (button.data('widget') !== 'site-search') {
-    button = button.closest(SELECTOR_TOGGLE_BUTTON)
-  }
+    if (button.data('widget') !== 'site-search') {
+        button = button.closest(SELECTOR_TOGGLE_BUTTON)
+    }
 
-  SiteSearch._jQueryInterface.call(button, 'toggle')
+    SiteSearch._jQueryInterface.call(button, 'toggle')
 })
 
 $(document).on('click', SELECTOR_SEARCH_BACKDROP, event => {
-  const backdrop = $(event.currentTarget)
-  SiteSearch._jQueryInterface.call(backdrop, 'close')
+    const backdrop = $(event.currentTarget)
+    SiteSearch._jQueryInterface.call(backdrop, 'close')
 })
 
 /**
@@ -110,8 +110,8 @@ $(document).on('click', SELECTOR_SEARCH_BACKDROP, event => {
 $.fn[NAME] = SiteSearch._jQueryInterface
 $.fn[NAME].Constructor = SiteSearch
 $.fn[NAME].noConflict = function () {
-  $.fn[NAME] = JQUERY_NO_CONFLICT
-  return SiteSearch._jQueryInterface
+    $.fn[NAME] = JQUERY_NO_CONFLICT
+    return SiteSearch._jQueryInterface
 }
 
 export default SiteSearch

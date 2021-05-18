@@ -36,6 +36,5 @@
         }
 
         loadParentCategory();
-
     }
 })(angular.module('tedushop.product_categories'));

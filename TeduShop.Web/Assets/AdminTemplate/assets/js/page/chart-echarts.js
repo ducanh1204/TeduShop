@@ -57,7 +57,6 @@ $(function (e) {
                     show: false,
                 }
             }
-
         },
         yAxis: {
             splitLine: {
@@ -80,7 +79,6 @@ $(function (e) {
     };
 
     barChart.setOption(option);
-
 
     var chartdata2 = [
         {
@@ -156,8 +154,6 @@ $(function (e) {
     };
     barChart2.setOption(option2);
 
-
-
     /* Bar chart */
 
     /* Chart data*/
@@ -174,7 +170,6 @@ $(function (e) {
             data: [10, 14, 10, 15, 9, 25]
         }
     ];
-
 
     var chart = document.getElementById('echart_bar');
     var barChart = echarts.init(chart);
@@ -218,7 +213,6 @@ $(function (e) {
     };
 
     barChart.setOption(option);
-
 
     /* Bar Graph */
     var chart = document.getElementById('echart_graph_line');
@@ -295,7 +289,6 @@ $(function (e) {
             }
         }],
         color: ['#9f78ff', '#32cafe']
-
     });
 
     /* Pie Chart */
@@ -514,6 +507,4 @@ $(function (e) {
             }]
         }]
     });
-
 });
-

@@ -6,19 +6,14 @@ namespace TeduShop.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            ViewBag.Title = "Home Page";
+
+            return RedirectToAction("Index", "Admin");
         }
 
-        public ActionResult About()
+        public ActionResult TestSiderBar()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Title = "Home Page";
 
             return View();
         }

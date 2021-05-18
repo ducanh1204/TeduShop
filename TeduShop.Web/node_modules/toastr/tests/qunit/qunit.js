@@ -9,7 +9,6 @@
  */
 
 (function( window ) {
-
 var QUnit,
 	assert,
 	config,
@@ -154,7 +153,6 @@ Test.prototype = {
 		});
 
 		/*jshint camelcase:false */
-
 
 		/**
 		 * Expose the current test environment.
@@ -320,7 +318,6 @@ Test.prototype = {
 			li.appendChild( a );
 			li.appendChild( time );
 			li.appendChild( ol );
-
 		} else {
 			for ( i = 0; i < this.assertions.length; i++ ) {
 				if ( !this.assertions[i].result ) {
@@ -384,7 +381,6 @@ Test.prototype = {
 // Root QUnit object.
 // `QUnit` initialized at top of scope
 QUnit = {
-
 	// call on start of module test to prepend name to all tests
 	module: function( name, testEnvironment ) {
 		config.currentModule = name;
@@ -1029,7 +1025,6 @@ extend( QUnit, {
  * QUnit object.
  */
 extend( QUnit.constructor.prototype, {
-
 	// Logging callbacks; all receive a single argument with the listed properties
 	// run test/logs.html for any related changes
 	begin: registerLoggingCallback( "begin" ),
@@ -1105,7 +1100,6 @@ QUnit.load = function() {
 	moduleFilterHtml += "<label for='qunit-modulefilter'>Module: </label><select id='qunit-modulefilter' name='modulefilter'><option value='' " +
 		( config.module === undefined  ? "selected='selected'" : "" ) +
 		">< All Modules ></option>";
-
 
 	for ( i = 0; i < numModules; i++) {
 			moduleFilterHtml += "<option value='" + escapeText( encodeURIComponent(moduleNames[i]) ) + "' " +
@@ -1604,7 +1598,6 @@ function runLoggingCallbacks( key, scope, args ) {
 // Test for equality any JavaScript type.
 // Author: Philippe Rathé <prathe@gmail.com>
 QUnit.equiv = (function() {
-
 	// Call the o related callback with the given arguments.
 	function bindCallbacks( o, callbacks, args ) {
 		var prop = QUnit.objectType( o );
@@ -1630,7 +1623,6 @@ QUnit.equiv = (function() {
 			return obj.__proto__;
 		},
 		callbacks = (function () {
-
 			// for string, boolean, number and null
 			function useStrictEquality( b, a ) {
 				/*jshint eqeqeq:false */
@@ -2114,7 +2106,6 @@ QUnit.diff = (function() {
 		for ( i = 0; i < n.length - 1; i++ ) {
 			if ( n[i].text != null && n[ i + 1 ].text == null && n[i].row + 1 < o.length && o[ n[i].row + 1 ].text == null &&
 						n[ i + 1 ] == o[ n[i].row + 1 ] ) {
-
 				n[ i + 1 ] = {
 					text: n[ i + 1 ],
 					row: n[i].row + 1
@@ -2129,7 +2120,6 @@ QUnit.diff = (function() {
 		for ( i = n.length - 1; i > 0; i-- ) {
 			if ( n[i].text != null && n[ i - 1 ].text == null && n[i].row > 0 && o[ n[i].row - 1 ].text == null &&
 						n[ i - 1 ] == o[ n[i].row - 1 ]) {
-
 				n[ i - 1 ] = {
 					text: n[ i - 1 ],
 					row: n[i].row - 1

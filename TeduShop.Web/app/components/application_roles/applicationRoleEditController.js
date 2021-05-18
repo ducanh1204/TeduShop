@@ -2,7 +2,6 @@
     app.controller('applicationRoleEditController', applicationRoleEditController);
     applicationRoleEditController.$inject = ['$scope', 'apiService', 'notificationService', '$state', '$stateParams'];
     function applicationRoleEditController($scope, apiService, notificationService, $state, $stateParams) {
-
         function loadApplicationRoleDetail() {
             apiService.get('api/applicationRole/detail/' + $stateParams.id, null,
                 function (result) {

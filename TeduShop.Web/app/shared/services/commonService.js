@@ -38,6 +38,5 @@
 
             return slug;
         }
-
     }
 })(angular.module('tedushop.common'));

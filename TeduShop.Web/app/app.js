@@ -29,7 +29,7 @@
             templateUrl: "/app/components/home/homeView.html",
             controller: "homeController"
         });
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/login');
     }
 
     function configAuthentication($httpProvider) {

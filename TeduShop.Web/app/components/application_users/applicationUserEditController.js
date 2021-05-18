@@ -2,7 +2,6 @@
     app.controller('applicationUserEditController', applicationUserEditController);
     applicationUserEditController.$inject = ['$scope', 'apiService', 'notificationService', '$state', '$stateParams'];
     function applicationUserEditController($scope, apiService, notificationService, $state, $stateParams) {
-
         function loadApplicationUserDetail() {
             apiService.get('api/applicationUser/detail/' + $stateParams.id, null,
                 function (result) {
@@ -21,7 +20,6 @@
                 }, function () {
                     notificationService.displayError('Không tải được danh sách nhóm.');
                 });
-
         }
         loadGroups();
 

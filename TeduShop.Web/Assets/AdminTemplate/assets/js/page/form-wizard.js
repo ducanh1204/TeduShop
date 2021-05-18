@@ -34,7 +34,6 @@ $(function () {
         bodyTag: 'fieldset',
         transitionEffect: 'slideLeft',
         onInit: function (event, currentIndex) {
-
             //Set tab width
             var $tab = $(event.currentTarget).find('ul[role="tablist"] li');
             var tabCount = $tab.length;
@@ -82,8 +81,6 @@ $(function () {
             }
         }
     });
-
-
 });
 
 function setButtonWavesEffect(event) {

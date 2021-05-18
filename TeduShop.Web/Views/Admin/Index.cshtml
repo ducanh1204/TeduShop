@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Jiva - Admin Dashboard Template</title>
+    <title>Trang quản trị</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="~/Assets/AdminTemplate/assets/css/app.min.css">
     <link rel="stylesheet" href="~/Assets/AdminTemplate/assets/bundles/izitoast/css/iziToast.min.css">
@@ -24,14 +24,15 @@
 </head>
 
 <body>
-    @*<div class="loader"></div>*@
-    <div id="app" ng-app="tedushop" ng-controller="rootController">
+    <div class="loader"></div>
+    <div ng-app="tedushop" ng-controller="rootController">
         <div class="main-wrapper main-wrapper-1">
             <ui-view></ui-view>
         </div>
     </div>
     <!-- General JS Scripts -->
     <script src="~/Assets/AdminTemplate/assets/bundles/izitoast/js/iziToast.min.js"></script>
+    <script src="~/Assets/AdminTemplate/assets/js/button-go-top.js"></script>
     <!-- JS Libraies -->
     <!-- Page Specific JS File -->
     <script src="~/Assets/AdminTemplate/assets/bundles/cleave-js/dist/cleave.min.js"></script>
@@ -99,5 +100,11 @@
     <script src="~/app/components/login/loginController.js"></script>
     <script src="~/app/components/home/homeController.js"></script>
     <script src="~/app/components/home/rootController.js"></script>
+
+    <script>
+        $(window).on("load", function () {
+            $(".loader").fadeOut("slow");
+        });
+    </script>
 </body>
 </html>

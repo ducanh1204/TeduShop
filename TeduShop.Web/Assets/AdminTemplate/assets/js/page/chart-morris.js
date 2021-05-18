@@ -6,7 +6,6 @@ $(function () {
     getMorris('donut', 'donut_chart');
 });
 
-
 function getMorris(type, element) {
     if (type === 'line') {
         Morris.Line({
@@ -107,7 +106,6 @@ function getMorris(type, element) {
             barColors: ['#01B8AA', '#F2C80F', '#5F6B6D'],
             hideHover: 'auto'
         });
-
     } else if (type === 'area') {
         Morris.Area({
             element: element,

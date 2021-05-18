@@ -12,7 +12,6 @@
         $scope.AddProduct = AddProduct;
         $scope.GetSeoTitle = GetSeoTitle;
 
-
         function loadParentCategory() {
             apiService.get('api/productcategory/getallparents', null, function (result) {
                 $scope.productCategories = result.data;
@@ -35,7 +34,5 @@
                     notificationService.displayError('Thêm mới không thành công.');
                 });
         }
-
-
     }
 })(angular.module('tedushop.products'));

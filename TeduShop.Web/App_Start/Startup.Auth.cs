@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
@@ -32,24 +31,24 @@ namespace TeduShop.Web.App_Start
                 Provider = new AuthorizationServerProvider(),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 AllowInsecureHttp = true,
-
             });
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-
         }
+
         public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
         {
             public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
             {
                 context.Validated();
             }
+
             public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
             {
                 //var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
 
                 //if (allowedOrigin == null) allowedOrigin = "*";
 
-                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] {"*"});
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
                 UserManager<ApplicationUser> userManager = context.OwinContext.GetUserManager<UserManager<ApplicationUser>>();
                 ApplicationUser user;
@@ -85,8 +84,5 @@ namespace TeduShop.Web.App_Start
             var owinManager = new UserManager<ApplicationUser>(userStore);
             return owinManager;
         }
-
     }
-
-    
 }

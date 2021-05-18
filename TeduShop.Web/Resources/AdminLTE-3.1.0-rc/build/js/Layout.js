@@ -34,11 +34,11 @@ const CLASS_NAME_CONTROL_SIDEBAR_OPEN = 'control-sidebar-open'
 const CLASS_NAME_LAYOUT_TOP_NAV = 'layout-top-nav'
 
 const Default = {
-  scrollbarTheme: 'os-theme-light',
-  scrollbarAutoHide: 'l',
-  panelAutoHeight: true,
-  panelAutoHeightMode: 'min-height',
-  loginRegisterAutoHeight: true
+    scrollbarTheme: 'os-theme-light',
+    scrollbarAutoHide: 'l',
+    panelAutoHeight: true,
+    panelAutoHeightMode: 'min-height',
+    loginRegisterAutoHeight: true
 }
 
 /**
@@ -47,173 +47,173 @@ const Default = {
  */
 
 class Layout {
-  constructor(element, config) {
-    this._config = config
-    this._element = element
+    constructor(element, config) {
+        this._config = config
+        this._element = element
 
-    this._init()
-  }
-
-  // Public
-
-  fixLayoutHeight(extra = null) {
-    const $body = $('body')
-    let controlSidebar = 0
-
-    if ($body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_SLIDE_OPEN) || $body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_OPEN) || extra === 'control_sidebar') {
-      controlSidebar = $(SELECTOR_CONTROL_SIDEBAR_CONTENT).height()
+        this._init()
     }
 
-    const heights = {
-      window: $(window).height(),
-      header: $(SELECTOR_HEADER).length !== 0 ? $(SELECTOR_HEADER).outerHeight() : 0,
-      footer: $(SELECTOR_FOOTER).length !== 0 ? $(SELECTOR_FOOTER).outerHeight() : 0,
-      sidebar: $(SELECTOR_SIDEBAR).length !== 0 ? $(SELECTOR_SIDEBAR).height() : 0,
-      controlSidebar
+    // Public
+
+    fixLayoutHeight(extra = null) {
+        const $body = $('body')
+        let controlSidebar = 0
+
+        if ($body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_SLIDE_OPEN) || $body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_OPEN) || extra === 'control_sidebar') {
+            controlSidebar = $(SELECTOR_CONTROL_SIDEBAR_CONTENT).height()
+        }
+
+        const heights = {
+            window: $(window).height(),
+            header: $(SELECTOR_HEADER).length !== 0 ? $(SELECTOR_HEADER).outerHeight() : 0,
+            footer: $(SELECTOR_FOOTER).length !== 0 ? $(SELECTOR_FOOTER).outerHeight() : 0,
+            sidebar: $(SELECTOR_SIDEBAR).length !== 0 ? $(SELECTOR_SIDEBAR).height() : 0,
+            controlSidebar
+        }
+
+        const max = this._max(heights)
+        let offset = this._config.panelAutoHeight
+
+        if (offset === true) {
+            offset = 0
+        }
+
+        const $contentSelector = $(SELECTOR_CONTENT)
+
+        if (offset !== false) {
+            if (max === heights.controlSidebar) {
+                if ($body.hasClass(CLASS_NAME_LAYOUT_TOP_NAV)) {
+                    $contentSelector.css(this._config.panelAutoHeightMode, (max + offset) + heights.header + heights.footer)
+                } else {
+                    $contentSelector.css(this._config.panelAutoHeightMode, (max + offset))
+                }
+            } else if (max === heights.window) {
+                $contentSelector.css(this._config.panelAutoHeightMode, (max + offset) - heights.header - heights.footer)
+            } else {
+                $contentSelector.css(this._config.panelAutoHeightMode, (max + offset) - heights.header)
+            }
+
+            if (this._isFooterFixed()) {
+                $contentSelector.css(this._config.panelAutoHeightMode, parseFloat($contentSelector.css(this._config.panelAutoHeightMode)) + heights.footer)
+            }
+        }
+
+        if (!$body.hasClass(CLASS_NAME_LAYOUT_FIXED)) {
+            return
+        }
+
+        if (offset !== false) {
+            $contentSelector.css(this._config.panelAutoHeightMode, (max + offset) - heights.header - heights.footer)
+        }
+
+        if (typeof $.fn.overlayScrollbars !== 'undefined') {
+            $(SELECTOR_SIDEBAR).overlayScrollbars({
+                className: this._config.scrollbarTheme,
+                sizeAutoCapable: true,
+                scrollbars: {
+                    autoHide: this._config.scrollbarAutoHide,
+                    clickScrolling: true
+                }
+            })
+        }
     }
 
-    const max = this._max(heights)
-    let offset = this._config.panelAutoHeight
+    fixLoginRegisterHeight() {
+        const $body = $('body')
+        const $selector = $(`${SELECTOR_LOGIN_BOX}, ${SELECTOR_REGISTER_BOX}`)
 
-    if (offset === true) {
-      offset = 0
-    }
-
-    const $contentSelector = $(SELECTOR_CONTENT)
-
-    if (offset !== false) {
-      if (max === heights.controlSidebar) {
-        if ($body.hasClass(CLASS_NAME_LAYOUT_TOP_NAV)) {
-          $contentSelector.css(this._config.panelAutoHeightMode, (max + offset) + heights.header + heights.footer)
+        if ($selector.length === 0) {
+            $body.css('height', 'auto')
+            $('html').css('height', 'auto')
         } else {
-          $contentSelector.css(this._config.panelAutoHeightMode, (max + offset))
+            const boxHeight = $selector.height()
+
+            if ($body.css(this._config.panelAutoHeightMode) !== boxHeight) {
+                $body.css(this._config.panelAutoHeightMode, boxHeight)
+            }
         }
-      } else if (max === heights.window) {
-        $contentSelector.css(this._config.panelAutoHeightMode, (max + offset) - heights.header - heights.footer)
-      } else {
-        $contentSelector.css(this._config.panelAutoHeightMode, (max + offset) - heights.header)
-      }
-
-      if (this._isFooterFixed()) {
-        $contentSelector.css(this._config.panelAutoHeightMode, parseFloat($contentSelector.css(this._config.panelAutoHeightMode)) + heights.footer)
-      }
     }
 
-    if (!$body.hasClass(CLASS_NAME_LAYOUT_FIXED)) {
-      return
-    }
+    // Private
 
-    if (offset !== false) {
-      $contentSelector.css(this._config.panelAutoHeightMode, (max + offset) - heights.header - heights.footer)
-    }
+    _init() {
+        // Activate layout height watcher
+        this.fixLayoutHeight()
 
-    if (typeof $.fn.overlayScrollbars !== 'undefined') {
-      $(SELECTOR_SIDEBAR).overlayScrollbars({
-        className: this._config.scrollbarTheme,
-        sizeAutoCapable: true,
-        scrollbars: {
-          autoHide: this._config.scrollbarAutoHide,
-          clickScrolling: true
+        if (this._config.loginRegisterAutoHeight === true) {
+            this.fixLoginRegisterHeight()
+        } else if (this._config.loginRegisterAutoHeight === parseInt(this._config.loginRegisterAutoHeight, 10)) {
+            setInterval(this.fixLoginRegisterHeight, this._config.loginRegisterAutoHeight)
         }
-      })
+
+        $(SELECTOR_SIDEBAR)
+            .on('collapsed.lte.treeview expanded.lte.treeview', () => {
+                this.fixLayoutHeight()
+            })
+
+        $(SELECTOR_PUSHMENU_BTN)
+            .on('collapsed.lte.pushmenu shown.lte.pushmenu', () => {
+                this.fixLayoutHeight()
+            })
+
+        $(SELECTOR_CONTROL_SIDEBAR_BTN)
+            .on('collapsed.lte.controlsidebar', () => {
+                this.fixLayoutHeight()
+            })
+            .on('expanded.lte.controlsidebar', () => {
+                this.fixLayoutHeight('control_sidebar')
+            })
+
+        $(window).resize(() => {
+            this.fixLayoutHeight()
+        })
+
+        $(document).ready(() => {
+            this.fixLayoutHeight()
+        })
+
+        setTimeout(() => {
+            $('body.hold-transition').removeClass('hold-transition')
+        }, 50)
     }
-  }
 
-  fixLoginRegisterHeight() {
-    const $body = $('body')
-    const $selector = $(`${SELECTOR_LOGIN_BOX}, ${SELECTOR_REGISTER_BOX}`)
+    _max(numbers) {
+        // Calculate the maximum number in a list
+        let max = 0
 
-    if ($selector.length === 0) {
-      $body.css('height', 'auto')
-      $('html').css('height', 'auto')
-    } else {
-      const boxHeight = $selector.height()
+        Object.keys(numbers).forEach(key => {
+            if (numbers[key] > max) {
+                max = numbers[key]
+            }
+        })
 
-      if ($body.css(this._config.panelAutoHeightMode) !== boxHeight) {
-        $body.css(this._config.panelAutoHeightMode, boxHeight)
-      }
-    }
-  }
-
-  // Private
-
-  _init() {
-    // Activate layout height watcher
-    this.fixLayoutHeight()
-
-    if (this._config.loginRegisterAutoHeight === true) {
-      this.fixLoginRegisterHeight()
-    } else if (this._config.loginRegisterAutoHeight === parseInt(this._config.loginRegisterAutoHeight, 10)) {
-      setInterval(this.fixLoginRegisterHeight, this._config.loginRegisterAutoHeight)
+        return max
     }
 
-    $(SELECTOR_SIDEBAR)
-      .on('collapsed.lte.treeview expanded.lte.treeview', () => {
-        this.fixLayoutHeight()
-      })
+    _isFooterFixed() {
+        return $(SELECTOR_FOOTER).css('position') === 'fixed'
+    }
 
-    $(SELECTOR_PUSHMENU_BTN)
-      .on('collapsed.lte.pushmenu shown.lte.pushmenu', () => {
-        this.fixLayoutHeight()
-      })
+    // Static
 
-    $(SELECTOR_CONTROL_SIDEBAR_BTN)
-      .on('collapsed.lte.controlsidebar', () => {
-        this.fixLayoutHeight()
-      })
-      .on('expanded.lte.controlsidebar', () => {
-        this.fixLayoutHeight('control_sidebar')
-      })
+    static _jQueryInterface(config = '') {
+        return this.each(function () {
+            let data = $(this).data(DATA_KEY)
+            const _options = $.extend({}, Default, $(this).data())
 
-    $(window).resize(() => {
-      this.fixLayoutHeight()
-    })
+            if (!data) {
+                data = new Layout($(this), _options)
+                $(this).data(DATA_KEY, data)
+            }
 
-    $(document).ready(() => {
-      this.fixLayoutHeight()
-    })
-
-    setTimeout(() => {
-      $('body.hold-transition').removeClass('hold-transition')
-    }, 50)
-  }
-
-  _max(numbers) {
-    // Calculate the maximum number in a list
-    let max = 0
-
-    Object.keys(numbers).forEach(key => {
-      if (numbers[key] > max) {
-        max = numbers[key]
-      }
-    })
-
-    return max
-  }
-
-  _isFooterFixed() {
-    return $(SELECTOR_FOOTER).css('position') === 'fixed'
-  }
-
-  // Static
-
-  static _jQueryInterface(config = '') {
-    return this.each(function () {
-      let data = $(this).data(DATA_KEY)
-      const _options = $.extend({}, Default, $(this).data())
-
-      if (!data) {
-        data = new Layout($(this), _options)
-        $(this).data(DATA_KEY, data)
-      }
-
-      if (config === 'init' || config === '') {
-        data._init()
-      } else if (config === 'fixLayoutHeight' || config === 'fixLoginRegisterHeight') {
-        data[config]()
-      }
-    })
-  }
+            if (config === 'init' || config === '') {
+                data._init()
+            } else if (config === 'fixLayoutHeight' || config === 'fixLoginRegisterHeight') {
+                data[config]()
+            }
+        })
+    }
 }
 
 /**
@@ -222,15 +222,15 @@ class Layout {
  */
 
 $(window).on('load', () => {
-  Layout._jQueryInterface.call($('body'))
+    Layout._jQueryInterface.call($('body'))
 })
 
 $(`${SELECTOR_SIDEBAR} a`).on('focusin', () => {
-  $(SELECTOR_MAIN_SIDEBAR).addClass(CLASS_NAME_SIDEBAR_FOCUSED)
+    $(SELECTOR_MAIN_SIDEBAR).addClass(CLASS_NAME_SIDEBAR_FOCUSED)
 })
 
 $(`${SELECTOR_SIDEBAR} a`).on('focusout', () => {
-  $(SELECTOR_MAIN_SIDEBAR).removeClass(CLASS_NAME_SIDEBAR_FOCUSED)
+    $(SELECTOR_MAIN_SIDEBAR).removeClass(CLASS_NAME_SIDEBAR_FOCUSED)
 })
 
 /**
@@ -241,8 +241,8 @@ $(`${SELECTOR_SIDEBAR} a`).on('focusout', () => {
 $.fn[NAME] = Layout._jQueryInterface
 $.fn[NAME].Constructor = Layout
 $.fn[NAME].noConflict = function () {
-  $.fn[NAME] = JQUERY_NO_CONFLICT
-  return Layout._jQueryInterface
+    $.fn[NAME] = JQUERY_NO_CONFLICT
+    return Layout._jQueryInterface
 }
 
 export default Layout

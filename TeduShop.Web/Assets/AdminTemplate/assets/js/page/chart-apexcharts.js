@@ -61,7 +61,6 @@ function chart1() {
         },
         fill: {
             opacity: 1
-
         },
         tooltip: {
             y: {
@@ -78,12 +77,9 @@ function chart1() {
     );
 
     chart.render();
-
-
 }
 
 function chart2() {
-
     var options = {
         chart: {
             height: 350,
@@ -141,7 +137,6 @@ function chart2() {
             tooltip: {
                 enabled: true,
                 offsetY: -35,
-
             }
         },
         fill: {
@@ -169,7 +164,6 @@ function chart2() {
                     return val + "%";
                 }
             }
-
         },
         title: {
             text: 'Monthly Inflation in Argentina, 2002',
@@ -188,7 +182,6 @@ function chart2() {
     );
 
     chart.render();
-
 }
 function chart3() {
     var options = {
@@ -235,7 +228,6 @@ function chart3() {
             },
         },
         markers: {
-
             size: 6
         },
         xaxis: {
@@ -400,7 +392,6 @@ function chart5() {
                     color: '#8e8da4',
                 }
             }
-
         }, {
             opposite: true,
             title: {
@@ -412,7 +403,6 @@ function chart5() {
                 }
             }
         }]
-
     }
 
     var chart = new ApexCharts(
@@ -457,7 +447,6 @@ function chart6() {
                     color: '#8e8da4',
                 }
             }
-
         },
         tooltip: {
             x: {
@@ -502,7 +491,6 @@ function chart7() {
     chart.render();
 }
 function chart8() {
-
     var options = {
         chart: {
             height: 350,
@@ -547,7 +535,6 @@ function chart8() {
     chart.render();
 
     function update() {
-
         function randomSeries() {
             var arr = []
             for (var i = 0; i < 6; i++) {
@@ -556,7 +543,6 @@ function chart8() {
 
             return arr
         }
-
 
         chart.updateSeries([{
             name: 'Series 1',
@@ -569,6 +555,4 @@ function chart8() {
             data: randomSeries(),
         }])
     }
-
-
 }

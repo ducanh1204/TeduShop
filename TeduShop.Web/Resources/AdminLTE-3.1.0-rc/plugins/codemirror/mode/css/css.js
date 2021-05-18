@@ -860,5 +860,4 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
     name: "css",
     helperType: "gss"
   });
-
 });

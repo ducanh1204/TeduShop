@@ -4,7 +4,6 @@
     productImportController.$inject = ['apiService', '$http', 'authenticationService', '$scope', 'notificationService', '$state', 'commonService'];
 
     function productImportController(apiService, $http, authenticationService, $scope, notificationService, $state, commonService) {
-
         $scope.files = [];
         $scope.categoryId = 0;
         $scope.ImportProduct = ImportProduct;
@@ -49,7 +48,5 @@
             });
         }
         loadParentCategory();
-
     }
-
 })(angular.module('tedushop.products'));

@@ -1184,9 +1184,11 @@
             }
             if (idx !== undefined) {
                 var table = this.s.dtPane;
-                var rows = table.rows({ order: 'index' }).data().map(function (item) { return item.filter !== null ?
-                    item.filter.toString() :
-                    null; }).toArray();
+                var rows = table.rows({ order: 'index' }).data().map(function (item) {
+                    return item.filter !== null ?
+                        item.filter.toString() :
+                        null;
+                }).toArray();
                 for (var _i = 0, _a = loadedFilter.searchPanes.panes[idx].selected; _i < _a.length; _i++) {
                     var filter = _a[_i];
                     var id = -1;
@@ -1598,12 +1600,12 @@
                 }
                 pane.clearData();
                 returnArray.push(
-                // Pass a boolean to say whether this is the last choice made for maintaining selections when rebuilding
-                pane.rebuildPane(this.s.selectionList[this.s.selectionList.length - 1] !== undefined ?
-                    pane.s.index === this.s.selectionList[this.s.selectionList.length - 1].index :
-                    false, this.s.dt.page.info().serverSide ?
-                    this.s.serverData :
-                    undefined, null, maintainSelection));
+                    // Pass a boolean to say whether this is the last choice made for maintaining selections when rebuilding
+                    pane.rebuildPane(this.s.selectionList[this.s.selectionList.length - 1] !== undefined ?
+                        pane.s.index === this.s.selectionList[this.s.selectionList.length - 1].index :
+                        false, this.s.dt.page.info().serverSide ?
+                        this.s.serverData :
+                        undefined, null, maintainSelection));
                 $$1(this.dom.panes).append(pane.dom.container);
             }
             // Only need to trigger a search if it is not server side processing
@@ -1999,8 +2001,8 @@
                 .columns(this.c.columns.length > 0 ? this.c.columns : undefined)
                 .eq(0)
                 .each(function (idx) {
-                _this.s.panes.push(new SearchPane(paneSettings, opts, idx, _this.c.layout, _this.dom.panes));
-            });
+                    _this.s.panes.push(new SearchPane(paneSettings, opts, idx, _this.c.layout, _this.dom.panes));
+                });
             // If there is any extra custom panes defined then create panes for them too
             var rowLength = table.columns().eq(0).toArray().length;
             var paneLength = this.c.panes.length;
@@ -2030,9 +2032,11 @@
             else {
                 // Otherwise add the paneStartup function to the list of functions that are to be run when the table is initialised
                 // This will garauntee that the panes are initialised before the init event and init Complete callback is fired
-                this.s.dt.settings()[0].aoInitComplete.push({ fn: function () {
+                this.s.dt.settings()[0].aoInitComplete.push({
+                    fn: function () {
                         _this._startup(table);
-                    } });
+                    }
+                });
             }
         };
         /**
@@ -2546,5 +2550,4 @@
             DataTable.ext.features.register('searchPanes', _init);
         }
     }));
-
 }());
