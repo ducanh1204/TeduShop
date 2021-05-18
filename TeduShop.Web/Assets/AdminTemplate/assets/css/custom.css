@@ -1,0 +1,11 @@
+.h-display-none{
+    display:none;
+}
+.tblReportData {
+    list-style: none;
+    margin-left: -30px;
+    padding-right: 7px;
+}
+/*.h-hidden{
+    display:none;
+}*/

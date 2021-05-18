@@ -1,0 +1,59 @@
+﻿<section class="section">
+    <ul class="breadcrumb breadcrumb-style ">
+        <li class="breadcrumb-item">
+            <a ui-sref="home">
+                <i data-feather="home"></i>
+            </a>
+            <script>
+                feather.replace()
+            </script>
+        </li>
+        <li class="breadcrumb-item">Hệ thống</li>
+        <li class="breadcrumb-item">
+            <a ui-sref="application_groups">Nhóm người dùng</a>
+        </li>
+        <li class="breadcrumb-item">Thêm mới</li>
+    </ul>
+</section>
+<section class="section">
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Thêm mới nhóm người dùng</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="needs-validation was-validated" novalidate name="frmAddAppGroup" role="form" method="post" ng-submit="AddApplicationGroup()">
+                            <div class="row">
+                                <div class="form-group col-12 col-md-12 col-lg-12">
+                                    <label for="ApartmentName">Tên nhóm<label class="label-validate">(*)</label></label>
+                                    <input type="text" class="form-control" id="Name" required maxlength="50" name="Name" placeholder="Nhập tên nhóm" ng-model="applicationGroup.Name">
+                                </div>
+                                <div class="form-group col-12 col-md-12 col-lg-12">
+                                    <label for="Description">Mô tả</label>
+                                    <textarea class="form-control" id="Description" name="Description" placeholder="Nhập mô tả" ng-model="applicationGroup.Description"></textarea>
+                                </div>
+                                <div class="form-group col-12 col-md-12 col-lg-12">
+                                    <label style="margin-right:5px">Chọn quyền:</label>
+                                    <div class="pretty p-icon p-smooth text-center" ng-repeat="role in roles" style="margin-top:7px">
+                                        <input type="checkbox" checklist-model="applicationGroup.Roles" id="{{role.Name}}" name="Role" checklist-value="role">
+                                        <div class="state p-primary">
+                                            <i class="icon material-icons">done</i>
+                                            <label for="{{role.Name}}">{{role.Description}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer text-center">
+                                <button class="btn btn-primary" type="submit" ng-disabled="frmAddAppGroup.$invalid"><i class="fa fa-save"></i> Lưu</button>
+                                <button class="btn btn-danger" ui-sref="application_groups"><i class="fas fa-times"></i> Hủy</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

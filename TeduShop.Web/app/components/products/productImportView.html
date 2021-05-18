@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Nhập sản phẩm từ Excel</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+                        <li class="breadcrumb-item"><a ui-sref="products">Danh sách</a></li>
+                        <li class="breadcrumb-item active">Nhập sản phẩm từ Excel</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Horizontal Form -->
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Thêm mới</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmImportProduct" role="form" ng-submit="ImportProduct()">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Chọn file Excel</label>
+                    <div class="col-sm-10">
+                        <input type="file" file-upload name="file" required />
+                        <span ng-show="frmImportProduct.file.$invalid" class="has-error">Phải chọn file</span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Danh mục</label>
+                    <div class="col-sm-10">
+                        <select name="parentId" class="form-control" ng-model="categoryId" ng-options="option.ID as option.Name for option in productCategories">
+                            <option value="">Danh mục gốc</option>
+                        </select>
+                        <span ng-show="frmImportProduct.categoryId.$invalid" class="has-error">Phải chọn danh mục</span>
+                        <input type="hidden" name="categoryId" ng-model="categoryId" />
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-default" ui-sref="products">Hủy</button>
+                <button type="submit" class="btn btn-success float-right" ng-disabled="frmImportProduct.$invalid">Lưu</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

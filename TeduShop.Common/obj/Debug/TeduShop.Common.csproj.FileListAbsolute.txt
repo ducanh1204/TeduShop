@@ -1,0 +1,9 @@
+C:\Users\admin\Desktop\tedushop\TeduShop.Common\bin\Debug\TeduShop.Common.dll
+C:\Users\admin\Desktop\tedushop\TeduShop.Common\bin\Debug\TeduShop.Common.pdb
+C:\Users\admin\Desktop\tedushop\TeduShop.Common\bin\Debug\EPPlus.dll
+C:\Users\admin\Desktop\tedushop\TeduShop.Common\bin\Debug\EPPlus.xml
+C:\Users\admin\Desktop\tedushop\TeduShop.Common\obj\Debug\TeduShop.Common.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\tedushop\TeduShop.Common\obj\Debug\TeduShop.Common.csproj.CopyComplete
+C:\Users\admin\Desktop\tedushop\TeduShop.Common\obj\Debug\TeduShop.Common.dll
+C:\Users\admin\Desktop\tedushop\TeduShop.Common\obj\Debug\TeduShop.Common.pdb
+C:\Users\admin\Desktop\tedushop\TeduShop.Common\obj\Debug\TeduShop.Common.csprojAssemblyReference.cache

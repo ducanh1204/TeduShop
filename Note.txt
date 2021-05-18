@@ -1,0 +1,1 @@
+$rootScope: tất cả các controller khác áp dụng
