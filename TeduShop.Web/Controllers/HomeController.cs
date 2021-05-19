@@ -11,11 +11,5 @@ namespace TeduShop.Web.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
-        public ActionResult TestSiderBar()
-        {
-            ViewBag.Title = "Home Page";
-
-            return View();
-        }
     }
 }

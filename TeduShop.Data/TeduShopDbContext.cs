@@ -1,7 +1,6 @@
 ﻿using TeduShop.Model.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
-using TeduShop.Model.Models;
 
 namespace TeduShop.Data
 {
