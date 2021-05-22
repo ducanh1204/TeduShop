@@ -15,6 +15,13 @@
         $scope.deleteProduct = deleteProduct;
         $scope.deleteMultiple = deleteMultiple;
         $scope.exportExcel = exportExcel;
+        $scope.pageSizes = [
+            { value: 5 },
+            { value: 10 },
+            { value: 15 },
+            { value: 20 },
+        ];
+        $scope.pageSize = $scope.pageSizes[0].value;
 
         function search() {
             getProducts();
@@ -25,7 +32,7 @@
                 params: {
                     keyword: $scope.keyword,
                     page: page,
-                    pageSize: 20
+                    pageSize: $scope.pageSize
                 }
             }
             apiService.get('/api/product/getall', config, function (result) {

@@ -658,3 +658,6 @@ li.open > a + ul {
 .main-footer {
     margin-top: 120px;
 }
+.has-error{
+    color:red;
+}

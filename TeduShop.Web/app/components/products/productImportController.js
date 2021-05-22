@@ -5,7 +5,6 @@
 
     function productImportController(apiService, $http, authenticationService, $scope, notificationService, $state, commonService) {
         $scope.files = [];
-        $scope.categoryId = 0;
         $scope.ImportProduct = ImportProduct;
         $scope.productCategories = [];
         //listen for the file selected event
@@ -30,7 +29,7 @@
                     }
                     return formData;
                 },
-                data: { categoryId: $scope.categoryId, files: $scope.files }
+                data: { categoryId: $scope.productCategories.ID, files: $scope.files }
             }).then(function (result, status, headers, config) {
                 notificationService.displaySuccess(result.data);
                 $state.go('products');

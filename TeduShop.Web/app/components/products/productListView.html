@@ -1,120 +1,107 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿<section class="section">
+    <ul class="breadcrumb breadcrumb-style ">
+        <li class="breadcrumb-item">
+            <a ui-sref="home">
+                <i data-feather="home"></i>
+            </a>
+            <script>
+                feather.replace()
+            </script>
+        </li>
+        <li class="breadcrumb-item">Sản phẩm</li>
+        <li class="breadcrumb-item">Danh sách sản phẩm</li>
+    </ul>
+</section>
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Sản phẩm</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a ui-sref="home">Trang chủ</a></li>
-                        <li class="breadcrumb-item"><a ui-sref="products">Sản phẩm</a></li>
-                        <li class="breadcrumb-item active">Danh sách</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-        <!-- Default box -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Sản phẩm</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
-                    </button>
+<section class="section">
+    <div class="section-body">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="buttons">
+                    <a ui-sref="add_product" class="btn btn-icon icon-left btn-success" title="Thêm mới"><i class="fas fa-plus"></i> Thêm mới</a>
+                    <button id="btnDelete" ng-click="deleteMultiple()" disabled class="btn btn-icon icon-left btn-danger" title="Xóa nhiều bản ghi"><i class="fas fa-times"></i> Xóa nhiều bản ghi</button>
+                    <button id="btnPrint" ng-click="printContent('print')" class="btn btn-icon icon-left btn-success" title="In"><i class="fas fa-print"></i>In</button>
+                    <button class="btn btn-icon icon-left btn-success" ng-click="exportExcel()"><i class="fa fa-file-excel"></i> Xuất ra file Excel </button>
+                    <button class="btn btn-icon icon-left btn-success" ui-sref="product_import"><i class="fa fa-file-excel"></i> Nhập từ file Excel </button>
                 </div>
             </div>
-            <div class="card-body">
+        </div>
+    </div>
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header mb-3">
+                        <h4 class="col-12 col-md-8 col-lg-8">Danh sách sản phẩm</h4>
+                        <div class="card-header-form">
+                            <form>
+                                <div class="input-group input-group-text col-lg-12">
+                                    <input type="search" class="form-control" placeholder="Tìm kiếm" ng-change="search()" ng-model="keyword">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-search"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="input-group">
-                            <input type="text" class="form-control" ng-model="keyword" placeholder="Từ khóa" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="search()">Tìm kiếm</button>
-                            </span>
+                    </div>
+                    <div class="section-body mb-3">
+                        <div class="col-sm-12">
+                            Hiển thị  <select name="PageSize" class="show-pagesize" ng-model="pageSize" ng-change="getProducts()" ng-options="s.value as s.value for s in pageSizes">
+                            </select> bản ghi
                         </div>
                     </div>
-                    <div class="col-md-6">
-
-                        <a class="btn btn-warning" href="../../../Assets/admin/templates/ProductImportTemplate.xlsx">Download Template</a>
-                        <button class="btn btn-primary" ui-sref="product_import">Nhập</button>
-
-                        <button class="btn btn-success" ui-sref="add_product">Thêm mới</button>
-                        <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Xóa</button>
-                        <button class="btn btn-default" ng-click="exportExcel()">Xuất ra Excel</button>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><input name="all" type="checkbox" ng-click="selectAll()" /></th>
+                                        <th style="width: 5%">STT</th>
+                                        <th style="width:55%">Tên sản phẩm</th>
+                                        <th style="width:20%">Ngày tạo</th>
+                                        <th style="width: 10%">Trạng thái</th>
+                                        <th style="width: 10%">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in products">
+                                        <td><input type="checkbox" ng-model="item.checked" name="all" /></td>
+                                        <td>{{($index +1)+(page*pageSize)}}</td>
+                                        <td>{{item.Name}}</td>
+                                        <td>{{item.CreatedDate | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                                        <td>
+                                            <span ng-class="{'badge bg-red':item.Status==false,'badge bg-green':item.Status==true}">
+                                                {{item.Status | statusFilter}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a data-toggle="tooltip" class="btn-margin-left" ui-sref="edit_product({id:item.ID})" data-title="Chỉnh sửa" title="Chỉnh sửa">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                            <a data-toggle="tooltip" class="btn-margin-left" href="javascript:void(0)" data-title="Xóa" ng-click="deleteProduct(item.ID)" title="Xóa">
+                                                <i class="far fa-trash-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6"><span class="fa-pull-right">Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th><input name="all" type="checkbox" ng-click="selectAll()" /></th>
-                                    <th style="width: 5%">ID</th>
-                                    <th style="width:55%">Tên sản phẩm</th>
-                                    <th style="width:20%">Ngày tạo</th>
-                                    <th style="width: 10%">Trạng thái</th>
-                                    <th style="width: 10%">Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="item in products">
-                                    <td><input type="checkbox" ng-model="item.checked" name="all" /></td>
-                                    <td>{{item.ID}}</td>
-                                    <td>{{item.Name}}</td>
-                                    <td>{{item.CreatedDate | date:'dd/MM/yyyy hh:mm:ss'}}</td>
-                                    <td>
-                                        <!--badge bg-danger-->
-                                        <span ng-class="{'badge bg-red':item.Status==false,'badge bg-green':item.Status==true}">
-                                            {{item.Status | statusFilter}}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button ui-sref="edit_product({id:item.ID})" class="btn btn-sm btn-primary">
-                                            <i class="fa fa-edit">
-                                            </i>
-                                        </button>
-                                        <button class="btn btn-sm btn-danger" ng-click="deleteProduct(item.ID)">
-                                            <i class="fa fa-trash">
-                                            </i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="6"><span class="fa-pull-right">Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div><span class="pull-left">Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></div>
+                    </div>
+                    <div class="card-footer">
+                        <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="getProducts(page)"></pager-directive>
                     </div>
                 </div>
             </div>
-            <!-- /.card-body -->
-            <div class="box-footer">
-                <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="getProducts(page)"></pager-directive>
-            </div>
-            <!-- /.card-footer-->
         </div>
-        <!-- /.card -->
-    </section>
-    <!-- /.content -->
-</body>
-</html>
+    </div>
+</section>
+

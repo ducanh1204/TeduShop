@@ -15,10 +15,10 @@
         $scope.deleteApplicationGroup = deleteApplicationGroup;
         $scope.deleteMultiple = deleteMultiple;
         $scope.pageSizes = [
-            { value: 1 },
-            { value: 25 },
-            { value: 50 },
-            { value: 100 },
+            { value: 5 },
+            { value: 10 },
+            { value: 15 },
+            { value: 20 },
         ];
         $scope.pageSize = $scope.pageSizes[0].value;
 
