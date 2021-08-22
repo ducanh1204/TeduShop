@@ -7,3 +7,12 @@ C:\Users\admin\Desktop\tedushop\TeduShop.Common\obj\Debug\TeduShop.Common.csproj
 C:\Users\admin\Desktop\tedushop\TeduShop.Common\obj\Debug\TeduShop.Common.dll
 C:\Users\admin\Desktop\tedushop\TeduShop.Common\obj\Debug\TeduShop.Common.pdb
 C:\Users\admin\Desktop\tedushop\TeduShop.Common\obj\Debug\TeduShop.Common.csprojAssemblyReference.cache
+E:\ASP.net\TeduShop.Common\bin\Debug\TeduShop.Common.dll
+E:\ASP.net\TeduShop.Common\bin\Debug\TeduShop.Common.pdb
+E:\ASP.net\TeduShop.Common\bin\Debug\EPPlus.dll
+E:\ASP.net\TeduShop.Common\bin\Debug\EPPlus.xml
+E:\ASP.net\TeduShop.Common\obj\Debug\TeduShop.Common.csproj.AssemblyReference.cache
+E:\ASP.net\TeduShop.Common\obj\Debug\TeduShop.Common.csproj.CoreCompileInputs.cache
+E:\ASP.net\TeduShop.Common\obj\Debug\TeduShop.Common.csproj.CopyComplete
+E:\ASP.net\TeduShop.Common\obj\Debug\TeduShop.Common.dll
+E:\ASP.net\TeduShop.Common\obj\Debug\TeduShop.Common.pdb

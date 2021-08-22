@@ -17,7 +17,7 @@
 
         protected override void Seed(TeduShop.Data.TeduShopDbContext context)
         {
-            CreateProductCategorySample(context);
+            CreateModulesSample(context);
 
             //This method will be called after migrating to the latest version.
 
@@ -28,13 +28,13 @@
             var user = new ApplicationUser()
             {
                 UserName = "admin",
-                Email = "anhnd@astec.vn",
+                Email = "anhnd1204.work@gmail.com",
                 EmailConfirmed = true,
                 Birthday = DateTime.Now,
                 FullName = "Nguyễn Đức Anh"
             };
 
-            manager.Create(user, "Ducanh12");
+            manager.Create(user, "123456");
 
             if (!roleManager.Roles.Any())
             {
@@ -42,42 +42,81 @@
                 roleManager.Create(new IdentityRole { Name = "User" });
             }
 
-            var adminUser = manager.FindByEmail("tedu.international@gmail.com");
+            var adminUser = manager.FindByEmail("anhnd1204.work@gmail.com");
 
             manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
         }
 
-        private void CreateProductCategorySample(TeduShop.Data.TeduShopDbContext context)
+        private void CreateModulesSample(TeduShop.Data.TeduShopDbContext context)
         {
             if (context.ProductCategories.Count() == 0)
             {
-                List<ProductCategory> productCategories = new List<ProductCategory>() {
-                new ProductCategory()
+                List<ApplicationModule> applicationModules = new List<ApplicationModule>() {
+                new ApplicationModule()
                 {
-                    Name = "Điện lạnh",
-                    Alias="dien-lanh",
-                    Status=true
+                    ID = 1,
+                    Name="Quản lý",
+                    URL=null,
+                    ParentID = 0,
                 },
-                new ProductCategory()
+                new ApplicationModule()
                 {
-                    Name = "Viễn thông",
-                    Alias="vien-thong",
-                    Status=true
-                }
-                ,
-                new ProductCategory()
+                    ID = 2,
+                    Name="Hệ thống",
+                    URL=null,
+                    ParentID = 0,
+                },
+                new ApplicationModule()
                 {
-                    Name = "Đồ gia dụng",
-                    Alias="do-gia-dung",
-                    Status=true
-                },new ProductCategory()
+                    ID = 3,
+                    Name="Sản phẩm",
+                    URL=null,
+                    ParentID = 1,
+                },
+                new ApplicationModule()
                 {
-                    Name = "Mỹ phẩm",
-                    Alias="my-pham",
-                    Status=true
+                    ID = 4,
+                    Name="Thể loại sản phẩm",
+                    URL="product_categories",
+                    ParentID = 3,
+                },
+                new ApplicationModule()
+                {
+                    ID = 5,
+                    Name="Sản phẩm",
+                    URL="products",
+                    ParentID = 3,
+                },
+                new ApplicationModule()
+                {
+                    ID = 6,
+                    Name="Người dùng",
+                    URL=null,
+                    ParentID = 2,
+                },
+                new ApplicationModule()
+                {
+                    ID = 7,
+                    Name="Quyền",
+                    URL="application_roles",
+                    ParentID = 6,
+                },
+                new ApplicationModule()
+                {
+                    ID = 8,
+                    Name="Nhóm người dùng",
+                    URL="application_groups",
+                    ParentID = 6,
+                },
+                new ApplicationModule()
+                {
+                    ID = 9,
+                    Name="Người dùng",
+                    URL="application_users",
+                    ParentID = 6,
                 }
             };
-                context.ProductCategories.AddRange(productCategories);
+                context.ApplicationModules.AddRange(applicationModules);
                 context.SaveChanges();
             }
         }

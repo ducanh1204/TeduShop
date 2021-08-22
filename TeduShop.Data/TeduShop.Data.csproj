@@ -66,9 +66,9 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\202105170933032_Innit.cs" />
-    <Compile Include="Migrations\202105170933032_Innit.designer.cs">
-      <DependentUpon>202105170933032_Innit.cs</DependentUpon>
+    <Compile Include="Migrations\202108220917598_createdb.cs" />
+    <Compile Include="Migrations\202108220917598_createdb.designer.cs">
+      <DependentUpon>202108220917598_createdb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,8 +93,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105170933032_Innit.resx">
-      <DependentUpon>202105170933032_Innit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108220917598_createdb.resx">
+      <DependentUpon>202108220917598_createdb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
