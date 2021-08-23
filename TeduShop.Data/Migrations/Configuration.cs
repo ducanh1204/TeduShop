@@ -97,7 +97,7 @@
                 new ApplicationModule()
                 {
                     ID = 7,
-                    Name="Quyền",
+                    Name="Quyền người dùng",
                     URL="application_roles",
                     ParentID = 6,
                 },
@@ -111,7 +111,7 @@
                 new ApplicationModule()
                 {
                     ID = 9,
-                    Name="Người dùng",
+                    Name="Tài khoản người dùng",
                     URL="application_users",
                     ParentID = 6,
                 }
