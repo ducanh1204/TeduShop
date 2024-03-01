@@ -12,6 +12,7 @@ namespace TeduShop.Web.Api
     {
         public AccountController()
         {
+        int a = 0;
         }
 
         [HttpPost]
